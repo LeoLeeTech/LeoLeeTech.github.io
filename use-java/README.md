@@ -29,7 +29,7 @@ openJDK仓库中有一个相应版本的[build文档](https://github.com/openjdk
 >
 > 我就走了弯路, 用了非指定xcode, build了17以下的版本, 想看弯路的请直接看文章下半部分
 
-![image-20230718165341632](./images/image-20230718165341632.png)
+![image-20230718165341632](images/image-20230718165341632.png)
 
 ### 环境准备
 
@@ -73,7 +73,7 @@ build/macosx-x86_64-server-release/images/jdk/bin/java -version
 
 指定项目的sdk为`build/macosx-x86_64-server-release/images/jdk`路径即可
 
-![image-20230509140241470](./images/image-20230509140241470.png)
+![image-20230509140241470](images/image-20230509140241470.png)
 
 
 
@@ -111,7 +111,7 @@ bash configure --with-sysroot=/Applications/Xcode-14.0.1.app/Contents/Developer/
 
 在此记录一个[pr](https://github.com/openjdk/jdk/pull/5180/files?diff=unified&w=0), 给jdk修bug,编译过程中的错误，其实就是加了个空格
 
-> ![image-20230509141501634](./images/image-20230509141501634.png)
+> ![image-20230509141501634](images/image-20230509141501634.png)
 > 
 
 ## 去哪联系我

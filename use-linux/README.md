@@ -1480,7 +1480,7 @@ showmount -e 10.168.20.103
 
 
 
-<img src="./images/Snipaste_2023-03-04_07-04-22.png" style="zoom:50%;" />
+<img src="images/Snipaste_2023-03-04_07-04-22.png" style="zoom:50%;" />
 
 
 
@@ -1575,7 +1575,7 @@ netstat -pan|grep 8080
 
 kill 进程号
 
-![img](./images/wps8.jpg) 
+![img](images/wps8.jpg) 
 
 
 
