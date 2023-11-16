@@ -1,8 +1,8 @@
-苹果系统M系列芯片编译JDK18
+### macOS M系列芯片 Build openJDK18
 
-Macos Apple Silicon Build openJDK
+Macos for Apple Silicon Build openJDK
 
-## 为什么编译
+#### 为什么编译
 
 之前听[blindpirate](https://github.com/blindpirate) 大佬说过, 为了解决某个fastjson的bug编译了一下jdk让其报出更详细的异常信息.
 
@@ -15,7 +15,7 @@ Macos Apple Silicon Build openJDK
 - 型号: 2020款 13寸 macbookPro M1
 - OS: Macos 12.6.4
 
-## 编译过程及使用
+#### 编译过程及使用
 
 该[链接](https://gist.github.com/dgroomes/3af073b71c2c34581a155af9daa86564)提供了主要的实操思路,感谢前辈!
 
@@ -31,13 +31,13 @@ openJDK仓库中有一个相应版本的[build文档](https://github.com/openjdk
 
 ![image-20230718165341632](images/image-20230718165341632.png)
 
-### 环境准备
+**环境准备**
 
 - OS: 与官方指定的最好,但现在还在用着11.X的系统的人不多了吧. 我的12.6.4编译成功啦,请放心使用. 
 - Xcode: AppStore只能安装最新版本的, 就算下载到历史版本也只能让电脑存在一个Xcode且安装特别慢. 在此我推荐[Xcodes](https://www.xcodes.app/), 操作简单 安装快 可让同时存在多版本Xcode
 - JDK17: 想编译X版本的jdk, 本地需要已安装X-1版本号的jdk. 我知道对某些朋友来说这不是常识,所以在此着重写出来
 
-### 去Terminal中开始吧
+**去Terminal中开始吧**
 
 ```sh
 # 下载jdk源码
@@ -69,7 +69,7 @@ make images
 build/macosx-x86_64-server-release/images/jdk/bin/java -version
 ```
 
-### 在idea中如何使用
+**在idea中如何使用**
 
 指定项目的sdk为`build/macosx-x86_64-server-release/images/jdk`路径即可
 
@@ -79,17 +79,17 @@ build/macosx-x86_64-server-release/images/jdk/bin/java -version
 
 
 
-## 如果不是指定环境会怎么样
+#### 如果不是指定环境会怎么样
 
 没人教,没找到合适的教程, 就愣着头干, 装了弯路, 真羡慕看到此文章的你
 
 遇到的错误很多,但当时只记录了几个, 希望能帮助到有其他需求的你
 
-### 编译工具不用官方指定版本
+**编译工具不用官方指定版本**
 
 我用Xcode14.0版本弄了一天，试了jdk-17分支、jdk-18别的分支，都报错啦
 
-### 电脑上也有多个Xcode版本的话
+**电脑上也有多个Xcode版本的话**
 
 解决方法:提供一个有效的 SDK 路径 
 
@@ -105,7 +105,7 @@ bash configure --with-sysroot=/Applications/Xcode-14.0.1.app/Contents/Developer/
 
 
 
-### 编译不支持的Apple sillicon的jdk版本
+**编译不支持的Apple sillicon的jdk版本**
 
 会编译失败,但请不要去解决, 因为解决完这一个还有后面一堆问题要解决,不要问我是怎么知道的
 
@@ -113,18 +113,6 @@ bash configure --with-sysroot=/Applications/Xcode-14.0.1.app/Contents/Developer/
 
 > ![image-20230509141501634](images/image-20230509141501634.png)
 > 
-
-## 去哪联系我
-
-该文章我会发送到几个主流平台上, 反哺中文社区对我的帮助, 但不会查看/回复各平台的评论/私信, 因为我知道这种文章响应者寥寥.
-
-如果想看文章的后续更新 or 查看我的更多文章, 请访问我的[博客](https://102418.xyz/)
-
-如有讨论疑问请去[github repo](https://github.com/lijileiGood/lijileiGood.github.io) 提issue.
-
-
-
-
 
 
 
