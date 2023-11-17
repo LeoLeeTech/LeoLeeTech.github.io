@@ -13,10 +13,25 @@
   <script>
     window.$docsify = {
       name: '李吉磊 Blog',
-      repo: 'https://github.com/lijileiGood/lijileiGood.github.io'
+      repo: 'https://github.com/lijileiGood/lijileiGood.github.io',
+    //   搜索----------
+      search: {
+        paths: 'auto',
+        placeholder: 'Search',
+        noData: '😒 搜索功能我还没研究明白, 有些内容明明有但就是搜不到',
+        // Headline depth, 1 - 6
+        depth: 6,
+        maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+      },
+      // google 分析
+      ga: 'G-E1H536TH33'
     }
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+<!--  搜索引入的, 文档上还有个min.js引入了就错乱了-->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+<!-- google 分析-->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
 </body>
 </html>
