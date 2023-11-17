@@ -24,7 +24,7 @@
         maxAge: 86400000, // 过期时间，单位毫秒，默认一天
       },
       // google 分析
-      ga: 'G-E1H536TH33',
+      // ga: 'G-E1H536TH33',
       // 复制到粘贴板--- 功能
       copyCode: {
         buttonText: '复制',
@@ -38,7 +38,16 @@
 <!--  搜索引入的, 文档上还有个min.js引入了就错乱了-->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 <!-- google 分析-->
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+<!--  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>-->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E1H536TH33"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-E1H536TH33');
+  </script>
 <!--  图片缩放-->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
 <!--复制到剪贴板-->
