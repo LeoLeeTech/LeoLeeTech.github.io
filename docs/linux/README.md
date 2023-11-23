@@ -1,16 +1,21 @@
+---
+title: 鸟哥的Linux私房菜之Ubuntu版
+sidebar: auto
+---
+
 
 
 # 第零章 计算机概论
 
 **计算机分类**
 
-![image-20221011161441200](images/image-20221011161441200.png)
+![image-20221011161441200](./images/image-20221011161441200.png)
 
-![image-20221011161513741](images/image-20221011161513741.png)
+![image-20221011161513741](./images/image-20221011161513741.png)
 
 电脑定义：只要有输入设备、输出设备，可以输入数据并且该机器可以产生信息并输出的，这是图灵模型的表述。而冯诺伊曼结构是一种计算机模型，把计算机分为4个子系统：存储器，运算器，控制器，输入输出设备。
 例：计算器、手机、ATM取款机
-输入：键盘、鼠标、扫描仪、手写板、触摸屏
+输入：键盘、鼠标、扫描仪、手写板、触摸屏  
 输出：屏幕、打印机
 
 - 超级计算机（Supercomputer）：运行速度最快的电脑，费用也最高/最贵。常用于国防军事、气象预测、太空科技
@@ -116,7 +121,7 @@ BIOS（Basic Input Output System）：是一套程序，开机时载入CMOS的�
 - 磁头与盘的接触的空间很小，如果抖动或有灰尘那硬盘就坏了
 - 机械手臂必须归位才能下一次操作，所以不能直接拔掉电源的方式关机
 
-![image-20220927103620081](images/image-20220927103620081.png)
+![image-20220927103620081](./images/image-20220927103620081.png)
 
 
 
@@ -128,7 +133,7 @@ BIOS（Basic Input Output System）：是一套程序，开机时载入CMOS的�
 操作系统（Operating System, OS）：核心和系统调用加起来成为OS；由OS和硬件打交道，这样工程师只开发功能逻辑
 驱动程序：操作系统会提供接口，让硬件商制作他们的驱动程序。也就是对接硬件接口的工作分配给了厂商。
 
-![image-20220927124203412](images/image-20220927124203412.png)
+![image-20220927124203412](./images/image-20220927124203412.png)
 
 
 
@@ -138,7 +143,7 @@ BIOS（Basic Input Output System）：是一套程序，开机时载入CMOS的�
 
 以前电脑并不像现在一样普遍，只有军事、学院的研究机构才有，当时大型主机最多能提供30台终端（30个键盘、显示器)同时链接。1965年由贝尔实验室、麻省理工学院(MIT)和通用电器共同发起了Multics的计划，计划开发出来让大型主机支持 300 台终端的系统。
 
-<img src="images/001_大型机.png" alt="001_大型机" style="zoom:40%;" />
+<img src="images/001_big.png" alt="001_大型机" style="zoom:40%;" />
 
 1969年贝尔实验室工作的Thompson（肯·汤普森）将Multics系统简化后，并以组合语言（Assembler)重写，称为Unics。同事都觉得很好用，但移植到别的硬件上很麻烦
 1973年Thompson与Ritchie（丹尼斯·里奇）用当时的B语言重写后发现性能不好。他们将B语言改造升级成C语言，用C再重写并命名为Unix。C已经是高级语言了，和硬件的相关性就没那么大了，便于移植。
@@ -192,17 +197,17 @@ Windows一开始是针对个人计算机x86架构去设计的，Torvalds在写Li
 **Windows的文件系统**
 在 `Windows` 下，打开 “计算机”我们看到的是一个个的驱动器盘符：
 
-![001_Windows下的多个盘](images/001_Windows下的多个盘.png)
+![001_Windows下的多个盘](./images/001_Windows_001.png)
 
 每个驱动器都有自己的根目录结构，这样形成了多个树并列的情形
 
-![001-Windows下多个盘为节点的目录分支](images/001-Windows下多个盘为节点的目录分支.png)
+![001-Windows下多个盘为节点的目录分支](./images/001-Windows_002.png)
 
 **Linux下的文件系统**
 在 `Linux` 下，没有这些驱动器盘符，看到的都是文件（目录），只有一个根目录`/`，所有文件都在它下面
 一切皆文件，在Unix/Linux操作系统中必须区分文件类型，通过文件类型可以判断文件属于可执行文件、文本文件还是数据文件
 
-![003-Linux的树形示意图](images/003-Linux的树形示意图.png)
+![003-Linux的树形示意图](./images/003-Linux_file.png)
 
 
 
@@ -215,9 +220,9 @@ Windows一开始是针对个人计算机x86架构去设计的，Torvalds在写Li
 命令：pscp  本机文件地址  linux登陆用户名@linuxIp：想放的位置
 输入这个用户名对应的登陆密码
 
-![image-20221010111136806](images/image-20221010111136806.png)
+![image-20221010111136806](./images/image-20221010111136806.png)
 
-![image-20221010111200684](images/image-20221010111200684.png)
+![image-20221010111200684](./images/image-20221010111200684.png)
 
 
 
@@ -225,7 +230,7 @@ Windows一开始是针对个人计算机x86架构去设计的，Torvalds在写Li
 就是先写文件位置，再写想复制到的位置
 我把正反斜线专门写错了也能成功
 
-![image-20221010111225546](images/image-20221010111225546.png)
+![image-20221010111225546](./images/image-20221010111225546.png)
 
 
 
@@ -235,7 +240,7 @@ Windows一开始是针对个人计算机x86架构去设计的，Torvalds在写Li
 - 根目录在本地硬盘上，其他的目录是可以指向别的硬盘/网络位置
 - 文件非常大时，建议不要用浏览器来下载，可以使用Filezilla类似的FTP客户端程序来下载，因为它可以断网续传
 
-![image-20220927143944732](images/image-20220927143944732.png)
+![image-20220927143944732](./images/image-20220927143944732.png)
 
 # 第三章 ubuntu软件安装/更新/卸载
 
@@ -478,7 +483,7 @@ w ：增删改目录内文件(目录)的权限（不论该文件的权限是什�
 	[例] 一个加密的zip包，你没法查看它(文件权限)，但可以删除/移动它
 x ：目录不可以被执行（进入），cd进不去
 
-![image-20220928134820540](images/image-20220928134820540.png)
+![image-20220928134820540](./images/image-20220928134820540.png)
 
 
 
@@ -549,7 +554,7 @@ g：group
 o: others
 a：all全部的身份
 
-![image-20220928102311691](images/image-20220928102311691.png)
+![image-20220928102311691](./images/image-20220928102311691.png)
 
 ```bash
 【例】设置文件权限为“-rwxr-xr-x”，即user：有可读、可写、可执行；group与others可读与执行
@@ -592,7 +597,7 @@ Linux是否可执行是由权限控制中的第三个字符x决定的，在linux
 
 
 
-![image-20220928105910794](images/image-20220928105910794.png)
+![image-20220928105910794](./images/image-20220928105910794.png)
 
 - **/bin** 系统有很多放置可执行文件的目录，/bin下面的一般就是系统级指令，root与其他帐号都能使用，有cat、 chmod、chown、date、mv、mkdir、cp等指令
 - **/boot**  放置开机会使用到的文件，包括Linux核心文件以及开机菜单与开机所需配置文件等。Linux kernel文件名为是vmlinuz
@@ -715,7 +720,7 @@ drwx------  4 leo leo   4096 10月 18 15:14  生活相关
 drwxrwxr-x 10 leo leo   4096 10月  7 09:18  收纳处
 ```
 
-![image-20220929102317803](images/image-20220929102317803.png)
+![image-20220929102317803](./images/image-20220929102317803.png)
 
 
 
@@ -904,7 +909,7 @@ inode：记录文件的属性，一个文件占用一个inode，同时记录此�
 每个inode与block都有编号，每个文件都对应一个inode；inode内有文件的block号码。所以只要找到文件的inode，就可以知道文件的block号码，就能够读出实际数据了
 
 
-![image-20221006163722172](images/image-20221006163722172.png)
+![image-20221006163722172](./images/image-20221006163722172.png)
 
 # 第八章 文件压缩/打包
 
@@ -961,11 +966,11 @@ tar -zxf xxxx.tar.gz
 
 # 第九章 vim程序编辑器
 
-![image-20221019113630541](images/image-20221019113630541.png)
+![image-20221019113630541](./images/image-20221019113630541.png)
 
 ## 一般模式
 
-![image-20221019115145863](images/image-20221019115145863.png)
+![image-20221019115145863](./images/image-20221019115145863.png)
 
 - test.txt 文件名
 - 4L, 56C  文件字符数 4行 56个字符
@@ -981,7 +986,7 @@ tar -zxf xxxx.tar.gz
 左下角有“插入”字样
 该模式下键盘除了`Esc`键外，其他键都可以正常用
 
-![image-20221019163434890](images/image-20221019163434890.png)
+![image-20221019163434890](./images/image-20221019163434890.png)
 
 
 
@@ -1028,11 +1033,11 @@ Ctrl + r				取消撤销，ctrl + shift + z
 
 用vim编辑时会自动生成一个暂存档，用ll可以查出来
 
-![image-20220816110938519](images/image-20220816110938519.png)
+![image-20220816110938519](./images/image-20220816110938519.png)
 
 在vim编辑过程中直接kill掉vim进程/强退,这个xx.swp文件不会消失。再次vim时就会提示有暂存文件，不让编辑
 
-![image-20220816111232692](images/image-20220816111232692.png)
+![image-20220816111232692](./images/image-20220816111232692.png)
 
 [O] Read-Only：只读模式打开
 [E] edit anyway：打开文件，不载入暂存盘的内容。可能会出现多人改同一文件问题
@@ -1046,7 +1051,7 @@ Ctrl + r				取消撤销，ctrl + shift + z
 
 # 第十章 认识和学习BASH
 
-![image-20220816114443904](images/image-20220816114443904.png)
+![image-20220816114443904](./images/image-20220816114443904.png)
 
 
 
@@ -1101,7 +1106,7 @@ leo@leo:~$ unalias lm
 
 **统配符**
 
-![image-20220817094416319](images/image-20220817094416319.png)
+![image-20220817094416319](./images/image-20220817094416319.png)
 
 ```bash
 *           代表 0个到无穷多个 任意字符
@@ -1129,7 +1134,7 @@ leo@leo:~$ unalias lm
 **换行输入命令**
 java -jar  \  回车， 这样就可以在下一行接着输入
 
-![image-20220817095250788](images/image-20220817095250788.png)
+![image-20220817095250788](./images/image-20220817095250788.png)
 
 
 
@@ -1179,7 +1184,7 @@ leo@leo:~$ echo $version
 
 **export命令**
 子程序仅会继承父程序的环境变量
-![image-20221007153341364](images/image-20221007153341364.png)
+![image-20221007153341364](./images/image-20221007153341364.png)
 
 如上所示，在本bash中执行另一个bash，操作环境就会跑到第二个bash去（子程序）。原本的bash就会是sleep状态。
 整个指令运行的情况是实线的部分，若要回到原本的bash去，只有将子bash结束掉（exit或logout）才行
@@ -1343,7 +1348,7 @@ INFO[0000] Start initial compatible provider 国外默认
 
 ## pipe管线命令|
 
-![image-20221021152718424](images/image-20221021152718424.png)
+![image-20221021152718424](./images/image-20221021152718424.png)
 
 管线命令仅会处理 standard output，对于 standard error output 会予以忽略，必须要能够接受来自前一个指令的数据成为 standard input 继续处理才行
 在每个管线后面接的第一个数据必定是“指令”
@@ -1575,7 +1580,7 @@ netstat -pan|grep 8080
 
 kill 进程号
 
-![img](images/wps8.jpg) 
+![img](./images/wps8.jpg) 
 
 
 
@@ -1607,7 +1612,7 @@ curl -XGET 'http://www.baidu.com' -d '{name:tom}'
 
 在powerShell中输入，`wsl` 进入ubuntu系统。在git bash中输入不管症
 
-![image-20230117165909188](./images\image-20230117165909188.png)
+![image-20230117165909188](./images/image-20230117165909188.png)
 
 这样就是进去了
 
@@ -1627,7 +1632,7 @@ wsl --shutdown
 
 安装 Linux 应用程序后，可在“开始”菜单中的发行版名称下找到它。 例如：`Ubuntu -> Microsoft Edge`。
 
-<img src="./images\image-20230117172446728.png" alt="image-20230117172446728" style="zoom:50%;" />
+<img src="./images/image-20230117172446728.png" alt="image-20230117172446728" style="zoom:50%;" />
 
 
 

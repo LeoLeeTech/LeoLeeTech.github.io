@@ -1,3 +1,4 @@
+
 >  本Blog定位:
 >
 > **输出成体系的内容, 比书轻量, 比文章连贯**; 类似李笑来老师的[个人站](https://lixiaolai.com/), 阮一峰老师的[JS教程](https://wangdoc.com/javascript/)

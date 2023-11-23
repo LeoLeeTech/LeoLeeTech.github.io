@@ -1,8 +1,13 @@
-### macOS M系列芯片 Build openJDK18
+---
+title: macOS M系列芯片 Build openJDK18
+sidebar: auto
+---
+
+macOS M系列芯片 Build openJDK18
 
 Macos for Apple Silicon Build openJDK
 
-#### 为什么编译
+## 为什么编译
 
 之前听[blindpirate](https://github.com/blindpirate) 大佬说过, 为了解决某个fastjson的bug编译了一下jdk让其报出更详细的异常信息.
 
@@ -15,7 +20,8 @@ Macos for Apple Silicon Build openJDK
 - 型号: 2020款 13寸 macbookPro M1
 - OS: Macos 12.6.4
 
-#### 编译过程及使用
+### 编译过程及使用
+
 
 该[链接](https://gist.github.com/dgroomes/3af073b71c2c34581a155af9daa86564)提供了主要的实操思路,感谢前辈!
 
@@ -29,7 +35,7 @@ openJDK仓库中有一个相应版本的[build文档](https://github.com/openjdk
 >
 > 我就走了弯路, 用了非指定xcode, build了17以下的版本, 想看弯路的请直接看文章下半部分
 
-![image-20230718165341632](images/image-20230718165341632.png)
+![image-20230718165341632](./images/image-20230718165341632.png)
 
 **环境准备**
 
@@ -37,7 +43,7 @@ openJDK仓库中有一个相应版本的[build文档](https://github.com/openjdk
 - Xcode: AppStore只能安装最新版本的, 就算下载到历史版本也只能让电脑存在一个Xcode且安装特别慢. 在此我推荐[Xcodes](https://www.xcodes.app/), 操作简单 安装快 可让同时存在多版本Xcode
 - JDK17: 想编译X版本的jdk, 本地需要已安装X-1版本号的jdk. 我知道对某些朋友来说这不是常识,所以在此着重写出来
 
-**去Terminal中开始吧**
+### **去Terminal中开始吧**
 
 ```sh
 # 下载jdk源码
@@ -73,7 +79,7 @@ build/macosx-x86_64-server-release/images/jdk/bin/java -version
 
 指定项目的sdk为`build/macosx-x86_64-server-release/images/jdk`路径即可
 
-![image-20230509140241470](images/image-20230509140241470.png)
+![image-20230509140241470](./images/image-20230509140241470.png)
 
 
 
@@ -111,7 +117,7 @@ bash configure --with-sysroot=/Applications/Xcode-14.0.1.app/Contents/Developer/
 
 在此记录一个[pr](https://github.com/openjdk/jdk/pull/5180/files?diff=unified&w=0), 给jdk修bug,编译过程中的错误，其实就是加了个空格
 
-> ![image-20230509141501634](images/image-20230509141501634.png)
+> ![image-20230509141501634](./images/image-20230509141501634.png)
 > 
 
 
