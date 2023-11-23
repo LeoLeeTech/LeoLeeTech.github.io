@@ -20,8 +20,7 @@ Macos for Apple Silicon Build openJDK
 - 型号: 2020款 13寸 macbookPro M1
 - OS: Macos 12.6.4
 
-### 编译过程及使用
-
+## 编译过程及使用
 
 该[链接](https://gist.github.com/dgroomes/3af073b71c2c34581a155af9daa86564)提供了主要的实操思路,感谢前辈!
 
@@ -85,7 +84,7 @@ build/macosx-x86_64-server-release/images/jdk/bin/java -version
 
 
 
-#### 如果不是指定环境会怎么样
+## 如果不是指定环境会怎么样
 
 没人教,没找到合适的教程, 就愣着头干, 装了弯路, 真羡慕看到此文章的你
 
