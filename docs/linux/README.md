@@ -1123,7 +1123,7 @@ leo@leo:~$ unalias lm
 				  找出文件名含有数字的文件名（两边都有*）， ll /etc/*[0-9]*
 
 [^ ]          『反向选择』
-			  例：[^temp] 代表 只要是非 a, b, c 的其他字符
+			  例：[^abc] 代表 只要是非 a, b, c 的其他字符
 				 文件名开头非为小写字母的文件名（注意中括号左边没有 *）： ll /etc/[^a-z]*
 ```
 
@@ -1265,13 +1265,13 @@ declare -ir sum="450"
 **声明数组**
 
 ```bash
-leo@leo:~/clash$ var[1]=temp
+leo@leo:~/clash$ var[1]=abc
 leo@leo:~/clash$ var[2]=def
 # 两种查看方式
 leo@leo:~$ echo ${var[1]} ${var[2]}
-temp def
+abc def
 leo@leo:~/clash$ echo "${var[1]},${var[2]}"
-temp,def
+abc,def
 ```
 
 
