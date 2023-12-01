@@ -3,11 +3,25 @@ title: 阿里巴巴Java开发手册(黄山版) Markdown版
 sidebar: auto
 ---
 
-## 前言 
+## 博主前言
 
-​	《Java 开发手册》是 Java 社区爱好者的集体智慧结晶和经验总结，经历了多次大规模一线实战的检验及不断完善，整理成册后，众多社区开发者踊跃参与打磨完善，系统化地整理成册，当前的最新版本是黄山版。现代软件行业的高速发展对开发者的综合素质要求越来越高，因为不仅是编程知识点，其它维度的知识点也会影响到软件的最终交付质量。比如：五花八门的错误码会人为地增加排查问题的难度；数据库的表结构和索引设计缺陷带来的系统架构缺陷或性能风险；工程结构混乱导致后续项目维护艰难；没有鉴权的漏洞代码容易被黑客攻击等。所以本手册以 Java 开发者为中心视角，划分为编程规约、异常日志、单元测试、安全规约、MySQL 数据库、工程结构、设计规约七个维度，再根据内容特征，细分成若干二级子目录。此外，依据约束力强弱及故障敏感性，规约依次分为【强制】、【推荐】、【参考】三大类。在延伸的信息中，“说明”对规约做了适当扩展和解释；“正例”提倡什么样的编码和实现方式；“反例”说明需要提防的雷区，以及真实的错误案例。 
-​	手册的愿景是码出高效，码出质量。现代软件架构的复杂性需要协同开发完成，如何高效地协同呢？无规矩不成方圆，无规范难以协同，比如，制定交通法规表面上是要限制行车权，实际上是保障公众的人身安全，试想如果没有限速，没有红绿灯，谁还敢上路行驶？对软件来说，适当的规范和标准绝不是消灭代码内容的创造性、优雅性，而是限制过度个性化，以一种普遍认可的统一方式一起做事，提升协作效率，降低沟通成本。代码的字里行间流淌的是软件系统的血液，代码质量的提升是尽可能少踩坑，杜绝踩重复的坑，切实提升系统稳定性，码出质量。 
-​	2017 年杭州云栖大会上发布了配套的 Java 开发规约 IDE 插件，下载量已达到 275 万人次，阿里云效也集成了代码规约扫描引擎。2018 年 9 月在云栖厅发布 36 万字的配套详解图书《码出高效》，秉持“图胜于表，表胜于言”的理念，深入浅出地将计算机基础、面向对象思想、数据结构与集合、JVM 探源与内存分析、并发与多线程、单元测试等知识丰富立体地呈现出来。本书紧扣学以致用、学以精进的目标，结合一线开发的实践经验和故障案例，与底层源码解析融会贯通，娓娓道来。《码出高效》和《Java 开发手册（第 2 版）》稿费所得收入均捐赠公益事情，希望用技术情怀帮助到更多的人。
+- 个人想仔细研读/实践手册, 然后做笔记/写心得
+- 公司想以手册为基础, 结合公司内部实际情况, 来制定编码规范
+
+以上都是我遇到的真实事情, 但<开发手册>公开发行的是pdf版, 有时候想利用它做一些事非常困难, 目前网上能搜到的最新的markdwon版本还是2017年的[1.3.1版](https://gitee.com/kangroo/ajcg) , 而现在最新的已经是2022年的1.7.1版, 其中内容变化还是很大的
+
+受感于<大教堂与集市>, 总有人要做一些傻事, 遂决定人工去做一份对应的<开发手册>的markdwon版本. 
+
+> 网页上格式还不是很好看, 因为我**还不会**使用vuepress渲染句首空格, 想看格式更整洁的烦请[下载](https://github.com/lijileiGood/lijileiGood.github.io/blob/main/docs/alibaba-java-guide/guide.md)到本地查看
+>
+
+markdown标准语法很鸡肋, 现在各家有各家的增强方式, 我本地的markdown编辑器是[Typora](https://typora.io), 所以能保证Typora是渲染出来的效果和pdf一致
+
+## 前言
+
+   《Java 开发手册》是 Java 社区爱好者的集体智慧结晶和经验总结，经历了多次大规模一线实战的检验及不断完善，整理成册后，众多社区开发者踊跃参与打磨完善，系统化地整理成册，当前的最新版本是黄山版。现代软件行业的高速发展对开发者的综合素质要求越来越高，因为不仅是编程知识点，其它维度的知识点也会影响到软件的最终交付质量。比如：五花八门的错误码会人为地增加排查问题的难度；数据库的表结构和索引设计缺陷带来的系统架构缺陷或性能风险；工程结构混乱导致后续项目维护艰难；没有鉴权的漏洞代码容易被黑客攻击等。所以本手册以 Java 开发者为中心视角，划分为编程规约、异常日志、单元测试、安全规约、MySQL 数据库、工程结构、设计规约七个维度，再根据内容特征，细分成若干二级子目录。此外，依据约束力强弱及故障敏感性，规约依次分为【强制】、【推荐】、【参考】三大类。在延伸的信息中，“说明”对规约做了适当扩展和解释；“正例”提倡什么样的编码和实现方式；“反例”说明需要提防的雷区，以及真实的错误案例。 
+   手册的愿景是码出高效，码出质量。现代软件架构的复杂性需要协同开发完成，如何高效地协同呢？无规矩不成方圆，无规范难以协同，比如，制定交通法规表面上是要限制行车权，实际上是保障公众的人身安全，试想如果没有限速，没有红绿灯，谁还敢上路行驶？对软件来说，适当的规范和标准绝不是消灭代码内容的创造性、优雅性，而是限制过度个性化，以一种普遍认可的统一方式一起做事，提升协作效率，降低沟通成本。代码的字里行间流淌的是软件系统的血液，代码质量的提升是尽可能少踩坑，杜绝踩重复的坑，切实提升系统稳定性，码出质量。 
+   2017 年杭州云栖大会上发布了配套的 Java 开发规约 IDE 插件，下载量已达到 275 万人次，阿里云效也集成了代码规约扫描引擎。2018 年 9 月在云栖厅发布 36 万字的配套详解图书《码出高效》，秉持“图胜于表，表胜于言”的理念，深入浅出地将计算机基础、面向对象思想、数据结构与集合、JVM 探源与内存分析、并发与多线程、单元测试等知识丰富立体地呈现出来。本书紧扣学以致用、学以精进的目标，结合一线开发的实践经验和故障案例，与底层源码解析融会贯通，娓娓道来。《码出高效》和《Java 开发手册（第 2 版）》稿费所得收入均捐赠公益事情，希望用技术情怀帮助到更多的人。
 
 ## 一、编程规约 
 
@@ -43,83 +57,99 @@ sidebar: auto
 解性降低。 
    说明：子类、父类成员变量名相同，即使是 public 也是能够通过编译，而局部变量在同一方法内的不同代码块中同名 也是合法的，但是要避免使用。对于非 setter / getter 的参数名称也要避免与成员变量名称相同。 
    反例： 
+
 ```java
-public class ConfusingName { 
-protected int stock; 
-protected String alibaba; 
-// 非 setter/getter 的参数名称，不允许与本类成员变量同名 
-public void access(String alibaba) { 
-if (condition) { 
-final int money = 666; 
-// ... 
-} 
-for (int i = 0; i < 10; i++) { 
-// 在同一方法体中，不允许与其它代码块中的 money 命名相同 
-final int money = 15978; 
-// ... 
-		} 
-		} 
-} 
-class Son extends ConfusingName { 
-// 不允许与父类的成员变量名称相同 
-private int stock; 
-} 
+public class ConfusingName {
+    protected int stock;
+    protected String alibaba;
+    // 非 setter/getter 的参数名称，不允许与本类成员变量同名
+    public void access(String alibaba) {
+        if (condition) {
+            final int money = 666;
+            // ...
+        }
+        for (int i = 0; i < 10; i++) {
+            // 在同一方法体中，不允许与其它代码块中的 money 命名相同
+            final int money = 15978;
+            // ...
+        }
+    }
+}
+class Son extends ConfusingName {
+    // 不允许与父类的成员变量名称相同
+    private int stock;
+}
 ```
 
 12.【强制】杜绝完全不规范的英文缩写，避免望文不知义。 
-   反例：AbstractClass“缩写”成 AbsClass；condition“缩写”成 condi；Function“缩写”成 Fu，此类随意缩写严重降低了代码的可阅读性。 
+    反例：AbstractClass“缩写”成 AbsClass；condition“缩写”成 condi；Function“缩写”成 Fu，此类随意缩写严重降低了代码的可阅读性。 
 13.【推荐】为了达到代码自解释的目标，任何自定义编程元素在命名时，使用完整的单词组合来表达。 
-   正例：在 JDK 中，对某个对象引用的 volatile 字段进行原子更新的类名为 AtomicReferenceFieldUpdater。 
-   反例：常见的方法内变量为 int a; 的定义方式。 
+    正例：在 JDK 中，对某个对象引用的 volatile 字段进行原子更新的类名为 AtomicReferenceFieldUpdater。 
+    反例：常见的方法内变量为 int a; 的定义方式。 
 14.【推荐】在常量与变量命名时，表示类型的名词放在词尾，以提升辨识度。 
-   正例：startTime / workQueue / nameList / TERMINATED_THREAD_COUNT 
-   反例：startedAt / QueueOfWork / listName / COUNT_TERMINATED_THREAD 
+    正例：startTime / workQueue / nameList / TERMINATED_THREAD_COUNT 
+    反例：startedAt / QueueOfWork / listName / COUNT_TERMINATED_THREAD 
 15.【推荐】如果模块、接口、类、方法使用了设计模式，在命名时要体现出具体模式。 
-   说明：将设计模式体现在名字中，有利于阅读者快速理解架构设计思想。
-   正例： public class OrderFactory; 
+    说明：将设计模式体现在名字中，有利于阅读者快速理解架构设计思想。
+    正例：
+
+```java
+public class OrderFactory; 
 public class LoginProxy; 
 public class ResourceObserver; 
+```
+
 16.【推荐】接口类中的方法和属性不要加任何修饰符号（public 也不要加），保持代码的简洁性，并加上有效的 Javadoc 注释。尽量不要在接口里定义常量，如果一定要定义，最好确定该常量与接口的方法相关，并且是整个应用的基础常量。 
-   正例：接口方法签名 void commit(); 接口基础常量 String COMPANY = "alibaba"; 
+   正例：接口方法签名 void commit();
+	    接口基础常量 String COMPANY = "alibaba"; 
    反例：接口方法定义 public abstract void commit(); 
    说明：JDK8 中接口允许有默认实现，那么这个 default 方法，是对所有实现类都有价值的默认实现。 
 17.接口和实现类的命名有两套规则： 
-1）【强制】对于 Service 和 DAO 类，基于 SOA 的理念，暴露出来的服务一定是接口，内部的实现类用 Impl 的后缀与接口区别。 
+	1）【强制】对于 Service 和 DAO 类，基于 SOA 的理念，暴露出来的服务一定是接口，内部的实现类用 Impl 的后缀与接口区别。 
    正例：CacheServiceImpl 实现 CacheService 接口。 
-2）【推荐】如果是形容能力的接口名称，取对应的形容词为接口名（通常是 –able 结尾的形容词）。 
+	2）【推荐】如果是形容能力的接口名称，取对应的形容词为接口名（通常是 –able 结尾的形容词）。 
    正例：AbstractTranslator 实现 Translatable。 
 18.【参考】枚举类名带上 Enum 后缀，枚举成员名称需要全大写，单词间用下划线隔开。 
    说明：枚举其实就是特殊的常量类，且构造方法被默认强制是私有。 
    正例：枚举名字为 ProcessStatusEnum 的成员名称：SUCCESS / UNKNOWN_REASON 
 19.【参考】各层命名规约： 
-A）Service / DAO 层方法命名规约： 
-1）获取单个对象的方法用 get 做前缀。 
-2）获取多个对象的方法用 list 做前缀，复数结尾，如：listObjects 
-3）获取统计值的方法用 count 做前缀。 
-4）插入的方法用 save / insert 做前缀。 
-5）删除的方法用 remove / delete 做前缀。 
-6）修改的方法用 update 做前缀。 
-B）领域模型命名规约： 
-1）数据对象：xxxDO，xxx 即为数据表名。 
-2）数据传输对象：xxxDTO，xxx 为业务领域相关的名称。 
-3）展示对象：xxxVO，xxx 一般为网页名称。 
-4）POJO 是 DO / DTO / BO / VO 的统称，禁止命名成 xxxPOJO。 
+	A）Service / DAO 层方法命名规约： 
+	 1）获取单个对象的方法用 get 做前缀。 
+	 2）获取多个对象的方法用 list 做前缀，复数结尾，如：listObjects 
+	 3）获取统计值的方法用 count 做前缀。 
+	 4）插入的方法用 save / insert 做前缀。 
+	 5）删除的方法用 remove / delete 做前缀。 
+	 6）修改的方法用 update 做前缀。 
+	B）领域模型命名规约： 
+	 1）数据对象：xxxDO，xxx 即为数据表名。 
+	 2）数据传输对象：xxxDTO，xxx 为业务领域相关的名称。 
+	 3）展示对象：xxxVO，xxx 一般为网页名称。 
+	 4）POJO 是 DO / DTO / BO / VO 的统称，禁止命名成 xxxPOJO。 
 
 ### (二) 常量定义 
 
 1.【强制】不允许任何魔法值（即未经预先定义的常量）直接出现在代码中。 
    反例： 
+
+```java
 //  开发者 A 定义了缓存的 key。 
 String key = "Id#taobao_" + tradeId; 
 cache.put(key, value); 
 // 开发者 B 使用缓存时直接复制少了下划线，即 key 是"Id#taobao" + tradeId，导致出现故障。 
 String key = "Id#taobao" + tradeId; 
 cache.get(key); 
+```
+
 2.【强制】long 或 Long 赋值时，数值后使用大写 L，不能是小写 l，小写容易跟数字混淆，造成误解。 
    说明：public static final Long NUM = 2l; 写的是数字的 21，还是 Long 型的 2？ 
 3.【强制】浮点数类型的数值后缀统一为大写的 D 或 F。 
-   正例：public static final double HEIGHT = 175.5D; 
-   public static final float WEIGHT = 150.3F; 
+   正例：
+
+```java
+public static final double HEIGHT = 175.5D; 
+public static final float WEIGHT = 150.3F; 
+```
+
 4.【推荐】不要使用一个常量类维护所有常量，要按常量功能进行归类，分开维护。 
    说明：大而全的常量类，杂乱无章，使用查找功能才能定位到要修改的常量，不利于理解，也不利于维护。 
    正例：缓存相关常量放在类 CacheConsts 下；系统配置相关常量放在类 SystemConfigConsts 下。 
@@ -128,34 +158,37 @@ cache.get(key);
    2）应用内共享常量：放置在一方库中，通常是子模块中的 constant 目录下。 
 
    反例：易懂常量也要统一定义成应用内共享常量，两个程序员在两个类中分别定义了表示“是”的常量： 
-   类 A 中：public static final String YES = "yes";  
-   类 B 中：public static final String YES = "y"; 
-   A.YES.equals(B.YES)，预期是 true，但实际返回为 false，导致线上问题。 
-3）子工程内部共享常量：即在当前子工程的 constant 目录下。 
-4）包内共享常量：即在当前包下单独的 constant 目录下。 
-5）类内共享常量：直接在类内部 private static final 定义。 
+	   类 A 中：public static final String YES = "yes";  
+	   类 B 中：public static final String YES = "y"; 
+  	 A.YES.equals(B.YES)，预期是 true，但实际返回为 false，导致线上问题。 
+   3）子工程内部共享常量：即在当前子工程的 constant 目录下。 
+   4）包内共享常量：即在当前包下单独的 constant 目录下。 
+   5）类内共享常量：直接在类内部 private static final 定义。 
 6.【推荐】如果变量值仅在一个固定范围内变化用 enum 类型来定义。 
    说明：如果存在名称之外的延伸属性应使用 enum 类型，下面正例中的数字就是延伸信息，表示一年中的第几个季节。 
    正例： 
-public enum SeasonEnum { 
-SPRING(1), SUMMER(2), AUTUMN(3), WINTER(4); 
-private int seq; 
-SeasonEnum(int seq) { 
-this.seq = seq; 
+
+```java
+public enum SeasonEnum {
+    SPRING(1), SUMMER(2), AUTUMN(3), WINTER(4);
+    private int seq;
+    SeasonEnum(int seq) {
+        this.seq = seq;
+    }
+    public int getSeq() {
+        return seq;
+    }
 } 
-public int getSeq() { 
-return seq; 
-} 
-} 
+```
 
 ### (三) 代码格式 
 
 1.【强制】如果大括号内为空，简洁地写成{}即可，大括号中间无需换行和空格；如果是非空代码块，则： 
-1）左大括号前不换行。 
-2）左大括号后换行。 
-3）右大括号前换行。 
-4）右大括号后还有 else 等代码则不换行；表示终止的右大括号后必须换行。 
-2.【强制】左小括号和右边相邻字符之间不需要空格；右小括号和左边相邻字符之间也不需要空格；而左大括号前需要加空格。详见第 5 条下方正例提示。 
+   1）左大括号前不换行。 
+   2）左大括号后换行。 
+   3）右大括号前换行。 
+   4）右大括号后还有 else 等代码则不换行；表示终止的右大括号后必须换行。 
+2.【强制】左小括号和右边相邻字符之间不需要空格；右小括号和左边相邻字符之间也不需要空格；而左大括号前需要加空格。详见第5条下方正例提示。 
    反例：if(空格 a == b 空格) 
 3.【强制】if / for / while / switch / do 等保留字与左右括号之间都必须加空格。 
 4.【强制】任何二目、三目运算符的左右两边都需要加一个空格。 
@@ -163,75 +196,93 @@ return seq;
 5.【强制】采用 4 个空格缩进，禁止使用 Tab 字符。 
    说明：如使用 Tab 缩进，必须设置 1 个 Tab 为 4 个空格。IDEA 设置 Tab 为 4 个空格时，请勿勾选 Use tab character；而在 Eclipse 中，找到 tab policy 设置为 Spaces only，Tab size：4，最后必须勾选 insert spaces for tabs 
    正例：（涉及上述中的 1-5 点） 
-public static void main(String[] args) { 
-// 缩进 4 个空格 
-String say = "hello"; 
-// 运算符的左右必须有一个空格 
-int flag = 0; 
-// 关键词 if 与括号之间必须有一个空格，括号内的 f 与左括号，0 与右括号不需要空格 
-if (flag == 0) { 
-System.out.println(say); 
-} 
-// 左大括号前加空格且不换行；左大括号后换行 
-if (flag == 1) { 
-System.out.println("world"); 
-// 右大括号前换行，右大括号后有 else，不用换行 
-} else { 
-System.out.println("ok"); 
-// 在右大括号后直接结束，则必须换行 
-} 
-} 
+
+```java
+public static void main(String[] args) {
+    // 缩进 4 个空格
+    String say = "hello";
+    // 运算符的左右必须有一个空格
+    int flag = 0;
+    // 关键词 if 与括号之间必须有一个空格，括号内的 f 与左括号，0 与右括号不需要空格
+    if (flag == 0) {
+        System.out.println(say);
+    }
+    // 左大括号前加空格且不换行；左大括号后换行
+    if (flag == 1) {
+        System.out.println("world");
+        // 右大括号前换行，右大括号后有 else，不用换行
+    } else {
+        System.out.println("ok");
+        // 在右大括号后直接结束，则必须换行
+    }
+}
+```
+
 6.【强制】注释的双斜线与注释内容之间有且仅有一个空格。 
    正例： 
+
+```java
 // 这是示例注释，请注意在双斜线之后有一个空格 
 String commentString = new String("demo"); 
+```
+
 7.【强制】在进行类型强制转换时，右括号与强制转换值之间不需要任何空格隔开。 
    正例： 
+
+```java
 double first = 3.2D; 
 int second = (int)first + 2; 
+```
+
 8.【强制】单行字符数限制不超过 120 个，超出需要换行，换行时遵循如下原则： 
-1）第二行相对第一行缩进 4 个空格，从第三行开始，不再继续缩进，参考示例。 
-2）运算符与下文一起换行。 
-3）方法调用的点符号与下文一起换行。 
-4）方法调用中的多个参数需要换行时，在逗号后进行。 
-5）在括号前不要换行，见反例。 
+   1）第二行相对第一行缩进 4 个空格，从第三行开始，不再继续缩进，参考示例。 
+   2）运算符与下文一起换行。 
+   3）方法调用的点符号与下文一起换行。 
+   4）方法调用中的多个参数需要换行时，在逗号后进行。 
+   5）在括号前不要换行，见反例。 
    正例： 
+
+```java
 StringBuilder builder = new StringBuilder(); 
 // 超过 120 个字符的情况下，换行缩进 4 个空格，并且方法前的点号一起换行 
 builder.append("yang").append("hao")... 
-.append("chen")... 
-.append("chen")... 
-.append("chen"); 
+    .append("chen")... 
+    .append("chen")... 
+    .append("chen"); 
+```
+
    反例： 
+```java
 StringBuilder builder = new StringBuilder(); 
 // 超过 120 个字符的情况下，不要在括号前换行 
 builder.append("you").append("are")...append 
-("lucky"); 
+		("lucky"); 
 // 参数很多的方法调用可能超过 120 个字符，逗号后才是换行处 
 method(args1, args2, args3, ... 
-, argsX); 
+	, argsX); 
+```
+
 9.【强制】方法参数在定义和传入时，多个参数逗号后面必须加空格。 
    正例：下例中实参的 args1 逗号后边必须要有一个空格。 
-method(args1, args2, args3); 
-10.【强制】IDE 的 text file encoding 设置为 UTF-8；IDE 中文件的换行符使用 Unix 格式，不要使用
-Windows 格式。 
+		method(args1, args2, args3); 
+10.【强制】IDE 的 text file encoding 设置为 UTF-8；IDE 中文件的换行符使用 Unix 格式，不要使用Windows 格式。 
 11.【推荐】单个方法的总行数不超过 80 行。 
    说明：除注释之外的方法签名、左右大括号、方法内代码、空行、回车及任何不可见字符的总行数不超过 80 行。 
-
-
-6/51 
-   正例：代码逻辑分清红花和绿叶，个性和共性，绿叶逻辑单独出来成为额外方法，使主干代码更加晰；共性逻辑抽取 
-成为共性方法，便于复用和维护。 
+   正例：代码逻辑分清红花和绿叶，个性和共性，绿叶逻辑单独出来成为额外方法，使主干代码更加晰；共性逻辑抽取成为共性方法，便于复用和维护。 
 12.【推荐】没有必要增加若干空格来使变量的赋值等号与上一行对应位置的等号对齐。 
    正例： 
+
+```java
 int one = 1; 
 long two = 2L; 
 float three = 3F; 
 StringBuilder builder = new StringBuilder(); 
+```
+
    说明：增加 builder 这个变量，如果需要对齐，则给 one、two、three 都要增加几个空格，在变量比较多的情况下，是 
 非常累赘的事情。 
 13.【推荐】不同逻辑、不同语义、不同业务的代码之间插入一个空行，分隔开来以提升可读性。 
-   说明：任何情形，没有必要插入多个空行进行隔开。 
+    说明：任何情形，没有必要插入多个空行进行隔开。 
 
 ### (四) OOP 规约 
 
@@ -263,9 +314,6 @@ decode(String source, String encode)。接口提供方既然明确是过时接�
    说明：浮点数采用“尾数+阶码”的编码方式，类似于科学计数法的“有效数字+指数”的表示方式。二进制无法精确表
 示大部分的十进制小数，具体原理参考《码出高效》。 
    反例： 
-
-
-7/51 
 float a = 1.0F - 0.9F; 
 float b = 0.9F - 0.8F; 
 if (a == b) { 
@@ -1173,9 +1221,6 @@ private static final Log log = LogFactory.getLog(Test.class);
 {logname}.log.{保存日期}，日期格式：yyyy-MM-dd 
    正例：以 mppserver 应用为例，日志保存/home/admin/mppserver/logs/mppserver.log，历史日志名称
 为 mppserver.log.2021-11-28 
-
-
-27/51 
 3.【强制】根据国家法律，网络运行状态、网络安全事件、个人敏感信息操作等相关记录，留存的日志不
 少于六个月，并且进行网络多机备份。 
 4.【强制】应用中的扩展日志（如打点、临时监控、访问日志等）命名方式：
@@ -1536,28 +1581,28 @@ update table set c1 = value1 , c2 = value2 , c3 = value3；这是不对的。执
 
 1.【推荐】根据业务架构实践，结合业界分层规范与流行技术框架分析，推荐分层结构如图所示，默认上层
 依赖于下层，箭头关系表示可直接依赖，如：开放 API 层可以依赖于 Web 层（Controller 层），也可以
-直接依赖于 Service 层，依此类推： 
+直接依赖于 Service 层，依此类推：
 
-- 
- 开放 API 层：可直接封装 Service 接口暴露成 RPC 接口；通过 Web 封装成 http 接口；网关控制层等。 
-- 
- 终端显示层：各个端的模板渲染并执行显示的层。当前主要是 velocity 渲染，JS 渲染，JSP 渲染，移动端展示等。 
-- 
- Web 层：主要是对访问控制进行转发，各类基本参数校验，或者不复用的业务简单处理等。 
-- 
- Service 层：相对具体的业务逻辑服务层。 
-- 
- Manager 层：通用业务处理层，它有如下特征 
+
+- 开放 API 层：可直接封装 Service 接口暴露成 RPC 接口；通过 Web 封装成 http 接口；网关控制层等。 
+
+- 终端显示层：各个端的模板渲染并执行显示的层。当前主要是 velocity 渲染，JS 渲染，JSP 渲染，移动端展示等。 
+
+- Web 层：主要是对访问控制进行转发，各类基本参数校验，或者不复用的业务简单处理等。 
+
+- Service 层：相对具体的业务逻辑服务层。 
+
+- Manager 层：通用业务处理层，它有如下特征 
   1）对第三方平台封装的层，预处理返回结果及转化异常信息，适配上层接口。 
   2）对 Service 层通用能力的下沉，如缓存方案、中间件通用处理。 
   3）与 DAO 层交互，对多个 DAO 的组合复用。 
-- 
- DAO 层：数据访问层，与底层 MySQL、Oracle、Hbase、OceanBase 等进行数据交互。 
-- 
- 第三方服务：包括其它部门 RPC 服务接口，基础平台，其它公司的 HTTP 接口，如淘宝开放平台、支付宝付款服务、
+  
+- DAO 层：数据访问层，与底层 MySQL、Oracle、Hbase、OceanBase 等进行数据交互。 
+
+- 第三方服务：包括其它部门 RPC 服务接口，基础平台，其它公司的 HTTP 接口，如淘宝开放平台、支付宝付款服务、
   高德地图服务等。 
-- 
- 外部数据接口：外部（应用）数据存储服务提供的接口，多见于数据迁移场景中。 
+  
+- 外部数据接口：外部（应用）数据存储服务提供的接口，多见于数据迁移场景中。 
   2.【参考】（分层异常处理规约）在 DAO 层，产生的异常类型有很多，无法用细粒度的异常进行 catch，
   使用 catch(Exception e) 方式，并 throw new DAOException(e)，不需要打印日志，因为日志在
   Manager 或 Service 层一定需要捕获并打印到日志文件中去，如果同台服务器再打日志，浪费性能和存
@@ -1566,15 +1611,14 @@ update table set c1 = value1 , c2 = value2 , c3 = value3；这是不对的。执
   Service 一致的处理方式。Web 层绝不应该继续往上抛异常，因为已经处于顶层，如果意识到这个异常
   将导致页面无法正常渲染，那么就应该直接跳转到友好错误页面，尽量加上友好的错误提示信息。开放
   接口层要将异常处理成错误码和错误信息方式返回。 
+  
   3.【参考】分层领域模型规约： 
-- 
- DO（Data Object）：此对象与数据库表结构一一对应，通过 DAO 层向上传输数据源对象。 
+  
+- DO（Data Object）：此对象与数据库表结构一一对应，通过 DAO 层向上传输数据源对象。 
+
 - 
  DTO（Data Transfer Object）：数据传输对象，Service 或 Manager 向外传输的对象。
 
- 
-
-38/51 
 - 
  BO（Business Object）：业务对象，可以由 Service 层输出的封装业务逻辑的对象。 
 - 
@@ -1738,7 +1782,7 @@ private boolean checkParam(DTO dto) {...}
 
 ## 附 1：版本历史 
 
-
+未整理, 请查看pdf版
 
 
 
@@ -1795,10 +1839,6 @@ A0150 用户基本信息校验失败
 A0151 手机格式校验失败  
 A0152 地址格式校验失败  
 A0153 邮箱格式校验失败  
-
- 
-
-46/51 
 A0200 用户登录异常 二级宏观错误码 
 A0201 用户账户不存在  
 A0202 用户账户被冻结  
@@ -1858,9 +1898,7 @@ A0442 确认订单超时
 A0443 订单已关闭  
 A0500 用户请求服务异常 二级宏观错误码 
 
- 
 
-48/51 
 A0501 请求次数超出限制  
 A0502 请求并发数超出限制  
 A0503 用户操作请等待  
