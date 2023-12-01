@@ -5,17 +5,19 @@ sidebar: auto
 
 ## 博主前言
 
-- 个人想仔细研读/实践手册, 然后做笔记/写心得
-- 公司想以手册为基础, 结合公司内部实际情况, 来制定编码规范
+- 个人层面想研读/实践, 然后做笔记/写心得
+- 公司层面想以手册为基础, 结合实际情况, 来制定公司内部的编码规范
 
-以上都是我遇到的真实事情, 但<开发手册>公开发行的是pdf版, 有时候想利用它做一些事非常困难, 目前网上能搜到的最新的markdwon版本还是2017年的[1.3.1版](https://gitee.com/kangroo/ajcg) , 而现在最新的已经是2022年的1.7.1版, 其中内容变化还是很大的
+以上都是我遇到的真实需求, 但<开发手册>发行的是pdf版, 有时候想利用它做一些事非常困难, 目前网上能搜到的最新的markdwon版本还是2017年的[1.3.1版纪念版](https://gitee.com/kangroo/ajcg) , 而现在最新的已经是2022年的1.7.1黄山版, 其中内容变化还是很大的
 
-受感于<大教堂与集市>, 总有人要做一些傻事, 遂决定人工去做一份对应的<开发手册>的markdwon版本. 
+**受感于<大教堂与集市>**, 总有人要做一些傻事, 决定人工去做一份1.7.1黄山版的markdwon版本. 
 
-> 网页上格式还不是很好看, 因为我**还不会**使用vuepress渲染句首空格, 想看格式更整洁的烦请[下载](https://github.com/lijileiGood/lijileiGood.github.io/blob/main/docs/alibaba-java-guide/guide.md)到本地查看
+markdown标准语法很鸡肋, 无法达到和PDF格式一致, 我会稍微使用一点扩展的语法. 目前确认的是[Typora](https://typora.io)渲染是堪称完美(我自己在用), 如果你的本地工具适配或不适配还请留言
+
+> 网页上格式目前还不是很好看, 因为我**还不会**使用vuepress渲染句首空格, 想看格式更整洁的烦请[下载](https://github.com/lijileiGood/lijileiGood.github.io/blob/main/docs/alibaba-java-guide/guide.md)到本地查看
 >
 
-markdown标准语法很鸡肋, 现在各家有各家的增强方式, 我本地的markdown编辑器是[Typora](https://typora.io), 所以能保证Typora是渲染出来的效果和pdf一致
+
 
 ## 前言
 
