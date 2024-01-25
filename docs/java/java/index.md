@@ -1,11 +1,9 @@
 ---
-title: macOS M系列芯片 Build openJDK18
+title: Build OpenJDK for macOS on Apple Silicon
 sidebar: auto
 ---
 
-macOS M系列芯片 Build openJDK18
-
-Macos for Apple Silicon Build openJDK
+Build OpenJDK for macOS on Apple Silicon.
 
 ## 为什么编译
 

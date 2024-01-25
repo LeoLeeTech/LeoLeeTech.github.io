@@ -10,9 +10,9 @@ sidebar: auto
 
 以上都是我遇到的真实需求, 但<开发手册>发行的是pdf版, 有时候想利用它做一些事非常困难, 目前网上能搜到的最新的markdwon版本还是2017年的[1.3.1版纪念版](https://gitee.com/kangroo/ajcg) , 而现在最新的已经是2022年的1.7.1黄山版, 其中内容变化还是很大的
 
-**受感于<大教堂与集市>**, 总有人要做一些傻事, 决定人工去做一份1.7.1黄山版的markdwon版本. 
+**受感于<大教堂与集市>**, 总有人要做一些"傻事", 决定人工去做一份1.7.1黄山版的markdwon版本. 
 
-markdown标准语法很鸡肋, 无法达到和PDF格式一致, 我会稍微使用一点扩展的语法. 目前确认的是[Typora](https://typora.io)渲染是堪称完美(我自己在用), 如果你的本地工具适配或不适配还请留言
+markdown标准语法很鸡肋, 无法达到和PDF格式完全一致, 我会稍微使用一点扩展的语法. 目前确认的是[Typora](https://typora.io)渲染是堪称完美(我自己在用), 如果你的本地工具适配或不适配还请留言
 
 > 网页上格式目前还不是很好看, 因为我**还不会**使用vuepress渲染句首空格, 想看格式更整洁的烦请[下载](https://github.com/lijileiGood/lijileiGood.github.io/blob/main/docs/alibaba-java-guide/guide.md)到本地查看
 >
@@ -1618,15 +1618,11 @@ update table set c1 = value1 , c2 = value2 , c3 = value3；这是不对的。执
   
 - DO（Data Object）：此对象与数据库表结构一一对应，通过 DAO 层向上传输数据源对象。 
 
-- 
- DTO（Data Transfer Object）：数据传输对象，Service 或 Manager 向外传输的对象。
+-  DTO（Data Transfer Object）：数据传输对象，Service 或 Manager 向外传输的对象。
 
-- 
- BO（Business Object）：业务对象，可以由 Service 层输出的封装业务逻辑的对象。 
-- 
- Query：数据查询对象，各层接收上层的查询请求。注意超过 2 个参数的查询封装，禁止使用 Map 类来传输。 
-- 
- VO（View Object）：显示层对象，通常是 Web 向模板渲染引擎层传输的对象。 
+-  BO（Business Object）：业务对象，可以由 Service 层输出的封装业务逻辑的对象。 
+- Query：数据查询对象，各层接收上层的查询请求。注意超过 2 个参数的查询封装，禁止使用 Map 类来传输。 
+- VO（View Object）：显示层对象，通常是 Web 向模板渲染引擎层传输的对象。 
 
 ### (二) 二方库依赖 
 
