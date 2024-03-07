@@ -14,11 +14,15 @@
 
 [Docker快速上手 (把饭喂到你嘴里)](/docker)
 
-
 [我眼中的Java函数式编程 (教程向)](/java/lambda)
 
-
 [Build OpenJDK for macOS on Apple Silicon](/java/java)
+
+**Try to web3 系列**
+
+> [move 语言开发环境搭建(一)](/web3/move/001)
+
+
 
 
 
