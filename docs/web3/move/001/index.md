@@ -34,18 +34,7 @@ sidebar: auto
 - clash X Pro (科学上网工具, 默认你也可以科学上网)
 - brew (macos 上安装软件的工具, 类比Debian系的apt, Redhat系的rpm)
 
-## Move 简单介绍
 
-朋友, 既然你能点开该文章, 那么说明你已经知道这个世界上有一门叫做move的开发语言啦
-它是由Meta(原facebook)公司为了做Libra项目开发的, 底层是rust语言
-现在move有两个大方向
-
-- **move on aptos:** Libra项目先是更名为Diem, 又更名为aptos, 也就是更根正苗红一些, 生态更好一些
-- **move on sui:** 某人相中了move这个语言, 在此基础上又完善/封装了一下用到了自己的项目sui上
-
-以上讲的十分简略, 我也是刚接触了解也不多, 按理说我没资格讲的.  但是你是新手的话(我就是), 搜索move时, 它总是和aptos/sui一起出现, 让人很迷惑, 所以在此解释一下.
-
-我选择的是基础版[move](https://github.com/move-language/move), 因为不管什么方向它都得是在基础上搞, **就像TypeScript之于JavaScript.**
 
 ## 开始安装
 
@@ -180,7 +169,18 @@ OPTIONS:
 ...
 ```
 
+### 后续-关上terminal后再打开就不行了
 
+第二天回来, 新开terminal窗口, 准备快乐的学习. but 提示我`command not found`, what?
+原因: `move`命令没加到环境变量中, 只是临时在哪一个termainl中的seesion中生效了
+解决: 
+
+- `move`使用`cargo`安装的, 所以先找到cargo的安装目录, 一般是在`~/.cargo/bin`
+- 把该路径加入到环境变量(我用的是zsh)
+  - 打开配置文件`vim ~/.zshrc`
+  - 把以下命令加入到最后`export PATH=$PATH:/Users/你的用户名/.cargo/bin`
+
+- 需要刷新配置文件, 让其生效,执行 `source ~/.zshrc`.  你如果不懂的话就退出terminal再打开就行了
 
 ## Linux/Ubuntu 失败
 
