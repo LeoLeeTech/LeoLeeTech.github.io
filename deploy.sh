@@ -3,7 +3,7 @@
 # 确保脚本抛出遇到的错误
 set -e
 
-rm -rf cd docs/.vuepress/dist
+rm -rf docs/.vuepress/dist
 
 # 生成静态文件
 npm run docs:build
