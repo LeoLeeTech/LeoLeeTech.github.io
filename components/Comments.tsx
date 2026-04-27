@@ -12,11 +12,7 @@ export default function Comments({ slug }: { slug: string }) {
   }
   return (
     <>
-      {loadComments ? (
-        <CommentsComponent commentsConfig={siteMetadata.comments} slug={slug} />
-      ) : (
-        <button onClick={() => setLoadComments(true)}>查看评论</button>
-      )}
+      <CommentsComponent commentsConfig={siteMetadata.comments} slug={slug} />
     </>
   )
 }

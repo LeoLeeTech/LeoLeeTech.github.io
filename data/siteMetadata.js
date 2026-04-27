@@ -64,7 +64,7 @@ const siteMetadata = {
       // Visit the link below, and follow the steps in the 'configuration' section
       // https://giscus.app/
       repo: 'LeoLeeTech/LeoLeeTech.github.io',
-      repoId: 'R_kgDOSM6-Vg',
+      repositoryId: 'R_kgDOSM6-Vg',
       category: 'Announcements',
       categoryId: 'DIC_kwDOSM6-Vs4C7yYr',
       mapping: 'pathname', // supported options: pathname, url, title
@@ -81,8 +81,7 @@ const siteMetadata = {
       // example: https://giscus.app/themes/custom_example.css
       themeURL: '',
       // This corresponds to the `data-lang="en"` in giscus's configurations
-      lang: 'enzh-CN',
-      lazy: false,
+      lang: 'zh-CN',
     },
   },
   search: {
