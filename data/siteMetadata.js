@@ -85,10 +85,10 @@ const siteMetadata = {
     },
   },
   search: {
-    // provider: 'kbar', // kbar or algolia
-    // kbarConfig: {
-    //   searchDocumentsPath: `${process.env.BASE_PATH || ''}/search.json`, // path to load documents to search
-    // },
+    provider: 'kbar', // kbar or algolia
+    kbarConfig: {
+      searchDocumentsPath: `${process.env.BASE_PATH || ''}/search.json`, // path to load documents to search
+    },
     // provider: 'algolia',
     // algoliaConfig: {
     //   // The application ID provided by Algolia
