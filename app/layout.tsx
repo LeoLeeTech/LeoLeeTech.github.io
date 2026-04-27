@@ -15,7 +15,7 @@ import { Metadata } from 'next'
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-space-grotesk',
+  variable: '--font-noto',
 })
 
 export const metadata: Metadata = {
