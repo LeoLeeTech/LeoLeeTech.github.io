@@ -15,7 +15,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://leolee.tech',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -43,6 +43,11 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
         },
         blog: {
+          routeBasePath: '/',
+          tagsBasePath: 'blog/tags',
+          archiveBasePath: 'blog/archive',
+          pageBasePath: 'blog/page',
+          authorsBasePath: 'blog/authors',
           showReadingTime: true,
           feedOptions: {
             type: ['rss', 'atom'],
@@ -82,13 +87,8 @@ const config: Config = {
         //   label: 'Tutorial',
         // },
         {
-          to: '/blog',
-          label: '文章',
-          position: 'left',
-        },
-        {
           to: '/blog/tags',
-          label: '分类',
+          label: '标签',
           position: 'left',
         },
         {

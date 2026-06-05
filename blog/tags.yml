@@ -14,6 +14,6 @@ docusaurus:
   description: Docusaurus tag description
 
 hola:
-  label: Hola
-  permalink: /hola
+  label: 另一个中文
+  permalink: /另一个中文
   description: Hola tag description
