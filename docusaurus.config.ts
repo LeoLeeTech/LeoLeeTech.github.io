@@ -92,7 +92,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: '/about',
+          to: '/blog/006',
           label: '关于我',
           position: 'right',
         },
