@@ -1,0 +1,8 @@
+{
+  "theme.blog.post.paginator.newerPost": {
+    "message": "上一篇"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "下一篇"
+  }
+}

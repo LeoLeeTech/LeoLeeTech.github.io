@@ -48,7 +48,7 @@ const config: Config = {
           archiveBasePath: 'blog/archive',
           pageBasePath: 'blog/page',
           authorsBasePath: 'blog/authors',
-          showReadingTime: true,
+          showReadingTime: false,
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,
@@ -88,7 +88,7 @@ const config: Config = {
         // },
         {
           to: '/blog/tags',
-          label: '标签',
+          label: '文章分类',
           position: 'left',
         },
         {
