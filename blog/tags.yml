@@ -3,7 +3,27 @@
   permalink: /技术
   description: 编程技术相关文章
 
+前端:
+  label: 前端
+  permalink: /前端
+
+npm:
+  label: npm
+  permalink: /npm
+
+Git:
+  label: Git
+  permalink: /git
+
+AI:
+  label: AI
+  permalink: /AI
+
 非技术:
   label: 非技术
   permalink: /非技术
   description: 编程技术之外的相关文章
+
+职业规划:
+  label: 职业规划
+  permalink: /职业规划
