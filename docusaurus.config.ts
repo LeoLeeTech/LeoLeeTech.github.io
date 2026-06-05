@@ -5,7 +5,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: '李吉磊',
+  title: '李吉磊 Leo Lee',
   tagline: '分享简约实用的软件知识',
   favicon: 'img/favicon.ico',
 
@@ -41,10 +41,6 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
           showReadingTime: true,
@@ -52,10 +48,7 @@ const config: Config = {
             type: ['rss', 'atom'],
             xslt: true,
           },
-          // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -75,19 +68,34 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: '李吉磊',
+      title: '李吉磊 Leo Lee',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
       },
       items: [
+        //  适合写书
+        // {
+        //   type: 'docSidebar',
+        //   sidebarId: 'tutorialSidebar',
+        //   position: 'left',
+        //   label: 'Tutorial',
+        // },
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          to: '/blog',
+          label: '文章',
           position: 'left',
-          label: 'Tutorial',
         },
-        { to: '/blog', label: 'Blog', position: 'left' },
+        {
+          to: '/blog',
+          label: '分类',
+          position: 'left',
+        },
+        {
+          to: '/about',
+          label: '关于我',
+          position: 'right',
+        },
         {
           href: 'https://github.com/LeoLeeTech',
           label: 'GitHub',
