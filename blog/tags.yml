@@ -1,19 +1,9 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
+技术:
+  label: 技术
+  permalink: /技术
+  description: 编程技术相关文章
 
-hello:
-  label: 中文
-  permalink: /hello
-  description: Hello tag description
-
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
-
-hola:
-  label: 另一个中文
-  permalink: /另一个中文
-  description: Hola tag description
+非技术:
+  label: 非技术
+  permalink: /非技术
+  description: 编程技术之外的相关文章
