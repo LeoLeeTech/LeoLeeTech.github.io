@@ -96,7 +96,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: '/about',
+          to: '/blog/about-leo-lee',
           label: '关于我',
           position: 'right',
         },
