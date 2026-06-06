@@ -28,3 +28,9 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Keep blog-list headlines compact without changing article-page titles. */
+.blog-list-page article > header h2 {
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  line-height: 1.1;
+}
