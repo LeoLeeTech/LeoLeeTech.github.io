@@ -1,6 +1,6 @@
 ---
 slug: blog/008
-title: 008 一条命令让你这辈子彻底解决"LF will be replaced by CRLF"
+title: 008. 一条命令让你这辈子彻底解决"LF will be replaced by CRLF"
 tags: [技术, Git]
 ---
 
@@ -9,27 +9,23 @@ tags: [技术, Git]
 ```sh
 git config --global core.safecrlf=false
 ```
+{/* truncate */}
 
 我知道你现在很着急, 抓紧去 commit 吧
 
-如果还不行, 你就把上面命令中的 safetcrlf=false 改为 autocrlf=true, 再执行一次
+如果还不行, 你就把上面命令中的 safecrlf=false 改为 autocrlf=true, 再执行一次
 
 全文完
 
 ---
 
-{/* truncate */}
-
 如果你满肚子都是疑问请往下看
-
-
 
 ### 为什么会出这个问题?
 
 我敢拿生命保证, **你肯定在用 Windows, 这是 Windows 专属 bug** 
 
 (换成 MacOS 也能彻底解决这个问题)
-
 
 
 ### 为什么我同事也都是 Windows 却没问题?
