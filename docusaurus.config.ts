@@ -101,6 +101,11 @@ const config: Config = {
           position: 'right',
         },
         {
+          href: 'https://www.youtube.com/@LeoLeeTech',
+          label: '创作的视频',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/LeoLeeTech',
           label: 'GitHub',
           position: 'right',
