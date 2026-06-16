@@ -85,12 +85,12 @@ const config: Config = {
       },
       items: [
         //  适合写书
-        // {
-        //   type: 'docSidebar',
-        //   sidebarId: 'tutorialSidebar',
-        //   position: 'left',
-        //   label: 'Tutorial',
-        // },
+        {
+          type: 'docSidebar',
+          sidebarId: 'tutorialSidebar',
+          position: 'left',
+          label: 'Simple World',
+        },
         {
           to: '/blog/tags',
           label: '文章分类',
