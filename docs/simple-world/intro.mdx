@@ -1,0 +1,46 @@
+---
+title: Introduction
+sidebar_position: 1
+---
+
+## Introduction
+
+> See how _the exact same_ Medium.com clone is built using different [frontends](https://codebase.show/projects/realworld?category=frontend) and [backends](https://codebase.show/projects/realworld?category=backend). Yes, you can mix and match them, because **they all adhere to the same [API spec](/specifications/backend/introduction)** 😮😎
+
+While most "todo" demos provide an excellent cursory glance at a framework's capabilities, they typically don't convey the knowledge & perspective required to actually build _real_ applications with it.
+
+**RealWorld** solves this by allowing you to choose any frontend (React, Angular, & more) and any backend (Node, Django, & more).
+
+## Learn more
+
+- Every tutorial is built against the same [API spec](/specifications/backend/introduction) to ensure modularity of every frontend & backend
+- Every frontend utilizes the same hand crafted [Bootstrap 4 theme](https://github.com/gothinkster/conduit-bootstrap-template) for identical UI/UX
+- There is a [hosted version](https://realworld-docs.netlify.app/docs/specs/frontend-specs/api#demo-api) of the backend API available for public usage, no API keys are required
+- Interested in creating a new RealWorld stack? View our [starter guide & spec](/implementation-creation/introduction)
+
+
+**General functionality:**
+
+- Authenticate users via JWT (login/signup pages + logout button on settings page)
+- CRU- users (sign up & settings page - no deleting required)
+- CRUD Articles
+- CR-D Comments on articles (no updating required)
+- GET and display paginated lists of articles
+- Favorite articles
+- Follow other users
+
+
+## Remember: Keep your codebases _simple_, yet _robust_.
+
+If a new developer to your framework comes along and takes longer than 10 minutes to grasp the high-level architecture, it's likely that you went a little overboard in the engineering department.
+
+Alternatively, you should _never_ forgo following fundamental best practices for the sake of simplicity, lest we teach that same newbie dev the _wrong_ way of doing things.
+
+The quality & architecture of Conduit implementations should reflect something similar to an early-stage startup's MVP: functionally complete & stable, but not unnecessarily over-engineered.
+
+
+## Other Expectations
+
+- All the required features (see specs) should be implemented.
+- You should publish your implementation on a dedicated GitHub repository with the "Issues" section open.
+- You should provide a README that presents an overview of your implementation and explains how to run it locally.

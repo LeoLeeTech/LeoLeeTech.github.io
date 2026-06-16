@@ -1,5 +1,6 @@
 ---
 title: Endpoints
+sidebar_position: 2
 ---
 
 ### Authentication Header:

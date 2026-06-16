@@ -1,5 +1,6 @@
 ---
 title: Introduction
+sidebar_position: 1
 ---
 
 All backend implementations need to adhere to our [API spec](https://github.com/realworld-apps/realworld/tree/main/specs/api). The full API is described in the [OpenAPI spec](https://github.com/realworld-apps/realworld/blob/main/specs/api/openapi.yml).

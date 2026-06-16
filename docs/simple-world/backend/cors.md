@@ -1,5 +1,6 @@
 ---
 title: CORS
+sidebar_position: 4
 ---
 
 ## Considerations for your backend with [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)

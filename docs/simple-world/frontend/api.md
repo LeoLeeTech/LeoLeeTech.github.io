@@ -1,5 +1,6 @@
 ---
 title: API
+sidebar_position: 4
 ---
 
 This project provides you different solutions to test your frontend implementation with an API by:

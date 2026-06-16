@@ -1,5 +1,6 @@
 ---
 title: Styles
+sidebar_position: 2
 ---
 
 All frontend implementations should use the shared [styles.css](https://github.com/realworld-apps/realworld/blob/main/assets/theme/styles.css) file from the main repository. This is a single CSS file (Conduit Minimal CSS v4) that includes only the classes actually used by Conduit.

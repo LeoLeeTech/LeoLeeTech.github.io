@@ -1,5 +1,6 @@
 ---
 title: Routing
+sidebar_position: 3
 ---
 
 - Home page (URL: `/` )

@@ -1,5 +1,6 @@
 ---
 title: Error handling
+sidebar_position: 5
 ---
 
 ### Errors and Status Codes

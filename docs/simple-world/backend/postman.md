@@ -1,5 +1,6 @@
 ---
 title: Postman
+sidebar_position: 9
 ---
 
 For your convenience, we have a [Postman collection](https://github.com/realworld-apps/realworld/blob/main/specs/api/legacy_Conduit.postman_collection.json) that you can use to test your API endpoints as you build your app.

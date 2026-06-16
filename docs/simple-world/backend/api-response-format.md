@@ -1,5 +1,6 @@
 ---
 title: API response format
+sidebar_position: 3
 ---
 
 ## JSON Objects returned by API:
