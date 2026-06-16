@@ -102,7 +102,7 @@ const config: Config = {
         },
         {
           href: 'https://www.youtube.com/@LeoLeeTech',
-          label: '创作的视频',
+          label: 'Youtube',
           position: 'right',
         },
         {
