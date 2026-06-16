@@ -91,6 +91,18 @@ const config: Config = {
           position: 'left',
           label: 'Simple World',
         },
+        // {
+        //   type: 'docSidebar',
+        //   sidebarId: 'npmSidebar',
+        //   label: 'npm',
+        //   position: 'left',
+        // },
+        // {
+        //   type: 'docSidebar',
+        //   sidebarId: 'gitSidebar',
+        //   label: 'git',
+        //   position: 'left',
+        // },
         {
           to: '/blog/tags',
           label: '文章分类',
