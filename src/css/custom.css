@@ -15,6 +15,7 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --blog-list-divider-color: #e5e7eb;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,10 +28,17 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --blog-list-divider-color: rgba(255, 255, 255, 0.12);
 }
 
 /* 缩小首页的文章标题大小 */
 .blog-list-page article > header h2 {
   font-size: clamp(1.25rem, 2vw, 1.625rem);
   line-height: 1.2;
+}
+
+/* 给博客列表里的每篇文章添加浅灰色分割线 */
+.blog-list-page article {
+  border-bottom: 1px solid var(--blog-list-divider-color);
+  padding-bottom: 0.2rem;
 }
