@@ -7,7 +7,7 @@ sidebar_position: 1
 
 The `<head>` element includes the page metadata (title, description) and loads the stylesheet.
 
-Load the shared [Conduit theme](https://github.com/realworld-apps/realworld/blob/main/assets/theme/styles.css) plus the fonts and icons it relies on. `styles.css` does **not** bundle fonts or icons, so the head below loads all three; see the [Styles](/specifications/frontend/styles/) page for details.
+Load the shared [Conduit theme](https://github.com/realworld-apps/realworld/blob/main/assets/theme/styles.css) plus the fonts and icons it relies on. `styles.css` does **not** bundle fonts or icons, so the head below loads all three; see the [Styles](/docs/simple-world/frontend/styles/) page for details.
 
 ```html
 <head>

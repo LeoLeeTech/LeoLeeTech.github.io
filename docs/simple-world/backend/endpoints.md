@@ -24,7 +24,7 @@ Example request body:
 }
 ```
 
-No authentication required, returns a [User](/specifications/backend/api-response-format#users-for-authentication)
+No authentication required, returns a [User](/docs/simple-world/backend/api-response-format#users-for-authentication)
 
 Required fields: `email`, `password`
 
@@ -44,7 +44,7 @@ Example request body:
 }
 ```
 
-No authentication required, returns a [User](/specifications/backend/api-response-format#users-for-authentication)
+No authentication required, returns a [User](/docs/simple-world/backend/api-response-format#users-for-authentication)
 
 Required fields: `email`, `username`, `password`
 
@@ -52,7 +52,7 @@ Required fields: `email`, `username`, `password`
 
 `GET /api/user`
 
-Authentication required, returns a [User](/specifications/backend/api-response-format#users-for-authentication) that's the current user
+Authentication required, returns a [User](/docs/simple-world/backend/api-response-format#users-for-authentication) that's the current user
 
 ### Update User
 
@@ -70,7 +70,7 @@ Example request body:
 }
 ```
 
-Authentication required, returns the [User](/specifications/backend/api-response-format#users-for-authentication)
+Authentication required, returns the [User](/docs/simple-world/backend/api-response-format#users-for-authentication)
 
 Accepted fields: `email`, `username`, `password`, `image`, `bio`
 
@@ -78,13 +78,13 @@ Accepted fields: `email`, `username`, `password`, `image`, `bio`
 
 `GET /api/profiles/:username`
 
-Authentication optional, returns a [Profile](/specifications/backend/api-response-format#profile)
+Authentication optional, returns a [Profile](/docs/simple-world/backend/api-response-format#profile)
 
 ### Follow user
 
 `POST /api/profiles/:username/follow`
 
-Authentication required, returns a [Profile](/specifications/backend/api-response-format#profile)
+Authentication required, returns a [Profile](/docs/simple-world/backend/api-response-format#profile)
 
 No additional parameters required
 
@@ -92,7 +92,7 @@ No additional parameters required
 
 `DELETE /api/profiles/:username/follow`
 
-Authentication required, returns a [Profile](/specifications/backend/api-response-format#profile)
+Authentication required, returns a [Profile](/docs/simple-world/backend/api-response-format#profile)
 
 No additional parameters required
 
@@ -124,21 +124,21 @@ Offset/skip number of articles (default is 0):
 
 `?offset=0`
 
-Authentication optional, will return [multiple articles](/specifications/backend/api-response-format#multiple-articles), ordered by most recent first
+Authentication optional, will return [multiple articles](/docs/simple-world/backend/api-response-format#multiple-articles), ordered by most recent first
 
 ### Feed Articles
 
 `GET /api/articles/feed`
 
-Can also take `limit` and `offset` query parameters like [List Articles](/specifications/backend/endpoints#list-articles)
+Can also take `limit` and `offset` query parameters like [List Articles](/docs/simple-world/backend/endpoints#list-articles)
 
-Authentication required, will return [multiple articles](/specifications/backend/api-response-format#multiple-articles) created by followed users, ordered by most recent first.
+Authentication required, will return [multiple articles](/docs/simple-world/backend/api-response-format#multiple-articles) created by followed users, ordered by most recent first.
 
 ### Get Article
 
 `GET /api/articles/:slug`
 
-No authentication required, will return [single article](/specifications/backend/api-response-format#single-article)
+No authentication required, will return [single article](/docs/simple-world/backend/api-response-format#single-article)
 
 ### Create Article
 
@@ -157,7 +157,7 @@ Example request body:
 }
 ```
 
-Authentication required, will return an [Article](/specifications/backend/api-response-format#single-article)
+Authentication required, will return an [Article](/docs/simple-world/backend/api-response-format#single-article)
 
 Required fields: `title`, `description`, `body`
 
@@ -177,7 +177,7 @@ Example request body:
 }
 ```
 
-Authentication required, returns the updated [Article](/specifications/backend/api-response-format#single-article)
+Authentication required, returns the updated [Article](/docs/simple-world/backend/api-response-format#single-article)
 
 Optional fields: `title`, `description`, `body`
 
@@ -205,7 +205,7 @@ Example request body:
 }
 ```
 
-Authentication required, returns the created [Comment](/specifications/backend/api-response-format#single-comment)
+Authentication required, returns the created [Comment](/docs/simple-world/backend/api-response-format#single-comment)
 
 Required field: `body`
 
@@ -213,7 +213,7 @@ Required field: `body`
 
 `GET /api/articles/:slug/comments`
 
-Authentication optional, returns [multiple comments](/specifications/backend/api-response-format#multiple-comments)
+Authentication optional, returns [multiple comments](/docs/simple-world/backend/api-response-format#multiple-comments)
 
 ### Delete Comment
 
@@ -225,7 +225,7 @@ Authentication required
 
 `POST /api/articles/:slug/favorite`
 
-Authentication required, returns the [Article](/specifications/backend/api-response-format#single-article)
+Authentication required, returns the [Article](/docs/simple-world/backend/api-response-format#single-article)
 
 No additional parameters required
 
@@ -233,7 +233,7 @@ No additional parameters required
 
 `DELETE /api/articles/:slug/favorite`
 
-Authentication required, returns the [Article](/specifications/backend/api-response-format#single-article)
+Authentication required, returns the [Article](/docs/simple-world/backend/api-response-format#single-article)
 
 No additional parameters required
 
@@ -241,4 +241,4 @@ No additional parameters required
 
 `GET /api/tags`
 
-No authentication required, returns a [List of Tags](/specifications/backend/api-response-format#list-of-tags)
+No authentication required, returns a [List of Tags](/docs/simple-world/backend/api-response-format#list-of-tags)
