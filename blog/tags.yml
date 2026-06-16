@@ -1,11 +1,10 @@
 技术:
   label: 技术
-  permalink: /技术
-  description: 编程技术相关文章
+  permalink: /tech
 
 前端:
   label: 前端
-  permalink: /前端
+  permalink: /frontend
 
 npm:
   label: npm
@@ -17,13 +16,20 @@ Git:
 
 AI:
   label: AI
-  permalink: /AI
+  permalink: /ai
+
+视频:
+  label: 视频
+  permalink: /video
+
+英语:
+  label: 英语
+  permalink: /english
 
 非技术:
   label: 非技术
-  permalink: /非技术
-  description: 编程技术之外的相关文章
+  permalink: /no-tech
 
 职业规划:
   label: 职业规划
-  permalink: /职业规划
+  permalink: /career-plan

@@ -48,6 +48,7 @@ const config: Config = {
           archiveBasePath: 'blog/archive',
           pageBasePath: 'blog/page',
           authorsBasePath: 'blog/authors',
+          blogSidebarCount: 'ALL',
           showReadingTime: false,
           feedOptions: {
             type: ['rss', 'atom'],
