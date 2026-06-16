@@ -1,11 +1,11 @@
 ---
-title: Error handling
+title: 错误处理
 sidebar_position: 5
 ---
 
-### Errors and Status Codes
+### 错误和状态码
 
-If a request fails any validations, expect a 422 and errors in the following format:
+如果请求未通过任何校验，应返回 422 以及如下格式的错误：
 
 ```json
 {
@@ -17,10 +17,10 @@ If a request fails any validations, expect a 422 and errors in the following for
 }
 ```
 
-#### Other status codes:
+#### 其他状态码：
 
-401 for Unauthorized requests, when a request requires authentication but it isn't provided
+401 表示未授权请求，即请求需要认证但未提供认证信息
 
-403 for Forbidden requests, when a request may be valid but the user doesn't have permissions to perform the action
+403 表示禁止访问，即请求本身可能有效，但用户没有权限执行该操作
 
-404 for Not found requests, when a resource can't be found to fulfill the request
+404 表示未找到，即无法找到满足请求所需的资源

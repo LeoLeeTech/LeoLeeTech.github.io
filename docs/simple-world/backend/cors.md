@@ -3,6 +3,6 @@ title: CORS
 sidebar_position: 4
 ---
 
-## Considerations for your backend with [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
+## 后端处理 [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) 时的注意事项
 
-If the backend is about to run on a different host/port than the frontend, make sure to handle `OPTIONS` too and return correct `Access-Control-Allow-Origin` and `Access-Control-Allow-Headers` (e.g. `Content-Type`).
+如果后端运行在与前端不同的主机或端口上，请确保同时处理 `OPTIONS` 请求，并返回正确的 `Access-Control-Allow-Origin` 和 `Access-Control-Allow-Headers`（例如 `Content-Type`）。

@@ -1,19 +1,19 @@
 ---
-title: Styles
+title: 样式
 sidebar_position: 2
 ---
 
-All frontend implementations should use the shared [styles.css](https://github.com/realworld-apps/realworld/blob/main/assets/theme/styles.css) file from the main repository. This is a single CSS file (Conduit Minimal CSS v4) that includes only the classes actually used by Conduit.
+所有前端实现都应该使用主仓库中共享的 [styles.css](https://github.com/realworld-apps/realworld/blob/main/assets/theme/styles.css) 文件。这是一个单独的 CSS 文件（Conduit Minimal CSS v4），只包含 Conduit 实际使用的 class。
 
-The CSS classes it provides match the [templates](/docs/simple-world/frontend/templates/) and the [E2E test selectors contract](https://github.com/realworld-apps/realworld/blob/main/specs/e2e/SELECTORS.md).
+它提供的 CSS class 与[模板](/docs/simple-world/frontend/templates/)以及 [E2E 测试选择器契约](https://github.com/realworld-apps/realworld/blob/main/specs/e2e/SELECTORS.md)相匹配。
 
-### Fonts and icons
+### 字体和图标
 
-`styles.css` covers layout and components only — it does **not** bundle fonts or icons, so load these separately in your `<head>`:
+`styles.css` 只包含布局和组件样式，**不**内置字体或图标，所以请在 `<head>` 中单独加载它们：
 
-- **Fonts:** the theme uses `Source Sans Pro` (body) and `Lora` (headings/article text). Without them, browsers fall back to generic sans-serif/serif. Load them however you prefer (e.g. Google Fonts).
-- **Icons:** the templates use `ion-*` classes (`ion-heart`, `ion-compose`, `ion-edit`, `ion-gear-a`, `ion-plus-round`, `ion-trash-a`, `ion-close-round`) from the legacy [Ionicons](https://ionic.io/ionicons) v2 set. Load an icon stylesheet that provides them, or substitute equivalent icons of your own.
+- **字体：** 主题使用 `Source Sans Pro`（正文）和 `Lora`（标题/文章文本）。如果没有加载它们，浏览器会回退到通用 sans-serif/serif 字体。你可以用自己喜欢的方式加载它们（例如 Google Fonts）。
+- **图标：** 模板使用旧版 [Ionicons](https://ionic.io/ionicons) v2 图标集中的 `ion-*` class（`ion-heart`、`ion-compose`、`ion-edit`、`ion-gear-a`、`ion-plus-round`、`ion-trash-a`、`ion-close-round`）。请加载提供这些 class 的图标样式表，或替换成你自己的等效图标。
 
-### Default Avatar
+### 默认头像
 
-When a user has no profile image, implementations should display the [default avatar](https://github.com/realworld-apps/realworld/blob/main/assets/media/default-avatar.svg) (a smiley face icon).
+当用户没有头像图片时，实现应显示[默认头像](https://github.com/realworld-apps/realworld/blob/main/assets/media/default-avatar.svg)（一个笑脸图标）。

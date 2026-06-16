@@ -1,13 +1,13 @@
 ---
-title: Templates
+title: 模板
 sidebar_position: 1
 ---
 
-## Head
+## Head 元素
 
-The `<head>` element includes the page metadata (title, description) and loads the stylesheet.
+`<head>` 元素包含页面元数据（标题、描述）并加载样式表。
 
-Load the shared [Conduit theme](https://github.com/realworld-apps/realworld/blob/main/assets/theme/styles.css) plus the fonts and icons it relies on. `styles.css` does **not** bundle fonts or icons, so the head below loads all three; see the [Styles](/docs/simple-world/frontend/styles/) page for details.
+加载共享的 [Conduit 主题](https://github.com/realworld-apps/realworld/blob/main/assets/theme/styles.css)，以及它依赖的字体和图标。`styles.css` **不**内置字体或图标，所以下方 head 会同时加载这三类资源；详情见[样式](/docs/simple-world/frontend/styles/)页面。
 
 ```html
 <head>
@@ -28,19 +28,19 @@ Load the shared [Conduit theme](https://github.com/realworld-apps/realworld/blob
 </head>
 ```
 
-## Layout
+## 布局
 
-### Header
+### 页头
 
-#### Unauthenticated user
+#### 未认证用户
 
-If no user is logged in, then the header should include links to:
+如果没有用户登录，header 应包含以下链接：
 
-- the home page
-- the login page
-- the register page
+- 首页
+- 登录页面
+- 注册页面
 
-> the link of the active page should use the **active** css class.
+> 当前激活页面的链接应使用 **active** CSS class。
 
 ```html
 <nav class="navbar navbar-light">
@@ -62,16 +62,16 @@ If no user is logged in, then the header should include links to:
 </nav>
 ```
 
-#### Authenticated user
+#### 已认证用户
 
-If a user is logged in, then the header should include links to:
+如果用户已登录，header 应包含以下链接：
 
-- the home page
-- the new article page
-- the settings page
-- the profile page
+- 首页
+- 新建文章页面
+- 设置页面
+- 个人资料页面
 
-> the link of the active page should use the **active** css class.
+> 当前激活页面的链接应使用 **active** CSS class。
 
 ```html
 <nav class="navbar navbar-light">
@@ -99,7 +99,7 @@ If a user is logged in, then the header should include links to:
 </nav>
 ```
 
-### Footer
+### 页脚
 
 ```html
 <footer>
@@ -112,15 +112,15 @@ If a user is logged in, then the header should include links to:
 </footer>
 ```
 
-## Pages
+## 页面
 
-### Home
+### 首页
 
-The Home page includes up to three tabs:
+首页最多包含三个 tab：
 
-- a default **Global Feed** tab
-- an optional **tag name** tab, appears after clicking one of the popular tags
-- an optional **Your Feed** tab, appears after logging in
+- 默认的**全局动态** tab
+- 可选的**标签名** tab，点击热门标签后出现
+- 可选的**你的动态** tab，登录后出现
 
 ```html
 <div class="home-page">
@@ -220,9 +220,9 @@ The Home page includes up to three tabs:
 </div>
 ```
 
-### Authentication
+### 认证
 
-#### Login
+#### 登录
 
 ```html
 <div class="auth-page">
@@ -253,7 +253,7 @@ The Home page includes up to three tabs:
 </div>
 ```
 
-#### Register
+#### 注册
 
 ```html
 <div class="auth-page">
@@ -287,7 +287,7 @@ The Home page includes up to three tabs:
 </div>
 ```
 
-### Profile
+### 个人资料
 
 ```html
 <div class="profile-page">
@@ -386,7 +386,7 @@ The Home page includes up to three tabs:
 </div>
 ```
 
-### Settings
+### 设置
 
 ```html
 <div class="settings-page">
@@ -435,7 +435,7 @@ The Home page includes up to three tabs:
 </div>
 ```
 
-### Create/Edit Article
+### 创建/编辑文章
 
 ```html
 <div class="editor-page">
@@ -478,9 +478,9 @@ The Home page includes up to three tabs:
 </div>
 ```
 
-### Article
+### 文章
 
-// TODO : update to switch between follow/favorite AND edit/delete
+// TODO：更新为在关注/收藏和编辑/删除之间切换
 
 ```html
 <div class="article-page">

@@ -1,46 +1,46 @@
 ---
-title: Introduction
+title: 介绍
 sidebar_position: 1
 ---
 
-## Introduction
+## 介绍
 
-> See how _the exact same_ Medium.com clone is built using different [frontends](https://codebase.show/projects/realworld?category=frontend) and [backends](https://codebase.show/projects/realworld?category=backend). Yes, you can mix and match them, because **they all adhere to the same [API spec](/docs/simple-world/backend/introduction)** 😮😎
+> 看看_同一个_ Medium.com 克隆应用，如何用不同的[前端](https://codebase.show/projects/realworld?category=frontend)和[后端](https://codebase.show/projects/realworld?category=backend)实现。没错，你可以自由组合它们，因为**它们都遵循同一套 [API 规范](/docs/simple-world/endpoints)** 😮😎
 
-While most "todo" demos provide an excellent cursory glance at a framework's capabilities, they typically don't convey the knowledge & perspective required to actually build _real_ applications with it.
+大多数 “todo” 示例都能快速展示一个框架的能力，但通常无法传达真正构建_真实_应用所需要的知识和视角。
 
-**RealWorld** solves this by allowing you to choose any frontend (React, Angular, & more) and any backend (Node, Django, & more).
+**RealWorld** 通过允许你选择任意前端（React、Angular 等）和任意后端（Node、Django 等）来解决这个问题。
 
-## Learn more
+## 了解更多
 
-- Every tutorial is built against the same [API spec](/docs/simple-world/backend/introduction) to ensure modularity of every frontend & backend
-- Every frontend utilizes the same hand crafted [Bootstrap 4 theme](https://github.com/gothinkster/conduit-bootstrap-template) for identical UI/UX
-- There is a [hosted version](https://realworld-docs.netlify.app/docs/specs/frontend-specs/api#demo-api) of the backend API available for public usage, no API keys are required
-- Interested in creating a new RealWorld stack? View our [backend API spec](/docs/simple-world/backend/introduction)
-
-
-**General functionality:**
-
-- Authenticate users via JWT (login/signup pages + logout button on settings page)
-- CRU- users (sign up & settings page - no deleting required)
-- CRUD Articles
-- CR-D Comments on articles (no updating required)
-- GET and display paginated lists of articles
-- Favorite articles
-- Follow other users
+- 每个教程都基于同一套 [API 规范](/docs/simple-world/endpoints)构建，以确保每个前端和后端都能模块化组合
+- 每个前端都使用同一套手工制作的 [Bootstrap 4 主题](https://github.com/gothinkster/conduit-bootstrap-template)，保证一致的 UI/UX
+- 后端 API 提供了一个可公开使用的[托管版本](https://realworld-docs.netlify.app/docs/specs/frontend-specs/api#demo-api)，无需 API key
+- 想创建一个新的 RealWorld 技术栈？查看我们的[后端 API 规范](/docs/simple-world/endpoints)
 
 
-## Remember: Keep your codebases _simple_, yet _robust_.
+**通用功能：**
 
-If a new developer to your framework comes along and takes longer than 10 minutes to grasp the high-level architecture, it's likely that you went a little overboard in the engineering department.
+- 通过 JWT 认证用户（登录/注册页面 + 设置页面中的退出按钮）
+- 对用户执行创建、读取、更新操作（注册和设置页面，不要求删除）
+- 对文章执行增删改查
+- 对文章评论执行创建、读取、删除操作（不要求更新）
+- 获取并展示分页文章列表
+- 收藏文章
+- 关注其他用户
 
-Alternatively, you should _never_ forgo following fundamental best practices for the sake of simplicity, lest we teach that same newbie dev the _wrong_ way of doing things.
 
-The quality & architecture of Conduit implementations should reflect something similar to an early-stage startup's MVP: functionally complete & stable, but not unnecessarily over-engineered.
+## 请记住：让你的代码库保持_简单_，同时保持_健壮_。
+
+如果一个刚接触你所用框架的新开发者，需要超过 10 分钟才能理解整体架构，那很可能说明你的工程设计有点过度了。
+
+另一方面，你也_绝不能_为了简单而放弃基本最佳实践，否则就会把错误的做事方式教给同一个新手开发者。
+
+Conduit 实现的质量和架构应该类似早期创业公司的 MVP：功能完整、稳定，但不要做不必要的过度工程化。
 
 
-## Other Expectations
+## 其他期望
 
-- All the required features (see specs) should be implemented.
-- You should publish your implementation on a dedicated GitHub repository with the "Issues" section open.
-- You should provide a README that presents an overview of your implementation and explains how to run it locally.
+- 应实现所有必需功能（见规范）。
+- 你应该把实现发布到一个专门的 GitHub 仓库，并开启 “Issues” 区域。
+- 你应该提供一份 README，介绍实现概览并说明如何在本地运行。
