@@ -32,46 +32,7 @@ sidebar_position: 1
 
 ### 页头
 
-#### 未认证用户
-
-如果没有用户登录，header 应包含以下链接：
-
-- 首页
-- 登录页面
-- 注册页面
-
-> 当前激活页面的链接应使用 **active** CSS class。
-
-```html
-<nav class="navbar navbar-light">
-  <div class="container">
-    <a class="navbar-brand" href="/">conduit</a>
-    <ul class="nav navbar-nav pull-xs-right">
-      <li class="nav-item">
-        <!-- Add "active" class when you're on that page" -->
-        <a class="nav-link active" href="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/login">Sign in</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/register">Sign up</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-```
-
-#### 已认证用户
-
-如果用户已登录，header 应包含以下链接：
-
-- 首页
-- 新建文章页面
-- 设置页面
-- 个人资料页面
-
-> 当前激活页面的链接应使用 **active** CSS class。
+Simple World 只保留首页和新建文章入口。
 
 ```html
 <nav class="navbar navbar-light">
@@ -84,15 +45,6 @@ sidebar_position: 1
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/editor"> <i class="ion-compose"></i>&nbsp;New Article </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/settings"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/profile/eric-simons">
-          <img src="" class="user-pic" />
-          Eric Simons
-        </a>
       </li>
     </ul>
   </div>
@@ -116,11 +68,7 @@ sidebar_position: 1
 
 ### 首页
 
-首页最多包含三个 tab：
-
-- 默认的**全局动态** tab
-- 可选的**标签名** tab，点击热门标签后出现
-- 可选的**你的动态** tab，登录后出现
+首页包含全局文章列表、可选的标签筛选和分页。文章作者头像使用用户名首字母大写，不需要上传图片。
 
 ```html
 <div class="home-page">
@@ -137,24 +85,21 @@ sidebar_position: 1
         <div class="feed-toggle">
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
-              <a class="nav-link" href="">Your Feed</a>
+              <a class="nav-link active" href="">Global Feed</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="">Global Feed</a>
+              <a class="nav-link" href="">AngularJS</a>
             </li>
           </ul>
         </div>
 
         <div class="article-preview">
           <div class="article-meta">
-            <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+            <span class="user-pic">J</span>
             <div class="info">
-              <a href="/profile/eric-simons" class="author">Eric Simons</a>
+              <span class="author">jake</span>
               <span class="date">January 20th</span>
             </div>
-            <button class="btn btn-outline-primary btn-sm pull-xs-right">
-              <i class="ion-heart"></i> 29
-            </button>
           </div>
           <a href="/article/how-to-build-webapps-that-scale" class="preview-link">
             <h1>How to build webapps that scale</h1>
@@ -169,14 +114,11 @@ sidebar_position: 1
 
         <div class="article-preview">
           <div class="article-meta">
-            <a href="/profile/albert-pai"><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
+            <span class="user-pic">A</span>
             <div class="info">
-              <a href="/profile/albert-pai" class="author">Albert Pai</a>
+              <span class="author">albert</span>
               <span class="date">January 20th</span>
             </div>
-            <button class="btn btn-outline-primary btn-sm pull-xs-right">
-              <i class="ion-heart"></i> 32
-            </button>
           </div>
           <a href="/article/the-song-you" class="preview-link">
             <h1>The song you won't ever stop singing. No matter how hard you try.</h1>
@@ -206,229 +148,11 @@ sidebar_position: 1
           <div class="tag-list">
             <a href="" class="tag-pill tag-default">programming</a>
             <a href="" class="tag-pill tag-default">javascript</a>
-            <a href="" class="tag-pill tag-default">emberjs</a>
             <a href="" class="tag-pill tag-default">angularjs</a>
             <a href="" class="tag-pill tag-default">react</a>
-            <a href="" class="tag-pill tag-default">mean</a>
             <a href="" class="tag-pill tag-default">node</a>
-            <a href="" class="tag-pill tag-default">rails</a>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-### 认证
-
-#### 登录
-
-```html
-<div class="auth-page">
-  <div class="container page">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">Sign in</h1>
-        <p class="text-xs-center">
-          <a href="/register">Need an account?</a>
-        </p>
-
-        <ul class="error-messages">
-          <li>That email is already taken</li>
-        </ul>
-
-        <form>
-          <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Email" />
-          </fieldset>
-          <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="password" placeholder="Password" />
-          </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right">Sign in</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-#### 注册
-
-```html
-<div class="auth-page">
-  <div class="container page">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">Sign up</h1>
-        <p class="text-xs-center">
-          <a href="/login">Have an account?</a>
-        </p>
-
-        <ul class="error-messages">
-          <li>That email is already taken</li>
-        </ul>
-
-        <form>
-          <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Username" />
-          </fieldset>
-          <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Email" />
-          </fieldset>
-          <fieldset class="form-group">
-            <input class="form-control form-control-lg" type="password" placeholder="Password" />
-          </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right">Sign up</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-### 个人资料
-
-```html
-<div class="profile-page">
-  <div class="user-info">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-md-10 offset-md-1">
-          <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
-          <h4>Eric Simons</h4>
-          <p>
-            Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from
-            the Hunger Games
-          </p>
-          <button class="btn btn-sm btn-outline-secondary action-btn">
-            <i class="ion-plus-round"></i>
-            &nbsp; Follow Eric Simons
-          </button>
-          <button class="btn btn-sm btn-outline-secondary action-btn">
-            <i class="ion-gear-a"></i>
-            &nbsp; Edit Profile Settings
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-md-10 offset-md-1">
-        <div class="articles-toggle">
-          <ul class="nav nav-pills outline-active">
-            <li class="nav-item">
-              <a class="nav-link active" href="">My Articles</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">Favorited Articles</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="article-preview">
-          <div class="article-meta">
-            <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
-            <div class="info">
-              <a href="/profile/eric-simons" class="author">Eric Simons</a>
-              <span class="date">January 20th</span>
-            </div>
-            <button class="btn btn-outline-primary btn-sm pull-xs-right">
-              <i class="ion-heart"></i> 29
-            </button>
-          </div>
-          <a href="/article/how-to-buil-webapps-that-scale" class="preview-link">
-            <h1>How to build webapps that scale</h1>
-            <p>This is the description for the post.</p>
-            <span>Read more...</span>
-            <ul class="tag-list">
-              <li class="tag-default tag-pill tag-outline">realworld</li>
-              <li class="tag-default tag-pill tag-outline">implementations</li>
-            </ul>
-          </a>
-        </div>
-
-        <div class="article-preview">
-          <div class="article-meta">
-            <a href="/profile/albert-pai"><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
-            <div class="info">
-              <a href="/profile/albert-pai" class="author">Albert Pai</a>
-              <span class="date">January 20th</span>
-            </div>
-            <button class="btn btn-outline-primary btn-sm pull-xs-right">
-              <i class="ion-heart"></i> 32
-            </button>
-          </div>
-          <a href="/article/the-song-you" class="preview-link">
-            <h1>The song you won't ever stop singing. No matter how hard you try.</h1>
-            <p>This is the description for the post.</p>
-            <span>Read more...</span>
-            <ul class="tag-list">
-              <li class="tag-default tag-pill tag-outline">Music</li>
-              <li class="tag-default tag-pill tag-outline">Song</li>
-            </ul>
-          </a>
-        </div>
-
-        <ul class="pagination">
-          <li class="page-item active">
-            <a class="page-link" href="">1</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="">2</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-### 设置
-
-```html
-<div class="settings-page">
-  <div class="container page">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">Your Settings</h1>
-
-        <ul class="error-messages">
-          <li>That name is required</li>
-        </ul>
-
-        <form>
-          <fieldset>
-            <fieldset class="form-group">
-              <input class="form-control" type="text" placeholder="URL of profile picture" />
-            </fieldset>
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="text" placeholder="Your Name" />
-            </fieldset>
-            <fieldset class="form-group">
-              <textarea
-                class="form-control form-control-lg"
-                rows="8"
-                placeholder="Short bio about you"
-              ></textarea>
-            </fieldset>
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="text" placeholder="Email" />
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                class="form-control form-control-lg"
-                type="password"
-                placeholder="New Password"
-              />
-            </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">Update Settings</button>
-          </fieldset>
-        </form>
-        <hr />
-        <button class="btn btn-outline-danger">Or click here to logout.</button>
       </div>
     </div>
   </div>
@@ -437,6 +161,7 @@ sidebar_position: 1
 
 ### 创建/编辑文章
 
+发表和编辑文章时只输入用户名即可。
 ```html
 <div class="editor-page">
   <div class="container page">
@@ -448,6 +173,9 @@ sidebar_position: 1
 
         <form>
           <fieldset>
+            <fieldset class="form-group">
+              <input type="text" class="form-control" placeholder="Username" />
+            </fieldset>
             <fieldset class="form-group">
               <input type="text" class="form-control form-control-lg" placeholder="Article Title" />
             </fieldset>
@@ -480,7 +208,7 @@ sidebar_position: 1
 
 ### 文章
 
-// TODO：更新为在关注/收藏和编辑/删除之间切换
+文章和评论的编辑、删除按钮对所有人显示。
 
 ```html
 <div class="article-page">
@@ -489,20 +217,11 @@ sidebar_position: 1
       <h1>How to build webapps that scale</h1>
 
       <div class="article-meta">
-        <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+        <span class="user-pic">J</span>
         <div class="info">
-          <a href="/profile/eric-simons" class="author">Eric Simons</a>
+          <span class="author">jake</span>
           <span class="date">January 20th</span>
         </div>
-        <button class="btn btn-sm btn-outline-secondary">
-          <i class="ion-plus-round"></i>
-          &nbsp; Follow Eric Simons <span class="counter">(10)</span>
-        </button>
-        &nbsp;&nbsp;
-        <button class="btn btn-sm btn-outline-primary">
-          <i class="ion-heart"></i>
-          &nbsp; Favorite Post <span class="counter">(29)</span>
-        </button>
         <button class="btn btn-sm btn-outline-secondary">
           <i class="ion-edit"></i> Edit Article
         </button>
@@ -532,21 +251,11 @@ sidebar_position: 1
 
     <div class="article-actions">
       <div class="article-meta">
-        <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+        <span class="user-pic">J</span>
         <div class="info">
-          <a href="" class="author">Eric Simons</a>
+          <span class="author">jake</span>
           <span class="date">January 20th</span>
         </div>
-
-        <button class="btn btn-sm btn-outline-secondary">
-          <i class="ion-plus-round"></i>
-          &nbsp; Follow Eric Simons
-        </button>
-        &nbsp;
-        <button class="btn btn-sm btn-outline-primary">
-          <i class="ion-heart"></i>
-          &nbsp; Favorite Article <span class="counter">(29)</span>
-        </button>
         <button class="btn btn-sm btn-outline-secondary">
           <i class="ion-edit"></i> Edit Article
         </button>
@@ -560,10 +269,11 @@ sidebar_position: 1
       <div class="col-xs-12 col-md-8 offset-md-2">
         <form class="card comment-form">
           <div class="card-block">
+            <input type="text" class="form-control" placeholder="Username" />
             <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
           </div>
           <div class="card-footer">
-            <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+            <span class="comment-author-img">J</span>
             <button class="btn btn-sm btn-primary">Post Comment</button>
           </div>
         </form>
@@ -575,29 +285,12 @@ sidebar_position: 1
             </p>
           </div>
           <div class="card-footer">
-            <a href="/profile/author" class="comment-author">
-              <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
-            </a>
+            <span class="comment-author-img">J</span>
             &nbsp;
-            <a href="/profile/jacob-schmidt" class="comment-author">Jacob Schmidt</a>
-            <span class="date-posted">Dec 29th</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-block">
-            <p class="card-text">
-              With supporting text below as a natural lead-in to additional content.
-            </p>
-          </div>
-          <div class="card-footer">
-            <a href="/profile/author" class="comment-author">
-              <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
-            </a>
-            &nbsp;
-            <a href="/profile/jacob-schmidt" class="comment-author">Jacob Schmidt</a>
+            <span class="comment-author">jacob</span>
             <span class="date-posted">Dec 29th</span>
             <span class="mod-options">
+              <i class="ion-edit"></i>
               <i class="ion-trash-a"></i>
             </span>
           </div>

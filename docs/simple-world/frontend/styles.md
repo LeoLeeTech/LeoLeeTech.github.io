@@ -12,8 +12,8 @@ sidebar_position: 2
 `styles.css` 只包含布局和组件样式，**不**内置字体或图标，所以请在 `<head>` 中单独加载它们：
 
 - **字体：** 主题使用 `Source Sans Pro`（正文）和 `Lora`（标题/文章文本）。如果没有加载它们，浏览器会回退到通用 sans-serif/serif 字体。你可以用自己喜欢的方式加载它们（例如 Google Fonts）。
-- **图标：** 模板使用旧版 [Ionicons](https://ionic.io/ionicons) v2 图标集中的 `ion-*` class（`ion-heart`、`ion-compose`、`ion-edit`、`ion-gear-a`、`ion-plus-round`、`ion-trash-a`、`ion-close-round`）。请加载提供这些 class 的图标样式表，或替换成你自己的等效图标。
+- **图标：** 模板使用旧版 [Ionicons](https://ionic.io/ionicons) v2 图标集中的 `ion-*` class（`ion-compose`、`ion-edit`、`ion-trash-a`、`ion-close-round`）。请加载提供这些 class 的图标样式表，或替换成你自己的等效图标。
 
 ### 默认头像
 
-当用户没有头像图片时，实现应显示[默认头像](https://github.com/realworld-apps/realworld/blob/main/assets/media/default-avatar.svg)（一个笑脸图标）。
+系统不需要上传头像。

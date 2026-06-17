@@ -3,25 +3,24 @@ title: 接口规范
 sidebar_position: 2
 ---
 
+使用 JSON 作为前后端交互的数据结构，例如 `Content-Type: application/json; charset=utf-8`。
 
+Simple World 不包含账号系统。发表文章和评论时只需要输入一个用户名，头像由用户名首字母大写生成。
 
 ## 文章
 
 ### 文章列表
 
 - 接口: `GET /api/articles`
-
 - 作用: 默认返回全站最新文章
-
 - 查询参数:
 
-  | 功能说明       | 查询参数    | 示例              |
-  | -------------- | ----------- | ----------------- |
-  | 按标签过滤     | `tag`       | `?tag=AngularJS`  |
-  | 按作者过滤     | `author`    | `?author=jake`    |
-  | 按收藏用户过滤 | `favorited` | `?favorited=jake` |
-  | 限制返回数量   | `limit`     | `?limit=20`       |
-  | 偏移/跳过数量  | `offset`    | `?offset=0`       |
+  | 功能说明      | 查询参数 | 示例             |
+  | ------------- | -------- | ---------------- |
+  | 按标签过滤    | `tag`    | `?tag=AngularJS` |
+   | 按作者过滤     | `author`    | `?author=jake`    |
+  | 限制返回数量  | `limit`  | `?limit=20`      |
+  | 偏移/跳过数量 | `offset` | `?offset=0`      |
 
 - 响应体:
 
@@ -36,8 +35,7 @@ sidebar_position: 2
         "createdAt": "2016-02-18T03:22:56.637Z",
         "updatedAt": "2016-02-18T03:48:35.824Z",
         "author": {
-          "username": "jake",
-          "image": "https://i.stack.imgur.com/xHWG8.jpg"
+          "username": "jake"
         }
       },
       {
@@ -48,8 +46,7 @@ sidebar_position: 2
         "createdAt": "2016-02-18T03:22:56.637Z",
         "updatedAt": "2016-02-18T03:48:35.824Z",
         "author": {
-          "username": "jake",
-          "image": "https://i.stack.imgur.com/xHWG8.jpg"
+          "username": "albert"
         }
       }
     ],
@@ -60,9 +57,7 @@ sidebar_position: 2
 ### 获取文章
 
 - 接口: `GET /api/articles/:slug`
-
 - 作用: 根据文章 `slug` 获取单篇文章详情
-
 - 路径参数:
 
   | 功能说明      | 路径参数 | 示例                        |
@@ -81,13 +76,8 @@ sidebar_position: 2
       "tagList": ["dragons", "training"],
       "createdAt": "2016-02-18T03:22:56.637Z",
       "updatedAt": "2016-02-18T03:48:35.824Z",
-      "favorited": false,
-      "favoritesCount": 0,
       "author": {
-        "username": "jake",
-        "bio": "I work at statefarm",
-        "image": "https://i.stack.imgur.com/xHWG8.jpg",
-        "following": false
+        "username": "jake"
       }
     }
   }
@@ -96,18 +86,15 @@ sidebar_position: 2
 ### 创建文章
 
 - 接口: `POST /api/articles`
-
 - 作用: 创建一篇新文章
-
-- 必填字段: `title`、`description`、`body`
-
+- 必填字段: `username`、`title`、`description`、`body`
 - 可选字段: `tagList`，字符串数组
-
 - 请求体:
 
   ```json
   {
     "article": {
+      "username": "jake",
       "title": "How to train your dragon",
       "description": "Ever wonder how?",
       "body": "You have to believe",
@@ -128,13 +115,8 @@ sidebar_position: 2
       "tagList": ["dragons", "training"],
       "createdAt": "2016-02-18T03:22:56.637Z",
       "updatedAt": "2016-02-18T03:48:35.824Z",
-      "favorited": false,
-      "favoritesCount": 0,
       "author": {
-        "username": "jake",
-        "bio": "I work at statefarm",
-        "image": "https://i.stack.imgur.com/xHWG8.jpg",
-        "following": false
+        "username": "jake"
       }
     }
   }
@@ -143,25 +125,26 @@ sidebar_position: 2
 ### 更新文章
 
 - 接口: `PUT /api/articles/:slug`
-
 - 作用: 根据文章 `slug` 更新文章内容
-
 - 路径参数:
 
   | 功能说明      | 路径参数 | 示例                        |
   | ------------- | -------- | --------------------------- |
   | 文章 URL 标识 | `slug`   | `/api/articles/article-slug` |
 
-- 可选字段: `title`、`description`、`body`
-
-- 特殊说明: 当 `title` 变化时，`slug` 也会更新。`slug` 是文章的 URL 标识符，必须唯一；具体生成方式由实现自行决定，测试套件不强制要求特定格式。
-
+- 可选字段: `username`、`title`、`description`、`body`、`tagList`
+- 特殊说明: 当 `title` 变化时，`slug` 也会更新。`slug` 是文章的 URL 标识符，必须唯一；具体生成方式由实现自行决定。
 - 请求体:
 
   ```json
-  {
+   {
     "article": {
-      "title": "Did you train your dragon?"
+      slug: "article-slug",
+      "username": "jake",
+      "title": "How to train your dragon",
+      "description": "Ever wonder how?",
+      "body": "You have to believe",
+      "tagList": ["reactjs", "angularjs", "dragons"]
     }
   }
   ```
@@ -172,7 +155,6 @@ sidebar_position: 2
 
 - 接口: `DELETE /api/articles/:slug`
 - 作用: 根据文章 `slug` 删除文章
-- 认证: 需要
 - 路径参数:
 
   | 功能说明      | 路径参数 | 示例                        |
@@ -186,22 +168,20 @@ sidebar_position: 2
 ### 给文章添加评论
 
 - 接口: `POST /api/articles/:slug/comments`
-
 - 作用: 给指定文章添加一条评论
-
 - 路径参数:
 
   | 功能说明      | 路径参数 | 示例                                 |
   | ------------- | -------- | ------------------------------------ |
   | 文章 URL 标识 | `slug`   | `/api/articles/article-slug/comments` |
 
-- 必填字段: `body`
-
+- 必填字段: `username`、`body`
 - 请求体:
 
   ```json
   {
     "comment": {
+      "username": "jacob",
       "body": "His name was my name too."
     }
   }
@@ -215,10 +195,9 @@ sidebar_position: 2
       "id": 1,
       "createdAt": "2016-02-18T03:22:56.637Z",
       "updatedAt": "2016-02-18T03:22:56.637Z",
-      "body": "It takes a Jacobian",
+      "body": "His name was my name too.",
       "author": {
-        "username": "jake",
-        "image": "https://i.stack.imgur.com/xHWG8.jpg",
+        "username": "jacob"
       }
     }
   }
@@ -227,9 +206,7 @@ sidebar_position: 2
 ### 获取文章评论
 
 - 接口: `GET /api/articles/:slug/comments`
-
 - 作用: 获取指定文章下的评论列表
-
 - 路径参数:
 
   | 功能说明      | 路径参数 | 示例                                 |
@@ -245,28 +222,27 @@ sidebar_position: 2
         "id": 1,
         "createdAt": "2016-02-18T03:22:56.637Z",
         "updatedAt": "2016-02-18T03:22:56.637Z",
-        "body": "It takes a Jacobian",
+        "body": "His name was my name too.",
         "author": {
-          "username": "jake",
-          "image": "https://i.stack.imgur.com/xHWG8.jpg",
+          "username": "jacob"
         }
       }
     ]
   }
   ```
 
+
+
 ### 删除评论
 
 - 接口: `DELETE /api/articles/:slug/comments/:id`
-
 - 作用: 删除指定文章下的一条评论
-
 - 路径参数:
 
-  | 功能说明      | 路径参数 | 示例                                     |
-  | ------------- | -------- | ---------------------------------------- |
-  | 文章 URL 标识 | `slug`   | `/api/articles/article-slug/comments/1`   |
-  | 评论 ID       | `id`     | `/api/articles/article-slug/comments/1`   |
+  | 功能说明      | 路径参数 | 示例                                   |
+  | ------------- | -------- | -------------------------------------- |
+  | 文章 URL 标识 | `slug`   | `/api/articles/article-slug/comments/1` |
+  | 评论 ID       | `id`     | `/api/articles/article-slug/comments/1` |
 
 - 响应体: 无
 
@@ -275,9 +251,7 @@ sidebar_position: 2
 ### 获取标签
 
 - 接口: `GET /api/tags`
-
 - 作用: 获取所有可用标签
-
 - 响应体:
 
   ```json
@@ -285,7 +259,3 @@ sidebar_position: 2
     "tags": ["reactjs", "angularjs"]
   }
   ```
-
-
-
-使用 JSON 作为前后端交互的数据结构，例如 `Content-Type: application/json; charset=utf-8`。
