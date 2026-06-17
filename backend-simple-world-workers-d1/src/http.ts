@@ -28,7 +28,7 @@ export function empty(status = 204): Response {
 	});
 }
 
-// 苹果社区约定错误格式为 { errors: { body: [...] } }。
+// 简单论坛约定错误格式为 { errors: { body: [...] } }。
 export function apiError(message: string, status = 400): Response {
 	return json({ errors: { body: [message] } }, status);
 }

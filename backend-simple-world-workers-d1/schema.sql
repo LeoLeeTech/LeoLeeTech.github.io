@@ -1,51 +1,66 @@
--- 苹果社区最小数据库初始化脚本。
+-- 简单论坛最小数据库初始化脚本。
 -- 设计目标：
 -- 1. 建表和假数据写在同一个文件里，方便新手直接执行。
 -- 2. 默认不删除、不更新已有远端数据，避免误覆盖线上内容。
--- 3. 使用 CREATE TABLE IF NOT EXISTS、INSERT OR IGNORE 和 NOT EXISTS，让脚本重复执行也更安全。
-
+-- 3. 使用 CREATE TABLE 、INSERT  和 NOT EXISTS，让脚本重复执行也更安全。
 PRAGMA foreign_keys = ON;
 
-CREATE TABLE IF NOT EXISTS articles (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	slug TEXT NOT NULL UNIQUE,
-	username TEXT NOT NULL,
-	title TEXT NOT NULL,
-	description TEXT NOT NULL,
-	body TEXT NOT NULL,
-	created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
-	updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
-);
+CREATE TABLE
+	articles (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		slug TEXT NOT NULL UNIQUE,
+		username TEXT NOT NULL,
+		title TEXT NOT NULL,
+		description TEXT NOT NULL,
+		body TEXT NOT NULL,
+		created_at TEXT NOT NULL DEFAULT (strftime ('%Y-%m-%dT%H:%M:%fZ', 'now')),
+		updated_at TEXT NOT NULL DEFAULT (strftime ('%Y-%m-%dT%H:%M:%fZ', 'now'))
+	);
 
-CREATE TABLE IF NOT EXISTS tags (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	name TEXT NOT NULL UNIQUE
-);
+CREATE TABLE
+	tags (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		name TEXT NOT NULL UNIQUE
+	);
 
-CREATE TABLE IF NOT EXISTS article_tags (
-	article_id INTEGER NOT NULL,
-	tag_id INTEGER NOT NULL,
-	PRIMARY KEY (article_id, tag_id),
-	FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE,
-	FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
-);
+CREATE TABLE
+	article_tags (
+		article_id INTEGER NOT NULL,
+		tag_id INTEGER NOT NULL,
+		PRIMARY KEY (article_id, tag_id),
+		FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE,
+		FOREIGN KEY (tag_id) REFERENCES tags (id) ON DELETE CASCADE
+	);
 
-CREATE TABLE IF NOT EXISTS comments (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	article_id INTEGER NOT NULL,
-	username TEXT NOT NULL,
-	body TEXT NOT NULL,
-	created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
-	updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
-	FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE
-);
+CREATE TABLE
+	comments (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		article_id INTEGER NOT NULL,
+		username TEXT NOT NULL,
+		body TEXT NOT NULL,
+		created_at TEXT NOT NULL DEFAULT (strftime ('%Y-%m-%dT%H:%M:%fZ', 'now')),
+		updated_at TEXT NOT NULL DEFAULT (strftime ('%Y-%m-%dT%H:%M:%fZ', 'now')),
+		FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE
+	);
 
-CREATE INDEX IF NOT EXISTS idx_articles_created_at ON articles(created_at DESC);
-CREATE INDEX IF NOT EXISTS idx_articles_username ON articles(username);
-CREATE INDEX IF NOT EXISTS idx_comments_article_id ON comments(article_id);
-CREATE INDEX IF NOT EXISTS idx_tags_name ON tags(name);
+CREATE INDEX idx_articles_created_at ON articles (created_at DESC);
 
-INSERT OR IGNORE INTO articles (slug, username, title, description, body, created_at, updated_at)
+CREATE INDEX idx_articles_username ON articles (username);
+
+CREATE INDEX idx_comments_article_id ON comments (article_id);
+
+CREATE INDEX idx_tags_name ON tags (name);
+
+INSERT INTO
+	articles (
+		slug,
+		username,
+		title,
+		description,
+		body,
+		created_at,
+		updated_at
+	)
 VALUES
 	(
 		'ru-he-xie-di-yi-pian-ji-shu-wen-zhang',
@@ -54,7 +69,7 @@ VALUES
 		'把学习过程写下来，就是最好的开始。',
 		'很多人觉得技术文章必须非常高级，其实不一定。
 
-你可以先从一次踩坑、一个小工具、一个读书笔记开始。苹果社区希望让写作这件事变得更轻松。',
+你可以先从一次踩坑、一个小工具、一个读书笔记开始。简单论坛希望让写作这件事变得更轻松。',
 		'2026-01-20T08:00:00.000Z',
 		'2026-01-20T08:00:00.000Z'
 	),
@@ -72,16 +87,917 @@ VALUES
 	(
 		'ping-guo-she-qu-shi-yong-shuo-ming',
 		'Leo',
-		'苹果社区使用说明',
+		'简单论坛使用说明',
 		'一个轻量的中文文章与评论社区。',
-		'苹果社区不需要注册账号。
+		'简单论坛不需要注册账号。
 
 发布文章或评论时，只需要填写一个用户名。头像会自动使用用户名首字母。',
 		'2026-01-22T08:00:00.000Z',
 		'2026-01-22T08:00:00.000Z'
+	),
+	(
+		'article-001',
+		'小李',
+		'如何写好第一篇技术文章',
+		'开始写作的第一步',
+		'写技术文章不需要完美，先完成比完美更重要。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-002',
+		'小李',
+		'学习编程的正确方式',
+		'方法比努力更重要',
+		'先理解整体，再深入细节。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-003',
+		'小李',
+		'为什么要记录学习过程',
+		'让成长可见',
+		'记录可以帮助你复盘和提升。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-004',
+		'小李',
+		'Java 入门建议',
+		'从基础开始',
+		'掌握语法只是第一步。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-005',
+		'小李',
+		'React 学习路径',
+		'组件化思维',
+		'先学组件，再学状态管理。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-006',
+		'小李',
+		'前端开发核心认知',
+		'理解浏览器',
+		'DOM 和事件是核心。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-007',
+		'小李',
+		'后端开发入门',
+		'服务端思维',
+		'关注数据和接口。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-008',
+		'小李',
+		'什么是好的代码',
+		'可读性优先',
+		'代码是写给人看的。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-009',
+		'小李',
+		'如何提高编码效率',
+		'减少重复工作',
+		'工具很重要。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-010',
+		'小李',
+		'Git 基础使用',
+		'版本管理',
+		'学会 commit 和 branch。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-011',
+		'小李',
+		'理解 HTTP 协议',
+		'请求与响应',
+		'前后端通信基础。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-012',
+		'小李',
+		'数据库入门',
+		'结构化数据',
+		'表设计很重要。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-013',
+		'小李',
+		'SQL 基础语法',
+		'增删改查',
+		'CRUD 是核心。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-014',
+		'小李',
+		'为什么学习框架',
+		'提高效率',
+		'框架不是全部。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-015',
+		'小李',
+		'Spring Boot 简介',
+		'快速构建服务',
+		'约定优于配置。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-016',
+		'小李',
+		'REST API 设计',
+		'接口规范',
+		'保持一致性。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-017',
+		'小李',
+		'调试技巧总结',
+		'定位问题',
+		'日志很重要。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-018',
+		'小李',
+		'如何解决 bug',
+		'拆解问题',
+		'一步一步排查。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-019',
+		'小李',
+		'代码重构原则',
+		'优化结构',
+		'不改变功能。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-020',
+		'小李',
+		'前端状态管理',
+		'数据流',
+		'理解单向数据流。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-021',
+		'小李',
+		'异步编程理解',
+		'Promise 和 async',
+		'避免回调地狱。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-022',
+		'小李',
+		'Node.js 基础',
+		'运行 JS',
+		'服务端 JS 环境。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-023',
+		'小李',
+		'npm 使用技巧',
+		'包管理',
+		'依赖管理核心。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-024',
+		'小李',
+		'pnpm 为什么更快',
+		'磁盘优化',
+		'节省空间。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-025',
+		'小李',
+		'TypeScript 入门',
+		'类型系统',
+		'减少运行错误。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-026',
+		'小李',
+		'设计系统思维',
+		'UI 一致性',
+		'组件复用。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-027',
+		'小李',
+		'前端性能优化',
+		'加载速度',
+		'减少请求。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-028',
+		'小李',
+		'浏览器缓存机制',
+		'提高性能',
+		'减少重复加载。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-029',
+		'小李',
+		'跨域问题解决',
+		'CORS',
+		'理解浏览器限制。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-030',
+		'小李',
+		'安全基础',
+		'XSS 和 CSRF',
+		'防止攻击。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-031',
+		'小李',
+		'微服务概念',
+		'服务拆分',
+		'独立部署。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-032',
+		'小李',
+		'Docker 入门',
+		'容器化',
+		'环境一致性。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-033',
+		'小李',
+		'CI/CD 基础',
+		'自动化部署',
+		'减少人工操作。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-034',
+		'小李',
+		'Linux 基础命令',
+		'系统操作',
+		'开发必备。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-035',
+		'小李',
+		'Shell 脚本',
+		'自动化工具',
+		'提高效率。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-036',
+		'小李',
+		'接口测试',
+		'Postman 使用',
+		'验证 API。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-037',
+		'小李',
+		'单元测试',
+		'JUnit 基础',
+		'保证质量。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-038',
+		'小李',
+		'代码规范',
+		'团队协作',
+		'统一风格。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-039',
+		'小李',
+		'日志系统设计',
+		'排查问题',
+		'记录关键点。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-040',
+		'小李',
+		'系统架构基础',
+		'分层设计',
+		'职责分离。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-041',
+		'小李',
+		'高并发基础',
+		'线程模型',
+		'理解并发。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-042',
+		'小李',
+		'锁机制',
+		'数据一致性',
+		'避免冲突。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-043',
+		'小李',
+		'缓存设计',
+		'Redis 使用',
+		'提升性能。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-044',
+		'小李',
+		'消息队列',
+		'异步处理',
+		'解耦系统。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-045',
+		'小李',
+		'Elasticsearch 简介',
+		'搜索能力',
+		'快速查询。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-046',
+		'小李',
+		'前端路由',
+		'单页应用',
+		'页面切换。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-047',
+		'小李',
+		'React Hooks',
+		'函数组件',
+		'简化状态。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-048',
+		'小李',
+		'Vue vs React',
+		'对比理解',
+		'选择框架。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-049',
+		'小李',
+		'模块化开发',
+		'代码拆分',
+		'提高维护性。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-050',
+		'小李',
+		'依赖管理',
+		'版本控制',
+		'避免冲突。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-051',
+		'小李',
+		'前端工程化',
+		'构建流程',
+		'标准化开发。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-052',
+		'小李',
+		'Webpack 基础',
+		'打包工具',
+		'资源整合。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-053',
+		'小李',
+		'Vite 使用',
+		'快速构建',
+		'开发体验好。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-054',
+		'小李',
+		'浏览器渲染原理',
+		'页面生成',
+		'理解性能瓶颈。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-055',
+		'小李',
+		'DOM 事件机制',
+		'事件流',
+		'捕获与冒泡。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-056',
+		'小李',
+		'函数式编程',
+		'纯函数',
+		'减少副作用。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-057',
+		'小李',
+		'设计模式',
+		'代码复用',
+		'工程经验。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-058',
+		'小李',
+		'单例模式',
+		'对象管理',
+		'全局唯一。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-059',
+		'小李',
+		'工厂模式',
+		'对象创建',
+		'解耦逻辑。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-060',
+		'小李',
+		'观察者模式',
+		'事件驱动',
+		'状态变化通知。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-061',
+		'小李',
+		'HTTP2 简介',
+		'性能优化',
+		'多路复用。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-062',
+		'小李',
+		'HTTPS 原理',
+		'安全通信',
+		'加密传输。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-063',
+		'小李',
+		'JWT 认证',
+		'登录机制',
+		'无状态认证。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-064',
+		'小李',
+		'OAuth 简介',
+		'授权协议',
+		'第三方登录。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-065',
+		'小李',
+		'WebSocket',
+		'实时通信',
+		'双向连接。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-066',
+		'小李',
+		'前端安全',
+		'防攻击',
+		'保护用户。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-067',
+		'小李',
+		'输入验证',
+		'数据校验',
+		'防止脏数据。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-068',
+		'小李',
+		'表单设计',
+		'用户体验',
+		'减少错误。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-069',
+		'小李',
+		'UI 设计原则',
+		'视觉一致',
+		'简洁清晰。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-070',
+		'小李',
+		'交互设计',
+		'用户行为',
+		'减少认知成本。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-071',
+		'小李',
+		'API 设计规范',
+		'统一接口',
+		'易于维护。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-072',
+		'小李',
+		'GraphQL 简介',
+		'查询灵活',
+		'减少请求。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-073',
+		'小李',
+		'前后端分离',
+		'架构模式',
+		'独立开发。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-074',
+		'小李',
+		'SSR vs CSR',
+		'渲染方式',
+		'性能对比。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-075',
+		'小李',
+		'Next.js 入门',
+		'React 框架',
+		'服务端渲染。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-076',
+		'小李',
+		'性能监控',
+		'系统观察',
+		'发现瓶颈。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-077',
+		'小李',
+		'错误处理',
+		'异常机制',
+		'稳定系统。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-078',
+		'小李',
+		'日志分析',
+		'问题定位',
+		'快速排查。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-079',
+		'小李',
+		'系统扩展性',
+		'架构设计',
+		'可扩展性。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-080',
+		'小李',
+		'技术选型',
+		'合理选择',
+		'避免过度设计。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-081',
+		'小李',
+		'代码审查',
+		'团队协作',
+		'提升质量。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-082',
+		'小李',
+		'敏捷开发',
+		'迭代交付',
+		'快速反馈。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-083',
+		'小李',
+		'Scrum 方法',
+		'团队流程',
+		'周期管理。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-084',
+		'小李',
+		'产品思维',
+		'用户导向',
+		'解决问题。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-085',
+		'小李',
+		'MVP 模型',
+		'快速验证',
+		'最小产品。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-086',
+		'小李',
+		'技术成长路径',
+		'长期规划',
+		'持续学习。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-087',
+		'小李',
+		'如何面试',
+		'准备方法',
+		'刷题 + 项目。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-088',
+		'小李',
+		'简历优化',
+		'表达能力',
+		'突出重点。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-089',
+		'小李',
+		'职业发展',
+		'技术路线',
+		'方向选择。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-090',
+		'小李',
+		'跳槽经验',
+		'市场判断',
+		'时机很重要。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-091',
+		'小李',
+		'开源项目经验',
+		'贡献代码',
+		'积累影响力。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-092',
+		'小李',
+		'写博客的意义',
+		'表达思考',
+		'建立影响力。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-093',
+		'小李',
+		'技术影响力',
+		'长期积累',
+		'内容输出。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-094',
+		'小李',
+		'学习效率',
+		'时间管理',
+		'专注很重要。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-095',
+		'小李',
+		'如何坚持学习',
+		'习惯养成',
+		'持续输入输出。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-096',
+		'小李',
+		'AI 辅助编程',
+		'提高效率',
+		'工具使用。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-097',
+		'小李',
+		'未来技术趋势',
+		'技术演进',
+		'保持敏感。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-098',
+		'小李',
+		'工程师思维',
+		'解决问题',
+		'结构化思考。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-099',
+		'小李',
+		'如何做技术分享',
+		'表达能力',
+		'让别人理解。',
+		'2026-06-17',
+		'2026-06-17'
+	),
+	(
+		'article-100',
+		'小李',
+		'总结与复盘',
+		'成长闭环',
+		'不断优化自己。',
+		'2026-06-17',
+		'2026-06-17'
 	);
 
-INSERT OR IGNORE INTO tags (name)
+INSERT INTO
+	tags (name)
 VALUES
 	('技术'),
 	('前端'),
@@ -89,44 +1005,93 @@ VALUES
 	('学习'),
 	('社区');
 
-INSERT OR IGNORE INTO article_tags (article_id, tag_id)
-SELECT articles.id, tags.id
-FROM articles
-JOIN tags ON tags.name IN ('技术', '学习')
-WHERE articles.slug = 'ru-he-xie-di-yi-pian-ji-shu-wen-zhang';
+INSERT INTO
+	article_tags (article_id, tag_id)
+SELECT
+	articles.id,
+	tags.id
+FROM
+	articles
+	JOIN tags ON tags.name IN ('技术', '学习')
+WHERE
+	articles.slug = 'ru-he-xie-di-yi-pian-ji-shu-wen-zhang';
 
-INSERT OR IGNORE INTO article_tags (article_id, tag_id)
-SELECT articles.id, tags.id
-FROM articles
-JOIN tags ON tags.name IN ('前端', 'React', '学习')
-WHERE articles.slug = 'wo-de-qian-duan-xue-xi-lu-xian';
+INSERT INTO
+	article_tags (article_id, tag_id)
+SELECT
+	articles.id,
+	tags.id
+FROM
+	articles
+	JOIN tags ON tags.name IN ('前端', 'React', '学习')
+WHERE
+	articles.slug = 'wo-de-qian-duan-xue-xi-lu-xian';
 
-INSERT OR IGNORE INTO article_tags (article_id, tag_id)
-SELECT articles.id, tags.id
-FROM articles
-JOIN tags ON tags.name IN ('社区', '技术')
-WHERE articles.slug = 'ping-guo-she-qu-shi-yong-shuo-ming';
+INSERT INTO
+	article_tags (article_id, tag_id)
+SELECT
+	articles.id,
+	tags.id
+FROM
+	articles
+	JOIN tags ON tags.name IN ('社区', '技术')
+WHERE
+	articles.slug = 'ping-guo-she-qu-shi-yong-shuo-ming';
 
-INSERT INTO comments (article_id, username, body, created_at, updated_at)
-SELECT id, '小王', '这个社区的规则很简单，适合新手练习。', '2026-01-23T08:00:00.000Z', '2026-01-23T08:00:00.000Z'
-FROM articles
-WHERE slug = 'ru-he-xie-di-yi-pian-ji-shu-wen-zhang'
+INSERT INTO
+	comments (
+		article_id,
+		username,
+		body,
+		created_at,
+		updated_at
+	)
+SELECT
+	id,
+	'小王',
+	'这个社区的规则很简单，适合新手练习。',
+	'2026-01-23T08:00:00.000Z',
+	'2026-01-23T08:00:00.000Z'
+FROM
+	articles
+WHERE
+	slug = 'ru-he-xie-di-yi-pian-ji-shu-wen-zhang'
 	AND NOT EXISTS (
-		SELECT 1
-		FROM comments
-		WHERE comments.article_id = articles.id
+		SELECT
+			1
+		FROM
+			comments
+		WHERE
+			comments.article_id = articles.id
 			AND comments.username = '小王'
 			AND comments.body = '这个社区的规则很简单，适合新手练习。'
 	);
 
-INSERT INTO comments (article_id, username, body, created_at, updated_at)
-SELECT id, '小周', '不用登录就能评论，联调起来很方便。', '2026-01-24T08:00:00.000Z', '2026-01-24T08:00:00.000Z'
-FROM articles
-WHERE slug = 'wo-de-qian-duan-xue-xi-lu-xian'
+INSERT INTO
+	comments (
+		article_id,
+		username,
+		body,
+		created_at,
+		updated_at
+	)
+SELECT
+	id,
+	'小周',
+	'不用登录就能评论，联调起来很方便。',
+	'2026-01-24T08:00:00.000Z',
+	'2026-01-24T08:00:00.000Z'
+FROM
+	articles
+WHERE
+	slug = 'wo-de-qian-duan-xue-xi-lu-xian'
 	AND NOT EXISTS (
-		SELECT 1
-		FROM comments
-		WHERE comments.article_id = articles.id
+		SELECT
+			1
+		FROM
+			comments
+		WHERE
+			comments.article_id = articles.id
 			AND comments.username = '小周'
 			AND comments.body = '不用登录就能评论，联调起来很方便。'
 	);

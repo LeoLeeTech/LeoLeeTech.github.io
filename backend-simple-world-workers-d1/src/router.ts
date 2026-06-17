@@ -1,4 +1,15 @@
-import { createArticle, createComment, deleteArticle, deleteComment, getArticle, listArticles, listComments, listTags, updateArticle, updateComment } from './handlers';
+import {
+	createArticle,
+	createComment,
+	deleteArticle,
+	deleteComment,
+	getArticle,
+	listArticles,
+	listComments,
+	listTags,
+	updateArticle,
+	updateComment,
+} from './handlers';
 import { apiError, empty, json } from './http';
 
 // router.ts 只负责判断“请求走哪个函数”。
@@ -17,7 +28,7 @@ export async function route(request: Request, env: Env): Promise<Response> {
 	// 健康检查接口：打开 Worker 根地址时能看到服务正常。
 	if (pathname === '/') {
 		return json({
-			name: '苹果社区 API',
+			name: '简单论坛 API',
 			status: '正常',
 			database: 'D1',
 		});

@@ -89,7 +89,7 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: '苹果社区',
+          label: '简单论坛',
         },
         // {
         //   type: 'docSidebar',

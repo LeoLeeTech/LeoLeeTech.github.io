@@ -169,7 +169,7 @@ export async function updateComment(request: Request, env: Env, slug: string, co
 		return apiError('评论不存在', 404);
 	}
 
-	// 苹果社区没有登录系统，所以更新评论不检查作者权限。
+	// 简单论坛没有登录系统，所以更新评论不检查作者权限。
 	const payload = await readJson<CommentPayload>(request);
 	const input = payload?.comment ?? {};
 
