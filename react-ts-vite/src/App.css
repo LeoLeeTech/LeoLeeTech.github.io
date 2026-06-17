@@ -204,6 +204,7 @@ button.tag:hover {
 .tag-outline {
   border: 1px solid var(--border);
   background: transparent;
+  color: var(--muted);
 }
 
 /* 右侧热门标签栏 */

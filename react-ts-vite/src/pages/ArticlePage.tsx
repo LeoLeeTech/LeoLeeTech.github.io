@@ -102,12 +102,6 @@ export function ArticlePage({ slug, onNavigate }: ArticlePageProps) {
           <TagList tags={article.tagList} outlined />
         </div>
 
-        <ArticleActions
-          article={article}
-          onEdit={editArticle}
-          onDelete={deleteArticle}
-        />
-
         <CommentComposer
           form={commentForm}
           onChange={setCommentForm}
