@@ -1,6 +1,6 @@
 import { env, createExecutionContext, waitOnExecutionContext, SELF } from 'cloudflare:test';
 import { describe, it, expect } from 'vitest';
-import worker from '../src';
+import worker from '../src/index';
 
 describe('Simple World worker', () => {
 	it('responds with API health metadata (unit style)', async () => {
