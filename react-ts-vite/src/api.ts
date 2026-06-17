@@ -53,7 +53,7 @@ type ListArticlesParams = {
 
 // Vite 中，前端环境变量必须以 VITE_ 开头。
 // 本地联调默认请求 Cloudflare Worker：npm run dev -- --port 8787
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:8787/api'
+const API_BASE_URL = 'http://127.0.0.1:8787/api'
 
 function buildQuery(params: ListArticlesParams) {
   const searchParams = new URLSearchParams()

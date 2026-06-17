@@ -1,9 +1,3 @@
-# 苹果社区前端
-
-这是苹果社区的 React + TypeScript + Vite 前端项目。
-
-它负责展示文章列表、文章详情、标签、评论，以及创建/编辑/删除文章和评论。
-
 ## 技术栈
 
 - React：负责页面和交互
@@ -40,8 +34,6 @@ npm run dev
 ```txt
 http://127.0.0.1:5173
 ```
-
-如果端口被占用，Vite 会自动换一个端口，请看终端输出。
 
 ## 连接后端
 
@@ -107,27 +99,9 @@ npm run dev
 npm run build
 ```
 
-运行 ESLint：
-
-```bash
-npm run lint
-```
 
 ## 部署
 
-前端是静态站点，可以部署到 Vercel、Netlify、Cloudflare Pages 等平台。
-
-构建命令：
-
-```bash
-npm run build
-```
-
-构建产物目录：
-
-```txt
-dist
-```
 
 部署时记得配置生产后端地址：
 

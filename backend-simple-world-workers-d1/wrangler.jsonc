@@ -18,7 +18,8 @@
 		{
 			"binding": "DB",
 			"database_name": "simple-world-db",
-			"database_id": "a6d21a51-9192-4a97-a0c7-749bb7a3774e"
+			"database_id": "a6d21a51-9192-4a97-a0c7-749bb7a3774e",
+			"remote": true
 		}
 	]
 	/**

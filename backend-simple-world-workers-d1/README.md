@@ -1,15 +1,8 @@
-# 苹果社区后端 Worker
-
-这是苹果社区的 Cloudflare Workers + D1 后端项目。
-
-它提供文章、评论、标签接口，并把数据存到 Cloudflare D1 数据库中。
-
 ## 技术栈
 
 - Cloudflare Workers：运行后端接口
 - D1：Cloudflare 提供的 SQLite 数据库
-- TypeScript：给 Worker、D1 查询和接口数据添加类型
-- Wrangler：Cloudflare 官方开发和部署工具
+- TypeScript：给 Worker 代码添加类型提示，减少低级错误
 
 ## 项目结构
 
@@ -23,14 +16,22 @@ src/
   types.ts      # TypeScript 类型定义
   utils.ts      # 通用工具函数
 
-migrations/
-  0001_schema.sql # 建表 SQL
-  0002_seed.sql   # 初始化假数据 SQL
+schema.sql      # 建表语句和初始化假数据，全部写在这一个文件里
+wrangler.jsonc  # Cloudflare Worker 和 D1 绑定配置
 ```
 
-## 本地启动
+## 为什么现在默认连接远程 D1？
 
-第一次启动前安装依赖：
+Cloudflare Wrangler 为了保护线上数据，`wrangler dev` 默认使用本地 D1。这样本地调试时即使误删数据，也不会影响远端数据库。
+
+这个项目现在按你的需求改成了默认连接远程 D1：
+
+- `package.json` 里的 `npm run dev` 和 `npm start` 都执行 `wrangler dev --remote`
+- `wrangler.jsonc` 里的 D1 绑定也设置了 `"remote": true`
+
+也就是说，本地启动 Worker 后，前端新增、编辑、删除文章和评论，都会直接写入 Cloudflare 远程 D1。
+
+## 安装依赖
 
 ```bash
 npm install
@@ -42,16 +43,36 @@ npm install
 npx wrangler types
 ```
 
-应用本地 D1 数据库迁移：
+## 初始化数据库
+
+这个项目不使用 migrations，只保留一个最基础的 SQL 文件：`schema.sql`。
+
+初始化远程 D1：
 
 ```bash
-npx wrangler d1 migrations apply simple-world-db --local
+npm run db:init:remote
 ```
 
-启动 Worker：
+初始化本地 D1：
+
+```bash
+npm run db:init:local
+```
+
+`schema.sql` 默认使用 `CREATE TABLE IF NOT EXISTS`、`INSERT OR IGNORE` 和 `NOT EXISTS`，所以重复执行时不会主动删除、清空、更新已有数据，也不会重复插入内置评论。
+
+## 启动项目
+
+默认连接远程 D1：
 
 ```bash
 npm run dev -- --port 8787
+```
+
+如果你临时想使用本地 D1，执行下面这个命令。它会通过 `--local` 关闭远程绑定：
+
+```bash
+npm run dev:local -- --port 8787
 ```
 
 本地后端地址：
@@ -66,51 +87,25 @@ API 前缀：
 http://127.0.0.1:8787/api
 ```
 
-## 常用接口
+## 什么操作会覆盖远端？
 
-```txt
-GET    /api/articles
-POST   /api/articles
-GET    /api/articles/:slug
-PUT    /api/articles/:slug
-DELETE /api/articles/:slug
+只要命令里带了 `--remote`，或者启动的是远程绑定模式，本地操作就会直接作用到 Cloudflare 远程 D1。
 
-GET    /api/articles/:slug/comments
-POST   /api/articles/:slug/comments
-PUT    /api/articles/:slug/comments/:id
-DELETE /api/articles/:slug/comments/:id
+会修改远端数据的典型情况：
 
-GET    /api/tags
-```
+- 执行 `wrangler d1 execute simple-world-db --remote --file ./某个.sql`
+- 这个 SQL 文件里包含 `DROP TABLE`、`DELETE`、`UPDATE`、`INSERT` 等写入语句
+- 使用 `npm run dev` 启动后，在页面上新增、编辑、删除文章或评论
+- 通过 curl、Postman 或前端调用 `POST`、`PUT`、`DELETE` 接口
 
-## 本地调试
+之前远端内容会被改，是因为执行过远程 D1 SQL，并且旧 SQL 里有 `UPDATE`、`DELETE` 这类会改已有数据的语句。D1 会忠实执行这些 SQL，所以看起来就像“覆盖了远端”。
 
-健康检查：
+## 怎么避免覆盖远端？
 
-```bash
-curl http://127.0.0.1:8787/
-```
-
-查看文章列表：
-
-```bash
-curl 'http://127.0.0.1:8787/api/articles?limit=10'
-```
-
-创建文章：
-
-```bash
-curl -X POST http://127.0.0.1:8787/api/articles \
-  -H 'Content-Type: application/json' \
-  -d '{"article":{"username":"小李","title":"我的第一篇文章","description":"用苹果社区记录一下学习过程","body":"大家好，这是我在苹果社区发布的第一篇文章。","tagList":["技术","学习"]}}'
-```
-
-如果接口返回 500，优先检查：
-
-- `src/handlers.ts`：业务逻辑是否抛错
-- `src/db.ts`：SQL 是否写错
-- `migrations/`：本地 D1 是否已经建表
-- 终端中的 Wrangler 日志
+- 日常练习优先用 `npm run dev:local`，让数据写到本地 D1
+- 不要对远程 D1 执行包含 `DROP TABLE`、`DELETE`、`UPDATE` 的 SQL
+- 初始化脚本尽量使用 `CREATE TABLE IF NOT EXISTS` 和 `INSERT OR IGNORE`
+- 真要清空远端前，先在 Cloudflare 控制台或 Wrangler 中确认数据库和命令
 
 ## 类型检查和测试
 
@@ -118,12 +113,6 @@ curl -X POST http://127.0.0.1:8787/api/articles \
 
 ```bash
 npm run typecheck
-```
-
-运行测试：
-
-```bash
-npm test
 ```
 
 部署前 dry-run：
@@ -140,12 +129,7 @@ npx wrangler deploy --dry-run
 database_name = simple-world-db
 database_id   = a6d21a51-9192-4a97-a0c7-749bb7a3774e
 binding       = DB
-```
-
-把迁移应用到远程 D1：
-
-```bash
-npx wrangler d1 migrations apply simple-world-db --remote
+remote        = true
 ```
 
 ## 部署
@@ -160,10 +144,4 @@ npx wrangler login
 
 ```bash
 npm run deploy
-```
-
-部署完成后，把前端项目里的 `VITE_API_BASE_URL` 改成线上 Worker 地址：
-
-```env
-VITE_API_BASE_URL=https://你的-worker域名/api
 ```

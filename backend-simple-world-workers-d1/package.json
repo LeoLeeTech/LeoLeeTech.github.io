@@ -3,9 +3,12 @@
   "version": "0.0.0",
   "private": true,
 	"scripts": {
+		"db:init:local": "wrangler d1 execute simple-world-db --local --file ./schema.sql",
+		"db:init:remote": "wrangler d1 execute simple-world-db --remote --file ./schema.sql",
 		"deploy": "wrangler deploy",
-		"dev": "wrangler dev",
-		"start": "wrangler dev",
+		"dev": "wrangler dev --remote",
+		"dev:local": "wrangler dev --local",
+		"start": "wrangler dev --remote",
 		"test": "npm run typecheck && vitest",
 		"typecheck": "tsc --noEmit"
 	},
