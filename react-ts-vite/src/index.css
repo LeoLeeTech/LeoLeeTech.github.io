@@ -1,3 +1,4 @@
+/* 全局 CSS 变量：把项目常用颜色和字体集中放在这里，后面复用更方便 */
 :root {
   --green: #5cb85c;
   --green-dark: #3d8b3d;
@@ -23,16 +24,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* 所有元素都使用 border-box，宽高计算更直觉 */
 * {
   box-sizing: border-box;
 }
 
+/* body 是整个页面的最外层默认样式 */
 body {
   margin: 0;
   min-width: 320px;
   background: var(--surface);
 }
 
+/* 表单元素默认继承页面字体，否则浏览器会给 input/textarea 自己的字体 */
 button,
 input,
 textarea {
@@ -57,6 +61,7 @@ h3 {
   line-height: 1.2;
 }
 
+/* root 是 React 挂载的根节点 */
 #root {
   min-height: 100vh;
   display: flex;

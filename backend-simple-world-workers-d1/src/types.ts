@@ -1,3 +1,6 @@
+// 这个文件只放类型定义。
+// 类型就像“数据说明书”：告诉 TypeScript 每个对象应该有哪些字段。
+
 export type Author = {
 	username: string;
 	avatarInitial: string;

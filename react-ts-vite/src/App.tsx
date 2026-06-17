@@ -4,6 +4,8 @@ import { api } from './api'
 import type { Article, ArticleInput, ArticlePreview, Comment, CommentInput } from './api'
 import './App.css'
 
+// 这里没有使用 react-router，是为了让新手更容易看懂。
+// route 就是当前“页面状态”：home 首页、editor 编辑页、article 文章详情页。
 type Route =
   | { name: 'home' }
   | { name: 'editor'; slug?: string }
@@ -25,6 +27,7 @@ const emptyCommentForm: CommentFormState = {
   body: '',
 }
 
+// 后端给的是 ISO 时间字符串，这里统一格式化成可读日期。
 const formatDate = (value: string) =>
   new Intl.DateTimeFormat('en', {
     month: 'long',
@@ -32,6 +35,7 @@ const formatDate = (value: string) =>
     year: 'numeric',
   }).format(new Date(value))
 
+// 标签输入框中用逗号分隔，例如：react, workers, d1
 const parseTags = (value: string) =>
   value
     .split(',')
@@ -39,6 +43,7 @@ const parseTags = (value: string) =>
     .filter(Boolean)
 
 function Avatar({ username }: { username: string }) {
+  // Simple World 没有上传头像功能，所以头像直接取用户名首字母大写。
   return <span className="avatar">{username.trim().charAt(0).toUpperCase() || '?'}</span>
 }
 
@@ -49,6 +54,7 @@ function Header({
   route: Route
   onNavigate: (route: Route) => void
 }) {
+  // Header 只负责顶部导航，不负责请求数据。
   const isHome = route.name === 'home'
   const isEditor = route.name === 'editor'
 
@@ -86,10 +92,13 @@ function HomePage({
   const [tags, setTags] = useState<string[]>([])
   const [selectedTag, setSelectedTag] = useState<string | undefined>()
   const [page, setPage] = useState(1)
+  const [articlesCount, setArticlesCount] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
+  const [errorMessage, setErrorMessage] = useState('')
   const pageSize = 2
 
   useEffect(() => {
+    // isActive 是一个小保护：如果组件卸载了，旧请求回来时就不要再 setState。
     let isActive = true
 
     Promise.all([
@@ -103,7 +112,13 @@ function HomePage({
       .then(([articleResponse, tagResponse]) => {
         if (!isActive) return
         setArticles(articleResponse.articles)
+        setArticlesCount(articleResponse.articlesCount)
         setTags(tagResponse.tags)
+        setErrorMessage('')
+      })
+      .catch((error) => {
+        if (!isActive) return
+        setErrorMessage(error instanceof Error ? error.message : 'Failed to load articles')
       })
       .finally(() => {
         if (isActive) setIsLoading(false)
@@ -114,7 +129,11 @@ function HomePage({
     }
   }, [page, selectedTag])
 
-  const visiblePages = useMemo(() => [1, 2, 3], [])
+  // 后端返回 articlesCount，前端据此计算需要显示几个分页按钮。
+  const visiblePages = useMemo(() => {
+    const totalPages = Math.max(Math.ceil(articlesCount / pageSize), 1)
+    return Array.from({ length: totalPages }, (_, index) => index + 1)
+  }, [articlesCount])
 
   return (
     <main className="home-page">
@@ -143,6 +162,8 @@ function HomePage({
 
           {isLoading ? (
             <p className="empty-state">Loading articles...</p>
+          ) : errorMessage ? (
+            <p className="empty-state">{errorMessage}</p>
           ) : articles.length === 0 ? (
             <p className="empty-state">No articles are here yet.</p>
           ) : (
@@ -220,6 +241,7 @@ function EditorPage({
   slug?: string
   onNavigate: (route: Route) => void
 }) {
+  // 如果有 slug，说明是编辑已有文章；没有 slug，说明是新建文章。
   const [form, setForm] = useState<ArticleFormState>(emptyArticleForm)
   const [tagInput, setTagInput] = useState('')
   const [errors, setErrors] = useState<string[]>([])
@@ -230,6 +252,7 @@ function EditorPage({
       return
     }
 
+    // 编辑文章时，先从后端拉取原文章，再填充到表单里。
     api.getArticle(slug).then(({ article }) => {
       setForm({
         username: article.author.username,
@@ -248,6 +271,7 @@ function EditorPage({
 
   const submitArticle = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    // 提交前做最基本的前端校验，避免空内容直接发给后端。
     const nextForm = { ...form, tagList: parseTags(tagInput) }
     const nextErrors = [
       !nextForm.username.trim() ? 'Username is required' : '',
@@ -341,6 +365,7 @@ function ArticlePage({
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null)
   const [editingCommentForm, setEditingCommentForm] = useState<CommentFormState>(emptyCommentForm)
 
+  // 文章详情和评论列表经常需要一起刷新，所以封装成一个函数复用。
   const refreshArticle = async () => {
     const [articleResponse, commentResponse] = await Promise.all([
       api.getArticle(slug),
@@ -353,6 +378,7 @@ function ArticlePage({
   useEffect(() => {
     let isActive = true
 
+    // 进入文章详情页时，同时请求文章内容和评论列表。
     Promise.all([
       api.getArticle(slug),
       api.listComments(slug),
@@ -374,6 +400,7 @@ function ArticlePage({
   const submitComment = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!commentForm.username.trim() || !commentForm.body.trim()) return
+    // 评论创建成功后，清空输入框并重新拉取评论列表。
     await api.createComment(article.slug, commentForm)
     setCommentForm(emptyCommentForm)
     await refreshArticle()
@@ -391,6 +418,7 @@ function ArticlePage({
   }
 
   const deleteArticle = async () => {
+    // Simple World 没有账号和权限系统，所以任何人都能删除文章。
     await api.deleteArticle(article.slug)
     onNavigate({ name: 'home' })
   }

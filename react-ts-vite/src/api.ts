@@ -1,3 +1,7 @@
+// 这个文件专门负责“和后端说话”。
+// 初学者可以把它理解成：页面组件不直接写 fetch，而是统一调用这里的 api.xxx 方法。
+// 这样以后后端地址、请求头、错误处理变化时，只需要改这一个文件。
+
 export type Author = {
   username: string
   avatarInitial: string
@@ -14,6 +18,7 @@ export type Article = {
   author: Author
 }
 
+// 首页列表不需要文章正文，所以用 Omit 去掉 body 字段。
 export type ArticlePreview = Omit<Article, 'body'>
 
 export type Comment = {
@@ -24,6 +29,7 @@ export type Comment = {
   author: Author
 }
 
+// 创建/编辑文章时，前端表单需要提交给后端的数据。
 export type ArticleInput = {
   username: string
   title: string
@@ -32,6 +38,7 @@ export type ArticleInput = {
   tagList: string[]
 }
 
+// 创建/编辑评论时，前端表单需要提交给后端的数据。
 export type CommentInput = {
   username: string
   body: string
@@ -44,102 +51,27 @@ type ListArticlesParams = {
   offset?: number
 }
 
-const API_BASE_URL = '/api'
-const USE_MOCK_API = true
+// Vite 中，前端环境变量必须以 VITE_ 开头。
+// 本地联调默认请求 Cloudflare Worker：npm run dev -- --port 8787
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:8787/api'
 
-const now = () => new Date().toISOString()
+function buildQuery(params: ListArticlesParams) {
+  const searchParams = new URLSearchParams()
 
-const avatarInitial = (username: string) =>
-  username.trim().charAt(0).toUpperCase() || '?'
+  if (params.tag) searchParams.set('tag', params.tag)
+  if (params.author) searchParams.set('author', params.author)
+  if (params.limit) searchParams.set('limit', String(params.limit))
+  if (params.offset) searchParams.set('offset', String(params.offset))
 
-const toAuthor = (username: string): Author => ({
-  username: username.trim(),
-  avatarInitial: avatarInitial(username),
-})
-
-const slugify = (value: string) =>
-  value
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 80) || `article-${Date.now()}`
-
-const uniqueSlug = (title: string, currentSlug?: string) => {
-  const baseSlug = slugify(title)
-  let slug = baseSlug
-  let suffix = 2
-
-  while (articles.some((article) => article.slug === slug && article.slug !== currentSlug)) {
-    slug = `${baseSlug}-${suffix}`
-    suffix += 1
-  }
-
-  return slug
+  const query = searchParams.toString()
+  return query ? `?${query}` : ''
 }
 
-let articles: Article[] = [
-  {
-    slug: 'how-to-build-webapps-that-scale',
-    title: 'How to build webapps that scale',
-    description: 'This is the description for the post.',
-    body:
-      'Web development technologies have evolved at an incredible clip over the past few years.\n\nSimple World keeps the core idea small: write articles, leave comments, and keep moving.',
-    tagList: ['realworld', 'implementations'],
-    createdAt: '2016-01-20T08:00:00.000Z',
-    updatedAt: '2016-01-20T08:00:00.000Z',
-    author: toAuthor('jake'),
-  },
-  {
-    slug: 'the-song-you',
-    title: "The song you won't ever stop singing. No matter how hard you try.",
-    description: 'A short note about the kind of article title that begs to be clicked.',
-    body:
-      'This article is fake data, but the screen flow is real.\n\nWhen the backend is ready, the API layer already knows where to call.',
-    tagList: ['react', 'vite'],
-    createdAt: '2016-01-21T08:00:00.000Z',
-    updatedAt: '2016-01-21T08:00:00.000Z',
-    author: toAuthor('albert'),
-  },
-  {
-    slug: 'simple-world-notes',
-    title: 'Simple World notes',
-    description: 'A tiny publishing app without accounts, passwords, or permission ceremony.',
-    body:
-      'Simple World only asks for a username when someone writes an article or comment.\n\nThe first letter becomes the avatar.',
-    tagList: ['simple-world', 'react'],
-    createdAt: '2016-01-22T08:00:00.000Z',
-    updatedAt: '2016-01-22T08:00:00.000Z',
-    author: toAuthor('leo'),
-  },
-]
-
-const commentsBySlug: Record<string, Comment[]> = {
-  'how-to-build-webapps-that-scale': [
-    {
-      id: 1,
-      createdAt: '2016-01-23T08:00:00.000Z',
-      updatedAt: '2016-01-23T08:00:00.000Z',
-      body: 'This keeps the demo focused. I like it.',
-      author: toAuthor('jacob'),
-    },
-  ],
-  'the-song-you': [
-    {
-      id: 2,
-      createdAt: '2016-01-24T08:00:00.000Z',
-      updatedAt: '2016-01-24T08:00:00.000Z',
-      body: 'No login wall, just write.',
-      author: toAuthor('nora'),
-    },
-  ],
-  'simple-world-notes': [],
-}
-
-let nextCommentId = 3
-
-const wait = async () => new Promise((resolve) => window.setTimeout(resolve, 120))
-
+// 所有请求都会经过这个函数。
+// 它做了三件事：
+// 1. 拼接后端地址
+// 2. 默认带上 JSON 请求头
+// 3. 后端返回错误状态码时抛出异常
 async function requestJson<TResponse>(
   path: string,
   options: RequestInit = {},
@@ -153,9 +85,11 @@ async function requestJson<TResponse>(
   })
 
   if (!response.ok) {
-    throw new Error(`Request failed: ${response.status}`)
+    const errorText = await response.text()
+    throw new Error(errorText || `Request failed: ${response.status}`)
   }
 
+  // DELETE 接口通常返回 204 No Content，没有 JSON body。
   if (response.status === 204) {
     return undefined as TResponse
   }
@@ -164,216 +98,64 @@ async function requestJson<TResponse>(
 }
 
 export const api = {
-  async listArticles(params: ListArticlesParams = {}) {
-    if (!USE_MOCK_API) {
-      const searchParams = new URLSearchParams()
-      if (params.tag) searchParams.set('tag', params.tag)
-      if (params.author) searchParams.set('author', params.author)
-      if (params.limit) searchParams.set('limit', String(params.limit))
-      if (params.offset) searchParams.set('offset', String(params.offset))
-      const query = searchParams.toString()
-      return requestJson<{ articles: ArticlePreview[]; articlesCount: number }>(
-        `/articles${query ? `?${query}` : ''}`,
-      )
-    }
+  listArticles(params: ListArticlesParams = {}) {
+    return requestJson<{ articles: ArticlePreview[]; articlesCount: number }>(
+      `/articles${buildQuery(params)}`,
+    )
+  },
 
-    await wait()
-    const filteredArticles = articles.filter((article) => {
-      const matchesTag = params.tag ? article.tagList.includes(params.tag) : true
-      const matchesAuthor = params.author ? article.author.username === params.author : true
-      return matchesTag && matchesAuthor
+  getArticle(slug: string) {
+    return requestJson<{ article: Article }>(`/articles/${encodeURIComponent(slug)}`)
+  },
+
+  createArticle(input: ArticleInput) {
+    return requestJson<{ article: Article }>('/articles', {
+      method: 'POST',
+      body: JSON.stringify({ article: input }),
     })
-    const offset = params.offset ?? 0
-    const limit = params.limit ?? filteredArticles.length
-    const pagedArticles = filteredArticles.slice(offset, offset + limit)
-
-    return {
-      articles: pagedArticles.map(({
-        slug,
-        title,
-        description,
-        tagList,
-        createdAt,
-        updatedAt,
-        author,
-      }) => ({
-        slug,
-        title,
-        description,
-        tagList,
-        createdAt,
-        updatedAt,
-        author,
-      })),
-      articlesCount: filteredArticles.length,
-    }
   },
 
-  async getArticle(slug: string) {
-    if (!USE_MOCK_API) {
-      return requestJson<{ article: Article }>(`/articles/${slug}`)
-    }
-
-    await wait()
-    const article = articles.find((item) => item.slug === slug)
-    if (!article) {
-      throw new Error('Article not found')
-    }
-
-    return { article }
-  },
-
-  async createArticle(input: ArticleInput) {
-    if (!USE_MOCK_API) {
-      return requestJson<{ article: Article }>('/articles', {
-        method: 'POST',
-        body: JSON.stringify({ article: input }),
-      })
-    }
-
-    await wait()
-    const timestamp = now()
-    const article: Article = {
-      slug: uniqueSlug(input.title),
-      title: input.title.trim(),
-      description: input.description.trim(),
-      body: input.body.trim(),
-      tagList: input.tagList,
-      createdAt: timestamp,
-      updatedAt: timestamp,
-      author: toAuthor(input.username),
-    }
-    articles = [article, ...articles]
-    commentsBySlug[article.slug] = []
-
-    return { article }
-  },
-
-  async updateArticle(slug: string, input: ArticleInput) {
-    if (!USE_MOCK_API) {
-      return requestJson<{ article: Article }>(`/articles/${slug}`, {
-        method: 'PUT',
-        body: JSON.stringify({ article: input }),
-      })
-    }
-
-    await wait()
-    const articleIndex = articles.findIndex((article) => article.slug === slug)
-    if (articleIndex < 0) {
-      throw new Error('Article not found')
-    }
-
-    const currentArticle = articles[articleIndex]
-    const nextSlug = uniqueSlug(input.title, currentArticle.slug)
-    const updatedArticle: Article = {
-      ...currentArticle,
-      slug: nextSlug,
-      title: input.title.trim(),
-      description: input.description.trim(),
-      body: input.body.trim(),
-      tagList: input.tagList,
-      updatedAt: now(),
-      author: toAuthor(input.username),
-    }
-
-    articles = articles.map((article) => (article.slug === slug ? updatedArticle : article))
-    if (nextSlug !== slug) {
-      commentsBySlug[nextSlug] = commentsBySlug[slug] ?? []
-      delete commentsBySlug[slug]
-    }
-
-    return { article: updatedArticle }
+  updateArticle(slug: string, input: ArticleInput) {
+    return requestJson<{ article: Article }>(`/articles/${encodeURIComponent(slug)}`, {
+      method: 'PUT',
+      body: JSON.stringify({ article: input }),
+    })
   },
 
   async deleteArticle(slug: string) {
-    if (!USE_MOCK_API) {
-      await requestJson<void>(`/articles/${slug}`, { method: 'DELETE' })
-      return
-    }
-
-    await wait()
-    articles = articles.filter((article) => article.slug !== slug)
-    delete commentsBySlug[slug]
+    await requestJson<void>(`/articles/${encodeURIComponent(slug)}`, { method: 'DELETE' })
   },
 
-  async listTags() {
-    if (!USE_MOCK_API) {
-      return requestJson<{ tags: string[] }>('/tags')
-    }
-
-    await wait()
-    const tags = Array.from(new Set(articles.flatMap((article) => article.tagList))).sort()
-    return { tags }
+  listTags() {
+    return requestJson<{ tags: string[] }>('/tags')
   },
 
-  async listComments(slug: string) {
-    if (!USE_MOCK_API) {
-      return requestJson<{ comments: Comment[] }>(`/articles/${slug}/comments`)
-    }
-
-    await wait()
-    return { comments: commentsBySlug[slug] ?? [] }
+  listComments(slug: string) {
+    return requestJson<{ comments: Comment[] }>(
+      `/articles/${encodeURIComponent(slug)}/comments`,
+    )
   },
 
-  async createComment(slug: string, input: CommentInput) {
-    if (!USE_MOCK_API) {
-      return requestJson<{ comment: Comment }>(`/articles/${slug}/comments`, {
-        method: 'POST',
-        body: JSON.stringify({ comment: input }),
-      })
-    }
-
-    await wait()
-    const timestamp = now()
-    const comment: Comment = {
-      id: nextCommentId,
-      createdAt: timestamp,
-      updatedAt: timestamp,
-      body: input.body.trim(),
-      author: toAuthor(input.username),
-    }
-    nextCommentId += 1
-    commentsBySlug[slug] = [...(commentsBySlug[slug] ?? []), comment]
-
-    return { comment }
+  createComment(slug: string, input: CommentInput) {
+    return requestJson<{ comment: Comment }>(`/articles/${encodeURIComponent(slug)}/comments`, {
+      method: 'POST',
+      body: JSON.stringify({ comment: input }),
+    })
   },
 
-  async updateComment(slug: string, id: number, input: CommentInput) {
-    if (!USE_MOCK_API) {
-      return requestJson<{ comment: Comment }>(`/articles/${slug}/comments/${id}`, {
+  updateComment(slug: string, id: number, input: CommentInput) {
+    return requestJson<{ comment: Comment }>(
+      `/articles/${encodeURIComponent(slug)}/comments/${id}`,
+      {
         method: 'PUT',
         body: JSON.stringify({ comment: input }),
-      })
-    }
-
-    await wait()
-    const comments = commentsBySlug[slug] ?? []
-    let updatedComment: Comment | undefined
-    commentsBySlug[slug] = comments.map((comment) => {
-      if (comment.id !== id) return comment
-      updatedComment = {
-        ...comment,
-        body: input.body.trim(),
-        updatedAt: now(),
-        author: toAuthor(input.username),
-      }
-      return updatedComment
-    })
-
-    if (!updatedComment) {
-      throw new Error('Comment not found')
-    }
-
-    return { comment: updatedComment }
+      },
+    )
   },
 
   async deleteComment(slug: string, id: number) {
-    if (!USE_MOCK_API) {
-      await requestJson<void>(`/articles/${slug}/comments/${id}`, { method: 'DELETE' })
-      return
-    }
-
-    await wait()
-    commentsBySlug[slug] = (commentsBySlug[slug] ?? []).filter((comment) => comment.id !== id)
+    await requestJson<void>(`/articles/${encodeURIComponent(slug)}/comments/${id}`, {
+      method: 'DELETE',
+    })
   },
 }

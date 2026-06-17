@@ -1,3 +1,4 @@
+-- 初始化一些文章数据，方便本地启动后立刻看到页面效果。
 INSERT INTO articles (slug, username, title, description, body, created_at, updated_at)
 VALUES
 	(
@@ -34,6 +35,7 @@ The first letter becomes the avatar.',
 		'2016-01-22T08:00:00.000Z'
 	);
 
+-- 初始化标签。
 INSERT INTO tags (name)
 VALUES
 	('react'),
@@ -42,24 +44,28 @@ VALUES
 	('simple-world'),
 	('demo');
 
+-- 给第一篇文章绑定标签。
 INSERT INTO article_tags (article_id, tag_id)
 SELECT articles.id, tags.id
 FROM articles
 JOIN tags ON tags.name IN ('react', 'demo')
 WHERE articles.slug = 'how-to-build-webapps-that-scale';
 
+-- 给第二篇文章绑定标签。
 INSERT INTO article_tags (article_id, tag_id)
 SELECT articles.id, tags.id
 FROM articles
 JOIN tags ON tags.name IN ('simple-world', 'demo')
 WHERE articles.slug = 'the-song-you';
 
+-- 给第三篇文章绑定标签。
 INSERT INTO article_tags (article_id, tag_id)
 SELECT articles.id, tags.id
 FROM articles
 JOIN tags ON tags.name IN ('simple-world', 'workers', 'd1')
 WHERE articles.slug = 'simple-world-notes';
 
+-- 初始化评论数据。
 INSERT INTO comments (article_id, username, body, created_at, updated_at)
 SELECT id, 'jacob', 'This keeps the demo focused. I like it.', '2016-01-23T08:00:00.000Z', '2016-01-23T08:00:00.000Z'
 FROM articles

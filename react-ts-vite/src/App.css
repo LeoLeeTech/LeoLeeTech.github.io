@@ -1,3 +1,4 @@
+/* 顶部导航栏：左边是品牌，右边是页面入口 */
 .navbar {
   height: 56px;
   border-bottom: 1px solid var(--border);
@@ -39,6 +40,7 @@
   color: var(--text);
 }
 
+/* 通用容器：让页面内容居中，并限制最大宽度 */
 .container {
   max-width: 1120px;
   margin: 0 auto;
@@ -49,6 +51,7 @@
   max-width: 820px;
 }
 
+/* 首页绿色 Banner */
 .banner {
   background: var(--green);
   color: white;
@@ -67,6 +70,7 @@
   font-size: 1.2rem;
 }
 
+/* 首页主体布局：左边文章列表，右边标签栏 */
 .page-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 260px;
@@ -75,6 +79,7 @@
   padding-bottom: 48px;
 }
 
+/* 首页文章列表顶部的切换标签 */
 .feed-toggle {
   border-bottom: 1px solid var(--border);
   display: flex;
@@ -97,6 +102,7 @@
   color: var(--green);
 }
 
+/* 单篇文章预览卡片 */
 .article-preview {
   padding: 24px 0;
   border-bottom: 1px solid var(--border);
@@ -109,6 +115,7 @@
   flex-wrap: wrap;
 }
 
+/* 用户头像：Simple World 用用户名首字母作为头像 */
 .avatar {
   width: 34px;
   height: 34px;
@@ -164,6 +171,7 @@
   font-size: 0.9rem;
 }
 
+/* 标签样式，例如 react、workers、d1 */
 .tag-list {
   display: flex;
   flex-wrap: wrap;
@@ -198,6 +206,7 @@ button.tag:hover {
   background: transparent;
 }
 
+/* 右侧热门标签栏 */
 .sidebar {
   background: var(--soft);
   border-radius: 6px;
@@ -215,6 +224,7 @@ button.tag:hover {
   margin-top: 0;
 }
 
+/* 分页按钮 */
 .pagination {
   display: flex;
   gap: 6px;
@@ -236,6 +246,7 @@ button.tag:hover {
   color: white;
 }
 
+/* 编辑文章页面和评论编辑表单都会用到这些表单样式 */
 .editor-page {
   padding: 42px 24px 56px;
 }
@@ -320,6 +331,7 @@ button.tag:hover {
   margin: 0 0 20px;
 }
 
+/* 文章详情页顶部深色 Banner */
 .article-hero {
   background: var(--dark);
   color: white;
@@ -336,6 +348,7 @@ button.tag:hover {
   color: white;
 }
 
+/* 文章正文区域 */
 .article-body {
   padding: 36px 0 26px;
   border-bottom: 1px solid var(--border);
@@ -353,6 +366,7 @@ button.tag:hover {
   border-bottom: 1px solid var(--border);
 }
 
+/* 评论表单和评论卡片 */
 .comment-form,
 .comment-card {
   border: 1px solid var(--border);
@@ -414,6 +428,7 @@ button.tag:hover {
   gap: 8px;
 }
 
+/* 页面底部说明 */
 .site-footer {
   border-top: 1px solid var(--border);
   color: var(--muted);
@@ -433,6 +448,7 @@ button.tag:hover {
   padding: 32px 0;
 }
 
+/* 小屏幕适配：手机上改成单列布局 */
 @media (max-width: 760px) {
   .navbar {
     padding: 0 14px;

@@ -1,6 +1,11 @@
 import type { ArticleIdRow, ArticleListParams, ArticleRow, CommentRow, CountRow, TagRow } from './types';
 import { normalizeTags, slugify } from './utils';
 
+// db.ts 是“数据库访问层”。
+// 这里集中写 SQL，其他文件只调用函数，不直接关心表结构细节。
+
+// 文章查询的公共 SELECT 片段。
+// GROUP_CONCAT 会把一篇文章的多个标签合并成 "react,d1,workers" 这样的字符串。
 const articleSelect = `
 	SELECT
 		a.id,
@@ -17,6 +22,8 @@ const articleSelect = `
 	LEFT JOIN tags t ON t.id = at.tag_id
 `;
 
+// 文章列表可以按作者和标签过滤。
+// ?1、?2 是 D1 的绑定参数，能避免手动拼接用户输入导致 SQL 注入。
 const articleListWhere = `
 	WHERE (?1 IS NULL OR a.username = ?1)
 		AND (
@@ -30,6 +37,7 @@ const articleListWhere = `
 `;
 
 export async function uniqueSlug(db: D1Database, title: string, currentSlug = ''): Promise<string> {
+	// 如果标题生成的 slug 已存在，就自动追加 -2、-3。
 	const baseSlug = slugify(title);
 	let slug = baseSlug;
 	let suffix = 2;
@@ -43,6 +51,7 @@ export async function uniqueSlug(db: D1Database, title: string, currentSlug = ''
 }
 
 export async function articleBySlug(db: D1Database, slug: string): Promise<ArticleRow | null> {
+	// first<T>() 表示只取第一行，并告诉 TypeScript 这一行长什么样。
 	return db
 		.prepare(
 			`
@@ -134,9 +143,11 @@ export async function deleteArticleRow(db: D1Database, articleId: number): Promi
 }
 
 export async function syncArticleTags(db: D1Database, articleId: number, tagList: unknown): Promise<void> {
+	// 简单做法：先删掉旧标签关系，再插入新标签关系。
 	await db.prepare('DELETE FROM article_tags WHERE article_id = ?').bind(articleId).run();
 
 	for (const tag of normalizeTags(tagList)) {
+		// INSERT OR IGNORE 可以避免重复标签报错。
 		await db.prepare('INSERT OR IGNORE INTO tags (name) VALUES (?)').bind(tag).run();
 		const tagRow = await db.prepare('SELECT id, name FROM tags WHERE name = ?').bind(tag).first<TagRow>();
 
@@ -175,6 +186,7 @@ export async function createCommentRow(
 	db: D1Database,
 	input: { articleId: number; username: string; body: string; timestamp: string },
 ): Promise<CommentRow> {
+	// D1 run() 的 meta.last_row_id 可以拿到刚插入评论的 id。
 	const result = await db
 		.prepare(
 			`
