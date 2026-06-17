@@ -70,7 +70,7 @@ sidebar_position: 1
 
 ### 首页
 
-首页包含全局文章列表、可选的标签筛选和分页。文章作者头像使用用户名首字母大写，不需要上传图片。
+首页包含全局文章列表、可选的标签筛选和分页。文章作者头像使用用户名第一个字大写，不需要上传图片。
 
 ```html
 <div class="home-page">
@@ -196,14 +196,14 @@ sidebar_position: 1
               <input
                 type="text"
                 class="form-control"
-                placeholder="一句话介绍这篇文章"
+                placeholder="文章简介, 用于首页列表展示"
               />
             </fieldset>
             <fieldset class="form-group">
               <textarea
                 class="form-control"
                 rows="8"
-                placeholder="写下你的文章正文（支持 Markdown）"
+                placeholder="写下你的文章正文, 可以写 1000 字"
               ></textarea>
             </fieldset>
             <fieldset class="form-group">

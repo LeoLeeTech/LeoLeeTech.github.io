@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import { api } from '../api';
+import { useEffect, useState } from 'react';
 import type { ArticleInput } from '../api';
+import { api } from '../api';
 import { ArticleEditorForm } from '../components/article/ArticleEditorForm';
 import type { Navigate } from '../types/navigation';
 import { parseTags } from '../utils/article';
@@ -74,7 +74,7 @@ export function EditorPage({ slug, onNavigate }: EditorPageProps) {
     <main className="editor-page container narrow">
       <h1>{isEditing ? '编辑文章' : '发布文章'}</h1>
       <p className="page-note">
-        只需要填写用户名即可发布，头像会自动使用用户名首字母。
+        只需要填写用户名即可发布，头像会自动使用用户名第一个字。
       </p>
 
       {errors.length > 0 && (

@@ -40,14 +40,14 @@ export function ArticleEditorForm({
       />
       <input
         className="form-control"
-        placeholder="一句话介绍这篇文章"
+        placeholder="文章简介, 用于首页列表展示"
         value={form.description}
         onChange={(event) => onFieldChange('description', event.target.value)}
       />
       <textarea
         className="form-control"
         rows={9}
-        placeholder="写下你的文章正文（支持 Markdown）"
+        placeholder="写下你的文章正文, 可以写 1000 字"
         value={form.body}
         onChange={(event) => onFieldChange('body', event.target.value)}
       />
