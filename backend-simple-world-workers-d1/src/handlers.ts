@@ -41,7 +41,7 @@ export async function getArticle(env: Env, slug: string): Promise<Response> {
 	const row = await articleBySlug(env.DB, slug);
 
 	if (!row) {
-		return apiError('Article not found', 404);
+		return apiError('文章不存在', 404);
 	}
 
 	return json({ article: serializeArticle(row) });
@@ -66,7 +66,7 @@ export async function createArticle(request: Request, env: Env): Promise<Respons
 
 		const articleRow = await articleIdBySlug(env.DB, slug);
 		if (!articleRow) {
-			throw new Error('Article was not created');
+			throw new Error('文章创建失败');
 		}
 
 		await syncArticleTags(env.DB, articleRow.id, input.tagList);
@@ -81,7 +81,7 @@ export async function updateArticle(request: Request, env: Env, slug: string): P
 	const existing = await articleBySlug(env.DB, slug);
 
 	if (!existing) {
-		return apiError('Article not found', 404);
+		return apiError('文章不存在', 404);
 	}
 
 	const payload = await readJson<ArticlePayload>(request);
@@ -112,7 +112,7 @@ export async function deleteArticle(env: Env, slug: string): Promise<Response> {
 	const existing = await articleIdBySlug(env.DB, slug);
 
 	if (!existing) {
-		return apiError('Article not found', 404);
+		return apiError('文章不存在', 404);
 	}
 
 	// 数据库外键设置了 ON DELETE CASCADE，所以删除文章会自动删除文章评论和标签关系。
@@ -125,7 +125,7 @@ export async function listComments(env: Env, slug: string): Promise<Response> {
 	const articleRow = await articleIdBySlug(env.DB, slug);
 
 	if (!articleRow) {
-		return apiError('Article not found', 404);
+		return apiError('文章不存在', 404);
 	}
 
 	const rows = await listCommentRows(env.DB, articleRow.id);
@@ -137,7 +137,7 @@ export async function createComment(request: Request, env: Env, slug: string): P
 	const articleRow = await articleIdBySlug(env.DB, slug);
 
 	if (!articleRow) {
-		return apiError('Article not found', 404);
+		return apiError('文章不存在', 404);
 	}
 
 	// 前端提交格式：{ comment: { username, body } }
@@ -160,16 +160,16 @@ export async function updateComment(request: Request, env: Env, slug: string, co
 	const articleRow = await articleIdBySlug(env.DB, slug);
 
 	if (!articleRow) {
-		return apiError('Article not found', 404);
+		return apiError('文章不存在', 404);
 	}
 
 	const existingComment = await commentById(env.DB, articleRow.id, commentId);
 
 	if (!existingComment) {
-		return apiError('Comment not found', 404);
+		return apiError('评论不存在', 404);
 	}
 
-	// Simple World 没有登录系统，所以更新评论不检查作者权限。
+	// 苹果社区没有登录系统，所以更新评论不检查作者权限。
 	const payload = await readJson<CommentPayload>(request);
 	const input = payload?.comment ?? {};
 
@@ -189,13 +189,13 @@ export async function deleteComment(env: Env, slug: string, commentId: number): 
 	const articleRow = await articleIdBySlug(env.DB, slug);
 
 	if (!articleRow) {
-		return apiError('Article not found', 404);
+		return apiError('文章不存在', 404);
 	}
 
 	const existingComment = await commentById(env.DB, articleRow.id, commentId);
 
 	if (!existingComment) {
-		return apiError('Comment not found', 404);
+		return apiError('评论不存在', 404);
 	}
 
 	await deleteCommentRow(env.DB, articleRow.id, commentId);
@@ -203,6 +203,6 @@ export async function deleteComment(env: Env, slug: string, commentId: number): 
 }
 
 export async function listTags(env: Env): Promise<Response> {
-	// 标签来自 tags 表，用于前端首页右侧 Popular Tags。
+	// 标签来自 tags 表，用于前端首页右侧热门标签。
 	return json({ tags: await listTagNames(env.DB) });
 }

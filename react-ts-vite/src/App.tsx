@@ -29,9 +29,9 @@ const emptyCommentForm: CommentFormState = {
 
 // 后端给的是 ISO 时间字符串，这里统一格式化成可读日期。
 const formatDate = (value: string) =>
-  new Intl.DateTimeFormat('en', {
-    month: 'long',
+  new Intl.DateTimeFormat('zh-CN', {
     day: 'numeric',
+    month: 'long',
     year: 'numeric',
   }).format(new Date(value))
 
@@ -43,7 +43,7 @@ const parseTags = (value: string) =>
     .filter(Boolean)
 
 function Avatar({ username }: { username: string }) {
-  // Simple World 没有上传头像功能，所以头像直接取用户名首字母大写。
+  // 苹果社区没有上传头像功能，所以头像直接取用户名首字母大写。
   return <span className="avatar">{username.trim().charAt(0).toUpperCase() || '?'}</span>
 }
 
@@ -61,7 +61,7 @@ function Header({
   return (
     <nav className="navbar">
       <button className="brand" type="button" onClick={() => onNavigate({ name: 'home' })}>
-        conduit
+        苹果社区
       </button>
       <div className="nav-links">
         <button
@@ -69,14 +69,14 @@ function Header({
           type="button"
           onClick={() => onNavigate({ name: 'home' })}
         >
-          Home
+          首页
         </button>
         <button
           className={isEditor ? 'nav-link active' : 'nav-link'}
           type="button"
           onClick={() => onNavigate({ name: 'editor' })}
         >
-          New Article
+          发布文章
         </button>
       </div>
     </nav>
@@ -118,7 +118,7 @@ function HomePage({
       })
       .catch((error) => {
         if (!isActive) return
-        setErrorMessage(error instanceof Error ? error.message : 'Failed to load articles')
+        setErrorMessage(error instanceof Error ? error.message : '文章加载失败，请稍后重试')
       })
       .finally(() => {
         if (isActive) setIsLoading(false)
@@ -139,8 +139,8 @@ function HomePage({
     <main className="home-page">
       <section className="banner">
         <div className="container">
-          <h1>conduit</h1>
-          <p>A place to share your knowledge.</p>
+          <h1>苹果社区</h1>
+          <p>分享技术、想法和生活经验的中文社区。</p>
         </div>
       </section>
 
@@ -155,17 +155,17 @@ function HomePage({
                 setPage(1)
               }}
             >
-              Global Feed
+              全部文章
             </button>
             {selectedTag && <button className="tab active" type="button">#{selectedTag}</button>}
           </div>
 
           {isLoading ? (
-            <p className="empty-state">Loading articles...</p>
+            <p className="empty-state">文章加载中...</p>
           ) : errorMessage ? (
             <p className="empty-state">{errorMessage}</p>
           ) : articles.length === 0 ? (
-            <p className="empty-state">No articles are here yet.</p>
+            <p className="empty-state">还没有文章，来发布第一篇吧。</p>
           ) : (
             articles.map((article) => (
               <article className="article-preview" key={article.slug}>
@@ -184,7 +184,7 @@ function HomePage({
                 >
                   <h2>{article.title}</h2>
                   <p>{article.description}</p>
-                  <span className="read-more">Read more...</span>
+                  <span className="read-more">阅读全文...</span>
                   <ul className="tag-list">
                     {article.tagList.map((tag) => (
                       <li className="tag tag-outline" key={tag}>
@@ -212,7 +212,7 @@ function HomePage({
         </div>
 
         <aside className="sidebar">
-          <p>Popular Tags</p>
+          <p>热门标签</p>
           <div className="tag-list sidebar-tags">
             {tags.map((tag) => (
               <button
@@ -274,10 +274,10 @@ function EditorPage({
     // 提交前做最基本的前端校验，避免空内容直接发给后端。
     const nextForm = { ...form, tagList: parseTags(tagInput) }
     const nextErrors = [
-      !nextForm.username.trim() ? 'Username is required' : '',
-      !nextForm.title.trim() ? 'Title is required' : '',
-      !nextForm.description.trim() ? 'Description is required' : '',
-      !nextForm.body.trim() ? 'Body is required' : '',
+      !nextForm.username.trim() ? '请填写用户名' : '',
+      !nextForm.title.trim() ? '请填写文章标题' : '',
+      !nextForm.description.trim() ? '请填写文章简介' : '',
+      !nextForm.body.trim() ? '请填写文章正文' : '',
     ].filter(Boolean)
 
     if (nextErrors.length > 0) {
@@ -294,8 +294,8 @@ function EditorPage({
 
   return (
     <main className="editor-page container narrow">
-      <h1>{isEditing ? 'Edit Article' : 'New Article'}</h1>
-      <p className="page-note">Only a username is needed. The avatar is generated from its first letter.</p>
+      <h1>{isEditing ? '编辑文章' : '发布文章'}</h1>
+      <p className="page-note">只需要填写用户名即可发布，头像会自动使用用户名首字母。</p>
 
       {errors.length > 0 && (
         <ul className="error-messages">
@@ -308,32 +308,32 @@ function EditorPage({
       <form className="editor-form" onSubmit={submitArticle}>
         <input
           className="form-control"
-          placeholder="Username"
+          placeholder="用户名"
           value={form.username}
           onChange={(event) => updateForm('username', event.target.value)}
         />
         <input
           className="form-control form-control-lg"
-          placeholder="Article Title"
+          placeholder="文章标题"
           value={form.title}
           onChange={(event) => updateForm('title', event.target.value)}
         />
         <input
           className="form-control"
-          placeholder="What's this article about?"
+          placeholder="一句话介绍这篇文章"
           value={form.description}
           onChange={(event) => updateForm('description', event.target.value)}
         />
         <textarea
           className="form-control"
           rows={9}
-          placeholder="Write your article (in markdown)"
+          placeholder="写下你的文章正文（支持 Markdown）"
           value={form.body}
           onChange={(event) => updateForm('body', event.target.value)}
         />
         <input
           className="form-control"
-          placeholder="Enter tags, separated by commas"
+          placeholder="输入标签，用英文逗号分隔，例如：React, 前端"
           value={tagInput}
           onChange={(event) => setTagInput(event.target.value)}
         />
@@ -345,7 +345,7 @@ function EditorPage({
           ))}
         </div>
         <button className="primary-button" type="submit">
-          {isEditing ? 'Update Article' : 'Publish Article'}
+          {isEditing ? '更新文章' : '发布文章'}
         </button>
       </form>
     </main>
@@ -394,7 +394,7 @@ function ArticlePage({
   }, [slug])
 
   if (!article) {
-    return <main className="container narrow empty-state">Loading article...</main>
+    return <main className="container narrow empty-state">文章加载中...</main>
   }
 
   const submitComment = async (event: FormEvent<HTMLFormElement>) => {
@@ -418,7 +418,7 @@ function ArticlePage({
   }
 
   const deleteArticle = async () => {
-    // Simple World 没有账号和权限系统，所以任何人都能删除文章。
+    // 苹果社区没有账号和权限系统，所以任何人都能删除文章。
     await api.deleteArticle(article.slug)
     onNavigate({ name: 'home' })
   }
@@ -465,7 +465,7 @@ function ArticlePage({
           <div className="comment-fields">
             <input
               className="form-control"
-              placeholder="Username"
+              placeholder="用户名"
               value={commentForm.username}
               onChange={(event) =>
                 setCommentForm((currentForm) => ({
@@ -476,7 +476,7 @@ function ArticlePage({
             />
             <textarea
               className="form-control"
-              placeholder="Write a comment..."
+              placeholder="写下你的评论..."
               rows={3}
               value={commentForm.body}
               onChange={(event) =>
@@ -485,9 +485,9 @@ function ArticlePage({
             />
           </div>
           <div className="comment-footer">
-            <Avatar username={commentForm.username || 'J'} />
+            <Avatar username={commentForm.username || '访客'} />
             <button className="primary-button small" type="submit">
-              Post Comment
+              发表评论
             </button>
           </div>
         </form>
@@ -499,7 +499,7 @@ function ArticlePage({
                 <form className="comment-edit-form" onSubmit={submitCommentUpdate}>
                   <input
                     className="form-control"
-                    placeholder="Username"
+                    placeholder="用户名"
                     value={editingCommentForm.username}
                     onChange={(event) =>
                       setEditingCommentForm((currentForm) => ({
@@ -521,14 +521,14 @@ function ArticlePage({
                   />
                   <div className="inline-actions">
                     <button className="primary-button small" type="submit">
-                      Save
+                      保存
                     </button>
                     <button
                       className="ghost-button small"
                       type="button"
                       onClick={() => setEditingCommentId(null)}
                     >
-                      Cancel
+                      取消
                     </button>
                   </div>
                 </form>
@@ -543,7 +543,7 @@ function ArticlePage({
                       <button
                         className="icon-button"
                         type="button"
-                        aria-label="Edit comment"
+                        aria-label="编辑评论"
                         onClick={() => {
                           setEditingCommentId(comment.id)
                           setEditingCommentForm({
@@ -557,7 +557,7 @@ function ArticlePage({
                       <button
                         className="icon-button danger"
                         type="button"
-                        aria-label="Delete comment"
+                        aria-label="删除评论"
                         onClick={() => deleteComment(comment.id)}
                       >
                         ×
@@ -591,10 +591,10 @@ function ArticleActions({
         <span className="date">{formatDate(article.createdAt)}</span>
       </div>
       <button className="ghost-button" type="button" onClick={onEdit}>
-        Edit Article
+        编辑文章
       </button>
       <button className="danger-button" type="button" onClick={onDelete}>
-        Delete Article
+        删除文章
       </button>
     </div>
   )
@@ -614,8 +614,8 @@ function App() {
         <ArticlePage key={route.slug} slug={route.slug} onNavigate={setRoute} />
       )}
       <footer className="site-footer">
-        <span className="footer-brand">conduit</span>
-        <span>Simple World frontend. Fake data today, API tomorrow.</span>
+        <span className="footer-brand">苹果社区</span>
+        <span>面向中文用户的轻量文章与评论社区。</span>
       </footer>
     </>
   )

@@ -1,6 +1,6 @@
-# Simple World 后端 Worker
+# 苹果社区后端 Worker
 
-这是 Simple World 的 Cloudflare Workers + D1 后端项目。
+这是苹果社区的 Cloudflare Workers + D1 后端项目。
 
 它提供文章、评论、标签接口，并把数据存到 Cloudflare D1 数据库中。
 
@@ -102,7 +102,7 @@ curl 'http://127.0.0.1:8787/api/articles?limit=10'
 ```bash
 curl -X POST http://127.0.0.1:8787/api/articles \
   -H 'Content-Type: application/json' \
-  -d '{"article":{"username":"leo","title":"Hello Worker","description":"D1 demo","body":"Hello Simple World","tagList":["workers","d1"]}}'
+  -d '{"article":{"username":"小李","title":"我的第一篇文章","description":"用苹果社区记录一下学习过程","body":"大家好，这是我在苹果社区发布的第一篇文章。","tagList":["技术","学习"]}}'
 ```
 
 如果接口返回 500，优先检查：

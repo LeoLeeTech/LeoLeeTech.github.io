@@ -2,7 +2,7 @@
 PRAGMA foreign_keys = ON;
 
 -- articles：文章主表。
--- username 只是作者名，不对应登录用户，因为 Simple World 没有账号系统。
+-- username 只是作者名，不对应登录用户，因为苹果社区没有账号系统。
 CREATE TABLE IF NOT EXISTS articles (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	slug TEXT NOT NULL UNIQUE,

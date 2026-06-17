@@ -7,23 +7,23 @@ sidebar_position: 1
 
 `<head>` 元素包含页面元数据（标题、描述）并加载样式表。
 
-加载共享的 [Conduit 主题](https://github.com/realworld-apps/realworld/blob/main/assets/theme/styles.css)，以及它依赖的字体和图标。`styles.css` **不**内置字体或图标，所以下方 head 会同时加载这三类资源；详情见[样式](/docs/simple-world/frontend/styles/)页面。
+加载共享的 [苹果社区主题](https://github.com/realworld-apps/realworld/blob/main/assets/theme/styles.css)，以及它依赖的字体和图标。`styles.css` **不**内置字体或图标，所以下方 head 会同时加载这三类资源；详情见[样式](/docs/simple-world/frontend/styles/)页面。
 
 ```html
 <head>
   <meta charset="utf-8" />
-  <title>Conduit</title>
-  <!-- Icons: the ion-* classes used in the templates below (legacy Ionicons v2) -->
+  <title>苹果社区</title>
+  <!-- 图标：下方模板会用到 ion-* class（旧版 Ionicons v2） -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"
   />
-  <!-- Fonts the theme uses -->
+  <!-- 字体：主题依赖的字体 -->
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Lora:400,700"
   />
-  <!-- The shared Conduit theme (serve styles.css from your own app) -->
+  <!-- 共享主题：请在你自己的应用里提供 styles.css -->
   <link rel="stylesheet" href="/styles.css" />
 </head>
 ```
@@ -32,19 +32,19 @@ sidebar_position: 1
 
 ### 页头
 
-Simple World 只保留首页和新建文章入口。
+苹果社区只保留首页和新建文章入口。
 
 ```html
 <nav class="navbar navbar-light">
   <div class="container">
-    <a class="navbar-brand" href="/">conduit</a>
+    <a class="navbar-brand" href="/">苹果社区</a>
     <ul class="nav navbar-nav pull-xs-right">
       <li class="nav-item">
-        <!-- Add "active" class when you're on that page" -->
-        <a class="nav-link active" href="/">Home</a>
+        <!-- 当前页面对应的链接加上 active class -->
+        <a class="nav-link active" href="/">首页</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/editor"> <i class="ion-compose"></i>&nbsp;New Article </a>
+        <a class="nav-link" href="/editor"> <i class="ion-compose"></i>&nbsp;发布文章 </a>
       </li>
     </ul>
   </div>
@@ -56,9 +56,9 @@ Simple World 只保留首页和新建文章入口。
 ```html
 <footer>
   <div class="container">
-    <a href="/" class="logo-font">conduit</a>
+    <a href="/" class="logo-font">苹果社区</a>
     <span class="attribution">
-      An interactive learning project. Code &amp; design licensed under MIT.
+      一个用于学习的互动项目。代码和设计基于 MIT 协议开放。
     </span>
   </div>
 </footer>
@@ -74,8 +74,8 @@ Simple World 只保留首页和新建文章入口。
 <div class="home-page">
   <div class="banner">
     <div class="container">
-      <h1 class="logo-font">conduit</h1>
-      <p>A place to share your knowledge.</p>
+      <h1 class="logo-font">苹果社区</h1>
+      <p>分享技术、想法和生活经验的中文社区。</p>
     </div>
   </div>
 
@@ -85,10 +85,10 @@ Simple World 只保留首页和新建文章入口。
         <div class="feed-toggle">
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
-              <a class="nav-link active" href="">Global Feed</a>
+              <a class="nav-link active" href="">全部文章</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">AngularJS</a>
+              <a class="nav-link" href="">前端</a>
             </li>
           </ul>
         </div>
@@ -97,17 +97,17 @@ Simple World 只保留首页和新建文章入口。
           <div class="article-meta">
             <span class="user-pic">J</span>
             <div class="info">
-              <span class="author">jake</span>
-              <span class="date">January 20th</span>
+              <span class="author">小李</span>
+              <span class="date">1月20日</span>
             </div>
           </div>
-          <a href="/article/how-to-build-webapps-that-scale" class="preview-link">
-            <h1>How to build webapps that scale</h1>
-            <p>This is the description for the post.</p>
-            <span>Read more...</span>
+          <a href="/article/ru-he-xie-di-yi-pian-ji-shu-wen-zhang" class="preview-link">
+            <h1>如何写好第一篇技术文章</h1>
+            <p>把学习过程写下来，就是最好的开始。</p>
+            <span>阅读全文...</span>
             <ul class="tag-list">
-              <li class="tag-default tag-pill tag-outline">realworld</li>
-              <li class="tag-default tag-pill tag-outline">implementations</li>
+              <li class="tag-default tag-pill tag-outline">技术</li>
+              <li class="tag-default tag-pill tag-outline">学习</li>
             </ul>
           </a>
         </div>
@@ -116,17 +116,17 @@ Simple World 只保留首页和新建文章入口。
           <div class="article-meta">
             <span class="user-pic">A</span>
             <div class="info">
-              <span class="author">albert</span>
-              <span class="date">January 20th</span>
+              <span class="author">阿明</span>
+              <span class="date">1月20日</span>
             </div>
           </div>
-          <a href="/article/the-song-you" class="preview-link">
-            <h1>The song you won't ever stop singing. No matter how hard you try.</h1>
-            <p>This is the description for the post.</p>
-            <span>Read more...</span>
+          <a href="/article/wo-de-qian-duan-xue-xi-lu-xian" class="preview-link">
+            <h1>我的前端学习路线</h1>
+            <p>从 HTML、CSS 到 React，记录一条适合新手的路线。</p>
+            <span>阅读全文...</span>
             <ul class="tag-list">
-              <li class="tag-default tag-pill tag-outline">realworld</li>
-              <li class="tag-default tag-pill tag-outline">implementations</li>
+              <li class="tag-default tag-pill tag-outline">前端</li>
+              <li class="tag-default tag-pill tag-outline">React</li>
             </ul>
           </a>
         </div>
@@ -143,14 +143,14 @@ Simple World 只保留首页和新建文章入口。
 
       <div class="col-md-3">
         <div class="sidebar">
-          <p>Popular Tags</p>
+          <p>热门标签</p>
 
           <div class="tag-list">
-            <a href="" class="tag-pill tag-default">programming</a>
-            <a href="" class="tag-pill tag-default">javascript</a>
-            <a href="" class="tag-pill tag-default">angularjs</a>
-            <a href="" class="tag-pill tag-default">react</a>
-            <a href="" class="tag-pill tag-default">node</a>
+            <a href="" class="tag-pill tag-default">技术</a>
+            <a href="" class="tag-pill tag-default">前端</a>
+            <a href="" class="tag-pill tag-default">React</a>
+            <a href="" class="tag-pill tag-default">学习</a>
+            <a href="" class="tag-pill tag-default">社区</a>
           </div>
         </div>
       </div>
@@ -168,35 +168,35 @@ Simple World 只保留首页和新建文章入口。
     <div class="row">
       <div class="col-md-10 offset-md-1 col-xs-12">
         <ul class="error-messages">
-          <li>That title is required</li>
+          <li>请填写文章标题</li>
         </ul>
 
         <form>
           <fieldset>
             <fieldset class="form-group">
-              <input type="text" class="form-control" placeholder="Username" />
+              <input type="text" class="form-control" placeholder="用户名" />
             </fieldset>
             <fieldset class="form-group">
-              <input type="text" class="form-control form-control-lg" placeholder="Article Title" />
+              <input type="text" class="form-control form-control-lg" placeholder="文章标题" />
             </fieldset>
             <fieldset class="form-group">
-              <input type="text" class="form-control" placeholder="What's this article about?" />
+              <input type="text" class="form-control" placeholder="一句话介绍这篇文章" />
             </fieldset>
             <fieldset class="form-group">
               <textarea
                 class="form-control"
                 rows="8"
-                placeholder="Write your article (in markdown)"
+                placeholder="写下你的文章正文（支持 Markdown）"
               ></textarea>
             </fieldset>
             <fieldset class="form-group">
-              <input type="text" class="form-control" placeholder="Enter tags" />
+              <input type="text" class="form-control" placeholder="输入标签" />
               <div class="tag-list">
-                <span class="tag-default tag-pill"> <i class="ion-close-round"></i> tag </span>
+                <span class="tag-default tag-pill"> <i class="ion-close-round"></i> 标签 </span>
               </div>
             </fieldset>
             <button class="btn btn-lg pull-xs-right btn-primary" type="button">
-              Publish Article
+              发布文章
             </button>
           </fieldset>
         </form>
@@ -214,19 +214,19 @@ Simple World 只保留首页和新建文章入口。
 <div class="article-page">
   <div class="banner">
     <div class="container">
-      <h1>How to build webapps that scale</h1>
+      <h1>如何写好第一篇技术文章</h1>
 
       <div class="article-meta">
         <span class="user-pic">J</span>
         <div class="info">
-          <span class="author">jake</span>
-          <span class="date">January 20th</span>
+          <span class="author">小李</span>
+          <span class="date">1月20日</span>
         </div>
         <button class="btn btn-sm btn-outline-secondary">
-          <i class="ion-edit"></i> Edit Article
+          <i class="ion-edit"></i> 编辑文章
         </button>
         <button class="btn btn-sm btn-outline-danger">
-          <i class="ion-trash-a"></i> Delete Article
+          <i class="ion-trash-a"></i> 删除文章
         </button>
       </div>
     </div>
@@ -236,13 +236,13 @@ Simple World 只保留首页和新建文章入口。
     <div class="row article-content">
       <div class="col-md-12">
         <p>
-          Web development technologies have evolved at an incredible clip over the past few years.
+          很多人觉得技术文章必须非常高级，其实不一定。
         </p>
-        <h2 id="introducing-ionic">Introducing RealWorld.</h2>
-        <p>It's a great solution for learning how other frameworks work.</p>
+        <h2 id="start-writing">从一个小问题开始写。</h2>
+        <p>你可以记录一次踩坑、一个小工具，或者一段学习心得。</p>
         <ul class="tag-list">
-          <li class="tag-default tag-pill tag-outline">realworld</li>
-          <li class="tag-default tag-pill tag-outline">implementations</li>
+          <li class="tag-default tag-pill tag-outline">技术</li>
+          <li class="tag-default tag-pill tag-outline">学习</li>
         </ul>
       </div>
     </div>
@@ -253,14 +253,14 @@ Simple World 只保留首页和新建文章入口。
       <div class="article-meta">
         <span class="user-pic">J</span>
         <div class="info">
-          <span class="author">jake</span>
-          <span class="date">January 20th</span>
+          <span class="author">小李</span>
+          <span class="date">1月20日</span>
         </div>
         <button class="btn btn-sm btn-outline-secondary">
-          <i class="ion-edit"></i> Edit Article
+          <i class="ion-edit"></i> 编辑文章
         </button>
         <button class="btn btn-sm btn-outline-danger">
-          <i class="ion-trash-a"></i> Delete Article
+          <i class="ion-trash-a"></i> 删除文章
         </button>
       </div>
     </div>
@@ -269,26 +269,26 @@ Simple World 只保留首页和新建文章入口。
       <div class="col-xs-12 col-md-8 offset-md-2">
         <form class="card comment-form">
           <div class="card-block">
-            <input type="text" class="form-control" placeholder="Username" />
-            <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
+            <input type="text" class="form-control" placeholder="用户名" />
+            <textarea class="form-control" placeholder="写下你的评论..." rows="3"></textarea>
           </div>
           <div class="card-footer">
             <span class="comment-author-img">J</span>
-            <button class="btn btn-sm btn-primary">Post Comment</button>
+            <button class="btn btn-sm btn-primary">发表评论</button>
           </div>
         </form>
 
         <div class="card">
           <div class="card-block">
             <p class="card-text">
-              With supporting text below as a natural lead-in to additional content.
+              这个社区的规则很简单，适合新手练习。
             </p>
           </div>
           <div class="card-footer">
             <span class="comment-author-img">J</span>
             &nbsp;
-            <span class="comment-author">jacob</span>
-            <span class="date-posted">Dec 29th</span>
+            <span class="comment-author">小王</span>
+            <span class="date-posted">12月29日</span>
             <span class="mod-options">
               <i class="ion-edit"></i>
               <i class="ion-trash-a"></i>

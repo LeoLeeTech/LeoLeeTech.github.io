@@ -1,6 +1,6 @@
-# Simple World 前端
+# 苹果社区前端
 
-这是 Simple World 的 React + TypeScript + Vite 前端项目。
+这是苹果社区的 React + TypeScript + Vite 前端项目。
 
 它负责展示文章列表、文章详情、标签、评论，以及创建/编辑/删除文章和评论。
 

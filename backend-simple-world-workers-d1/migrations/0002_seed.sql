@@ -2,35 +2,35 @@
 INSERT INTO articles (slug, username, title, description, body, created_at, updated_at)
 VALUES
 	(
-		'how-to-build-webapps-that-scale',
-		'jake',
-		'How to build webapps that scale',
-		'This is the description for the post.',
-		'Web development technologies have evolved at an incredible clip over the past few years.
+		'ru-he-xie-di-yi-pian-ji-shu-wen-zhang',
+		'小李',
+		'如何写好第一篇技术文章',
+		'把学习过程写下来，就是最好的开始。',
+		'很多人觉得技术文章必须非常高级，其实不一定。
 
-Simple World keeps the demo focused: no accounts, no passwords, just articles and comments.',
+你可以先从一次踩坑、一个小工具、一个读书笔记开始。苹果社区希望让写作这件事变得更轻松。',
 		'2016-01-20T08:00:00.000Z',
 		'2016-01-20T08:00:00.000Z'
 	),
 	(
-		'the-song-you',
-		'albert',
-		'The song you',
-		'This is a short note about sharing ideas.',
-		'Simple tools are easier to learn.
+		'wo-de-qian-duan-xue-xi-lu-xian',
+		'阿明',
+		'我的前端学习路线',
+		'从 HTML、CSS 到 React，记录一条适合新手的路线。',
+		'刚开始学前端时，不要急着追所有新技术。
 
-That is why this version only asks for a username when someone writes.',
+先把 HTML、CSS、JavaScript 的基础练扎实，再开始学习 React 和工程化工具。',
 		'2016-01-21T08:00:00.000Z',
 		'2016-01-21T08:00:00.000Z'
 	),
 	(
-		'simple-world-notes',
-		'leo',
-		'Simple World notes',
-		'A tiny publishing app without accounts or permission ceremony.',
-		'Simple World only asks for a username when someone writes an article or comment.
+		'ping-guo-she-qu-shi-yong-shuo-ming',
+		'Leo',
+		'苹果社区使用说明',
+		'一个轻量的中文文章与评论社区。',
+		'苹果社区不需要注册账号。
 
-The first letter becomes the avatar.',
+发布文章或评论时，只需要填写一个用户名。头像会自动使用用户名首字母。',
 		'2016-01-22T08:00:00.000Z',
 		'2016-01-22T08:00:00.000Z'
 	);
@@ -38,40 +38,40 @@ The first letter becomes the avatar.',
 -- 初始化标签。
 INSERT INTO tags (name)
 VALUES
-	('react'),
-	('workers'),
-	('d1'),
-	('simple-world'),
-	('demo');
+	('技术'),
+	('前端'),
+	('React'),
+	('学习'),
+	('社区');
 
 -- 给第一篇文章绑定标签。
 INSERT INTO article_tags (article_id, tag_id)
 SELECT articles.id, tags.id
 FROM articles
-JOIN tags ON tags.name IN ('react', 'demo')
-WHERE articles.slug = 'how-to-build-webapps-that-scale';
+JOIN tags ON tags.name IN ('技术', '学习')
+WHERE articles.slug = 'ru-he-xie-di-yi-pian-ji-shu-wen-zhang';
 
 -- 给第二篇文章绑定标签。
 INSERT INTO article_tags (article_id, tag_id)
 SELECT articles.id, tags.id
 FROM articles
-JOIN tags ON tags.name IN ('simple-world', 'demo')
-WHERE articles.slug = 'the-song-you';
+JOIN tags ON tags.name IN ('前端', 'React', '学习')
+WHERE articles.slug = 'wo-de-qian-duan-xue-xi-lu-xian';
 
 -- 给第三篇文章绑定标签。
 INSERT INTO article_tags (article_id, tag_id)
 SELECT articles.id, tags.id
 FROM articles
-JOIN tags ON tags.name IN ('simple-world', 'workers', 'd1')
-WHERE articles.slug = 'simple-world-notes';
+JOIN tags ON tags.name IN ('社区', '技术')
+WHERE articles.slug = 'ping-guo-she-qu-shi-yong-shuo-ming';
 
 -- 初始化评论数据。
 INSERT INTO comments (article_id, username, body, created_at, updated_at)
-SELECT id, 'jacob', 'This keeps the demo focused. I like it.', '2016-01-23T08:00:00.000Z', '2016-01-23T08:00:00.000Z'
+SELECT id, '小王', '这个社区的规则很简单，适合新手练习。', '2016-01-23T08:00:00.000Z', '2016-01-23T08:00:00.000Z'
 FROM articles
-WHERE slug = 'how-to-build-webapps-that-scale';
+WHERE slug = 'ru-he-xie-di-yi-pian-ji-shu-wen-zhang';
 
 INSERT INTO comments (article_id, username, body, created_at, updated_at)
-SELECT id, 'nora', 'No login wall, just write.', '2016-01-24T08:00:00.000Z', '2016-01-24T08:00:00.000Z'
+SELECT id, '小周', '不用登录就能评论，联调起来很方便。', '2016-01-24T08:00:00.000Z', '2016-01-24T08:00:00.000Z'
 FROM articles
-WHERE slug = 'the-song-you';
+WHERE slug = 'wo-de-qian-duan-xue-xi-lu-xian';

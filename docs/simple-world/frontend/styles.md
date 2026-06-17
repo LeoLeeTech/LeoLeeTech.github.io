@@ -3,7 +3,7 @@ title: 样式
 sidebar_position: 2
 ---
 
-所有前端实现都应该使用主仓库中共享的 [styles.css](https://github.com/realworld-apps/realworld/blob/main/assets/theme/styles.css) 文件。这是一个单独的 CSS 文件（Conduit Minimal CSS v4），只包含 Conduit 实际使用的 class。
+所有前端实现都应该使用主仓库中共享的 [styles.css](https://github.com/realworld-apps/realworld/blob/main/assets/theme/styles.css) 文件。这是一个单独的 CSS 文件，包含苹果社区页面实际使用的 class。
 
 它提供的 CSS class 与[模板](/docs/simple-world/frontend/templates/)以及 [E2E 测试选择器契约](https://github.com/realworld-apps/realworld/blob/main/specs/e2e/SELECTORS.md)相匹配。
 

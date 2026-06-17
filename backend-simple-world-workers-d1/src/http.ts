@@ -28,7 +28,7 @@ export function empty(status = 204): Response {
 	});
 }
 
-// Simple World 约定错误格式为 { errors: { body: [...] } }。
+// 苹果社区约定错误格式为 { errors: { body: [...] } }。
 export function apiError(message: string, status = 400): Response {
 	return json({ errors: { body: [message] } }, status);
 }
@@ -44,5 +44,5 @@ export async function readJson<T>(request: Request): Promise<T | null> {
 
 // unknown 类型不能直接 .message，所以这里统一转成字符串。
 export function errorMessage(error: unknown): string {
-	return error instanceof Error ? error.message : 'Internal server error';
+	return error instanceof Error ? error.message : '服务器内部错误';
 }

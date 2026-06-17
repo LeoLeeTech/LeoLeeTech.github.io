@@ -80,7 +80,15 @@ export function parsePositiveInteger(value: string | null, fallback: number, max
 // 简单校验必填字符串字段，空字符串直接抛错。
 export function requiredString(value: unknown, fieldName: keyof ArticleInput | 'body'): string {
 	if (typeof value !== 'string' || !value.trim()) {
-		throw new Error(`${fieldName} is required`);
+		const fieldLabels: Record<keyof ArticleInput | 'body', string> = {
+			username: '用户名',
+			title: '文章标题',
+			description: '文章简介',
+			body: '正文内容',
+			tagList: '标签',
+		};
+
+		throw new Error(`请填写${fieldLabels[fieldName]}`);
 	}
 
 	return value.trim();

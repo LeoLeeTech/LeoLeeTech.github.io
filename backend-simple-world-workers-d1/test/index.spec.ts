@@ -2,8 +2,8 @@ import { env, createExecutionContext, waitOnExecutionContext, SELF } from 'cloud
 import { describe, it, expect } from 'vitest';
 import worker from '../src/index';
 
-describe('Simple World worker', () => {
-	it('responds with API health metadata (unit style)', async () => {
+describe('Apple Community worker', () => {
+	it('responds with health metadata in unit style', async () => {
 		const request = new Request('http://example.com');
 		const ctx = createExecutionContext();
 		const response = await worker.fetch(request, env, ctx);
@@ -12,19 +12,19 @@ describe('Simple World worker', () => {
 
 		expect(response.status).toBe(200);
 		await expect(response.json()).resolves.toEqual({
-			name: 'Simple World API',
-			status: 'ok',
+			name: '苹果社区 API',
+			status: '正常',
 			database: 'D1',
 		});
 	});
 
-	it('responds with API health metadata (integration style)', async () => {
+	it('responds with health metadata in integration style', async () => {
 		const response = await SELF.fetch('http://example.com');
 
 		expect(response.status).toBe(200);
 		await expect(response.json()).resolves.toEqual({
-			name: 'Simple World API',
-			status: 'ok',
+			name: '苹果社区 API',
+			status: '正常',
 			database: 'D1',
 		});
 	});

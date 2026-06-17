@@ -17,8 +17,8 @@ export async function route(request: Request, env: Env): Promise<Response> {
 	// 健康检查接口：打开 Worker 根地址时能看到服务正常。
 	if (pathname === '/') {
 		return json({
-			name: 'Simple World API',
-			status: 'ok',
+			name: '苹果社区 API',
+			status: '正常',
 			database: 'D1',
 		});
 	}
@@ -56,5 +56,5 @@ export async function route(request: Request, env: Env): Promise<Response> {
 		return listTags(env);
 	}
 
-	return apiError('Not found', 404);
+	return apiError('接口不存在', 404);
 }

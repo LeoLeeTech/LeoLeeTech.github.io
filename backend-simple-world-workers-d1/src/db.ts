@@ -203,7 +203,7 @@ export async function createCommentRow(
 		.first<CommentRow>();
 
 	if (!comment) {
-		throw new Error('Comment was not created');
+		throw new Error('评论创建失败');
 	}
 
 	return comment;
@@ -229,7 +229,7 @@ export async function updateCommentRow(
 	const comment = await commentById(db, input.articleId, input.commentId);
 
 	if (!comment) {
-		throw new Error('Comment not found');
+		throw new Error('评论不存在');
 	}
 
 	return comment;
