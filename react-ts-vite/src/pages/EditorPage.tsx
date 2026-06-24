@@ -9,7 +9,6 @@ import { parseTags } from '../utils/article';
 const emptyArticleForm: ArticleInput = {
   username: '',
   title: '',
-  description: '',
   body: '',
   tagList: [],
 };
@@ -32,9 +31,8 @@ export function EditorPage({ slug, onNavigate }: EditorPageProps) {
     // 编辑已有文章时，先读取文章，再把内容填入表单。
     api.getArticle(slug).then(({ article }) => {
       setForm({
-        username: article.author.username,
+        username: article.username,
         title: article.title,
-        description: article.description,
         body: article.body,
         tagList: article.tagList,
       });
@@ -52,7 +50,6 @@ export function EditorPage({ slug, onNavigate }: EditorPageProps) {
     const nextErrors = [
       !nextForm.username.trim() ? '请填写用户名' : '',
       !nextForm.title.trim() ? '请填写文章标题' : '',
-      !nextForm.description.trim() ? '请填写文章简介' : '',
       !nextForm.body.trim() ? '请填写文章正文' : '',
     ].filter(Boolean);
 
@@ -74,7 +71,7 @@ export function EditorPage({ slug, onNavigate }: EditorPageProps) {
     <main className="editor-page container narrow">
       <h1>{isEditing ? '编辑文章' : '发布文章'}</h1>
       <p className="page-note">
-        只需要填写用户名即可发布，头像会自动使用用户名第一个字。
+        只需要填写用户名即可发布，头像会自动使用用户名最后一个字。
       </p>
 
       {errors.length > 0 && (

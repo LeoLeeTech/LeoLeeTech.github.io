@@ -42,3 +42,8 @@
   border-bottom: 1px solid var(--blog-list-divider-color);
   padding-bottom: 0.2rem;
 }
+
+/* Disqus 把广告放在评论区外层独立的 sandbox iframe 中。 */
+#disqus_thread iframe[sandbox][src*='/ads-iframe/'] {
+  max-height: 0 !important;
+}

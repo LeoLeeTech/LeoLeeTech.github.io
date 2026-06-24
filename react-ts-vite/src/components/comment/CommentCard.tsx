@@ -65,8 +65,8 @@ export function CommentCard({
         <>
           <p>{comment.body}</p>
           <footer className="comment-meta">
-            <Avatar username={comment.author.username} />
-            <span className="author">{comment.author.username}</span>
+            <Avatar username={comment.username} />
+            <span className="author">{comment.username}</span>
             <span className="date">{formatDate(comment.createdAt)}</span>
             <span className="mod-options">
               <button

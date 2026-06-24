@@ -18,7 +18,7 @@ export function CommentList({ comments, onUpdate, onDelete }: CommentListProps) 
 
   const startEdit = (comment: Comment) => {
     setEditingCommentId(comment.id);
-    setEditForm({ username: comment.author.username, body: comment.body });
+    setEditForm({ username: comment.username, body: comment.body });
   };
 
   const cancelEdit = () => {

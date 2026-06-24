@@ -1,37 +1,16 @@
-import type { Article, ArticleInput, ArticleRow, Author, Comment, CommentRow } from './types';
-
-// 根据用户名生成头像字母，例如 leo -> L。
-export function avatarInitial(username: string): string {
-	return username.trim().charAt(0).toUpperCase() || '?';
-}
-
-// 后端返回 author 时统一带 username 和 avatarInitial。
-export function author(username: string): Author {
-	const normalizedUsername = username.trim();
-
-	return {
-		username: normalizedUsername,
-		avatarInitial: avatarInitial(normalizedUsername),
-	};
-}
+import type { Article, ArticleInput, ArticleRow, Comment, CommentRow } from './types';
 
 // 把数据库字段名 created_at 转成前端更习惯的 createdAt。
-export function serializeArticle(row: ArticleRow, includeBody = true): Article {
-	const article: Article = {
+export function serializeArticle(row: ArticleRow): Article {
+	return {
 		slug: row.slug,
 		title: row.title,
-		description: row.description,
+		body: row.body,
 		tagList: row.tag_names ? row.tag_names.split(',').filter(Boolean) : [],
 		createdAt: row.created_at,
 		updatedAt: row.updated_at,
-		author: author(row.username),
+		username: row.username,
 	};
-
-	if (includeBody) {
-		article.body = row.body;
-	}
-
-	return article;
 }
 
 // 把数据库评论行转换成接口返回格式。
@@ -41,7 +20,7 @@ export function serializeComment(row: CommentRow): Comment {
 		createdAt: row.created_at,
 		updatedAt: row.updated_at,
 		body: row.body,
-		author: author(row.username),
+		username: row.username,
 	};
 }
 
@@ -83,7 +62,6 @@ export function requiredString(value: unknown, fieldName: keyof ArticleInput | '
 		const fieldLabels: Record<keyof ArticleInput | 'body', string> = {
 			username: '用户名',
 			title: '文章标题',
-			description: '文章简介',
 			body: '正文内容',
 			tagList: '标签',
 		};

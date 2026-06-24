@@ -5,7 +5,7 @@ sidebar_position: 2
 
 使用 JSON 作为前后端交互的数据结构，例如 `Content-Type: application/json; charset=utf-8`。
 
-简单论坛不包含账号系统。发表文章和评论时只需要输入一个用户名，头像由用户名第一个字大写生成。
+简单论坛不包含账号系统。发表文章和评论时只需要输入一个用户名。接口直接返回字符串类型的 `username`，头像由前端取用户名最后一个字生成。
 
 ## 文章
 
@@ -16,12 +16,12 @@ sidebar_position: 2
 - 作用: 默认返回全站最新文章
 - 查询参数:
 
-  | 功能说明      | 查询参数 | 示例           |
-  | ------------- | -------- | -------------- |
-  | 按标签过滤    | `tag`    | `?tag=前端`    |
-  | 按作者过滤    | `author` | `?author=小李` |
-  | 限制返回数量  | `limit`  | `?limit=20`    |
-  | 偏移/跳过数量 | `offset` | `?offset=0`    |
+  | 功能说明      | 查询参数 | 示例             |
+  | ------------- | -------- | ---------------- |
+  | 按标签过滤    | `tag`    | `?tag=前端`      |
+  | 按用户名过滤  | `username` | `?username=小李` |
+  | 限制返回数量  | `limit`  | `?limit=20`      |
+  | 偏移/跳过数量 | `offset` | `?offset=0`      |
 
 - 响应体:
 
@@ -31,24 +31,20 @@ sidebar_position: 2
       {
         "slug": "ru-he-xie-di-yi-pian-ji-shu-wen-zhang",
         "title": "如何写好第一篇技术文章",
-        "description": "把学习过程写下来，就是最好的开始。",
+        "body": "很多人觉得技术文章必须非常高级，其实不一定。",
         "tagList": ["技术", "学习"],
         "createdAt": "2016-02-18T03:22:56.637Z",
         "updatedAt": "2016-02-18T03:48:35.824Z",
-        "author": {
-          "username": "小李"
-        }
+        "username": "小李"
       },
       {
         "slug": "wo-de-qian-duan-xue-xi-lu-xian",
         "title": "我的前端学习路线",
-        "description": "从 HTML、CSS 到 React，记录一条适合新手的路线。",
+        "body": "先把 HTML、CSS、JavaScript 的基础练扎实，再开始学习 React。",
         "tagList": ["前端", "React", "学习"],
         "createdAt": "2016-02-18T03:22:56.637Z",
         "updatedAt": "2016-02-18T03:48:35.824Z",
-        "author": {
-          "username": "阿明"
-        }
+        "username": "阿明"
       }
     ],
     "articlesCount": 2
@@ -73,14 +69,11 @@ sidebar_position: 2
     "article": {
       "slug": "ru-he-xie-di-yi-pian-ji-shu-wen-zhang",
       "title": "如何写好第一篇技术文章",
-      "description": "把学习过程写下来，就是最好的开始。",
       "body": "你可以先从一次踩坑、一个小工具、一个读书笔记开始。",
       "tagList": ["技术", "学习"],
       "createdAt": "2016-02-18T03:22:56.637Z",
       "updatedAt": "2016-02-18T03:48:35.824Z",
-      "author": {
-        "username": "小李"
-      }
+      "username": "小李"
     }
   }
   ```
@@ -90,7 +83,7 @@ sidebar_position: 2
 - URL: `/api/articles`
 - 请求方式: `POST`
 - 作用: 创建一篇新文章
-- 必填字段: `username`、`title`、`description`、`body`
+- 必填字段: `username`、`title`、`body`
 - 可选字段: `tagList`，字符串数组
 - 请求体:
 
@@ -99,7 +92,6 @@ sidebar_position: 2
     "article": {
       "username": "小李",
       "title": "如何写好第一篇技术文章",
-      "description": "把学习过程写下来，就是最好的开始。",
       "body": "你可以先从一次踩坑、一个小工具、一个读书笔记开始。",
       "tagList": ["技术", "学习"]
     }
@@ -113,14 +105,11 @@ sidebar_position: 2
     "article": {
       "slug": "ru-he-xie-di-yi-pian-ji-shu-wen-zhang",
       "title": "如何写好第一篇技术文章",
-      "description": "把学习过程写下来，就是最好的开始。",
       "body": "你可以先从一次踩坑、一个小工具、一个读书笔记开始。",
       "tagList": ["技术", "学习"],
       "createdAt": "2016-02-18T03:22:56.637Z",
       "updatedAt": "2016-02-18T03:48:35.824Z",
-      "author": {
-        "username": "小李"
-      }
+      "username": "小李"
     }
   }
   ```
@@ -136,7 +125,7 @@ sidebar_position: 2
   | ------------- | -------- | ---------------------------- |
   | 文章 URL 标识 | `slug`   | `/api/articles/article-slug` |
 
-- 可选字段: `username`、`title`、`description`、`body`、`tagList`
+- 可选字段: `username`、`title`、`body`、`tagList`
 - 特殊说明: 当 `title` 变化时，`slug` 也会更新。`slug` 是文章的 URL 标识符，必须唯一；具体生成方式由实现自行决定。
 - 请求体:
 
@@ -145,7 +134,6 @@ sidebar_position: 2
     "article": {
       "username": "小李",
       "title": "如何写好第一篇技术文章",
-      "description": "把学习过程写下来，就是最好的开始。",
       "body": "你可以先从一次踩坑、一个小工具、一个读书笔记开始。",
       "tagList": ["技术", "学习"]
     }
@@ -201,9 +189,7 @@ sidebar_position: 2
       "createdAt": "2016-02-18T03:22:56.637Z",
       "updatedAt": "2016-02-18T03:22:56.637Z",
       "body": "这个社区的规则很简单，适合新手练习。",
-      "author": {
-        "username": "小王"
-      }
+      "username": "小王"
     }
   }
   ```
@@ -229,9 +215,7 @@ sidebar_position: 2
         "createdAt": "2016-02-18T03:22:56.637Z",
         "updatedAt": "2016-02-18T03:22:56.637Z",
         "body": "这个社区的规则很简单，适合新手练习。",
-        "author": {
-          "username": "小王"
-        }
+        "username": "小王"
       }
     ]
   }

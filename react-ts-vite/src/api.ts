@@ -2,38 +2,28 @@
 // 初学者可以把它理解成：页面组件不直接写 fetch，而是统一调用这里的 api.xxx 方法。
 // 这样以后后端地址、请求头、错误处理变化时，只需要改这一个文件。
 
-export type Author = {
-  username: string
-  avatarInitial: string
-}
-
 export type Article = {
   slug: string
   title: string
-  description: string
   body: string
   tagList: string[]
   createdAt: string
   updatedAt: string
-  author: Author
+  username: string
 }
-
-// 首页列表不需要文章正文，所以用 Omit 去掉 body 字段。
-export type ArticlePreview = Omit<Article, 'body'>
 
 export type Comment = {
   id: number
   createdAt: string
   updatedAt: string
   body: string
-  author: Author
+  username: string
 }
 
 // 创建/编辑文章时，前端表单需要提交给后端的数据。
 export type ArticleInput = {
   username: string
   title: string
-  description: string
   body: string
   tagList: string[]
 }
@@ -46,7 +36,7 @@ export type CommentInput = {
 
 type ListArticlesParams = {
   tag?: string
-  author?: string
+  username?: string
   limit?: number
   offset?: number
 }
@@ -59,7 +49,7 @@ function buildQuery(params: ListArticlesParams) {
   const searchParams = new URLSearchParams()
 
   if (params.tag) searchParams.set('tag', params.tag)
-  if (params.author) searchParams.set('author', params.author)
+  if (params.username) searchParams.set('username', params.username)
   if (params.limit) searchParams.set('limit', String(params.limit))
   if (params.offset) searchParams.set('offset', String(params.offset))
 
@@ -99,7 +89,7 @@ async function requestJson<TResponse>(
 
 export const api = {
   listArticles(params: ListArticlesParams = {}) {
-    return requestJson<{ articles: ArticlePreview[]; articlesCount: number }>(
+    return requestJson<{ articles: Article[]; articlesCount: number }>(
       `/articles${buildQuery(params)}`,
     )
   },

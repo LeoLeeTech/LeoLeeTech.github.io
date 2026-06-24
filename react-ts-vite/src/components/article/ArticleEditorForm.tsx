@@ -38,12 +38,6 @@ export function ArticleEditorForm({
         value={form.title}
         onChange={(event) => onFieldChange('title', event.target.value)}
       />
-      <input
-        className="form-control"
-        placeholder="文章简介, 用于首页列表展示"
-        value={form.description}
-        onChange={(event) => onFieldChange('description', event.target.value)}
-      />
       <textarea
         className="form-control"
         rows={9}

@@ -12,7 +12,6 @@ const articleSelect = `
 		a.slug,
 		a.username,
 		a.title,
-		a.description,
 		a.body,
 		a.created_at,
 		a.updated_at,
@@ -70,7 +69,7 @@ export async function articleIdBySlug(db: D1Database, slug: string): Promise<Art
 
 export async function listArticleRows(
 	db: D1Database,
-	{ authorName, tag, limit, offset }: ArticleListParams,
+	{ username, tag, limit, offset }: ArticleListParams,
 ): Promise<{ rows: ArticleRow[]; count: number }> {
 	const articleRows = await db
 		.prepare(
@@ -82,7 +81,7 @@ export async function listArticleRows(
 			LIMIT ?3 OFFSET ?4
 		`,
 		)
-		.bind(authorName, tag, limit, offset)
+		.bind(username, tag, limit, offset)
 		.all<ArticleRow>();
 
 	const countRow = await db
@@ -93,7 +92,7 @@ export async function listArticleRows(
 			${articleListWhere}
 		`,
 		)
-		.bind(authorName, tag)
+		.bind(username, tag)
 		.first<CountRow>();
 
 	return {
@@ -104,22 +103,22 @@ export async function listArticleRows(
 
 export async function createArticleRow(
 	db: D1Database,
-	input: { slug: string; username: string; title: string; description: string; body: string; timestamp: string },
+	input: { slug: string; username: string; title: string; body: string; timestamp: string },
 ): Promise<void> {
 	await db
 		.prepare(
 			`
-			INSERT INTO articles (slug, username, title, description, body, created_at, updated_at)
-			VALUES (?, ?, ?, ?, ?, ?, ?)
+			INSERT INTO articles (slug, username, title, body, created_at, updated_at)
+			VALUES (?, ?, ?, ?, ?, ?)
 		`,
 		)
-		.bind(input.slug, input.username, input.title, input.description, input.body, input.timestamp, input.timestamp)
+		.bind(input.slug, input.username, input.title, input.body, input.timestamp, input.timestamp)
 		.run();
 }
 
 export async function updateArticleRow(
 	db: D1Database,
-	input: { id: number; slug: string; username: string; title: string; description: string; body: string; timestamp: string },
+	input: { id: number; slug: string; username: string; title: string; body: string; timestamp: string },
 ): Promise<void> {
 	await db
 		.prepare(
@@ -128,13 +127,12 @@ export async function updateArticleRow(
 			SET slug = ?,
 				username = ?,
 				title = ?,
-				description = ?,
 				body = ?,
 				updated_at = ?
 			WHERE id = ?
 		`,
 		)
-		.bind(input.slug, input.username, input.title, input.description, input.body, input.timestamp, input.id)
+		.bind(input.slug, input.username, input.title, input.body, input.timestamp, input.id)
 		.run();
 }
 

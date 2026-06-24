@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { ArticlePreview } from '../api';
+import type { Article } from '../api';
 import { api } from '../api';
 import { ArticlePreviewCard } from '../components/article/ArticlePreviewCard';
 import { Pagination } from '../components/article/Pagination';
@@ -14,7 +14,7 @@ type HomePageProps = {
 
 /** 首页负责请求文章与标签，并保存筛选、分页等页面级状态。 */
 export function HomePage({ onNavigate }: HomePageProps) {
-  const [articles, setArticles] = useState<ArticlePreview[]>([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [selectedTag, setSelectedTag] = useState<string>();
   const [page, setPage] = useState(1);

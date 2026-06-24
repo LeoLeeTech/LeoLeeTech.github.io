@@ -85,12 +85,12 @@ const config: Config = {
       },
       items: [
         //  适合写书
-        {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: '简单论坛',
-        },
+        // {
+        //   type: 'docSidebar',
+        //   sidebarId: 'tutorialSidebar',
+        //   position: 'left',
+        //   label: '简单论坛',
+        // },
         // {
         //   type: 'docSidebar',
         //   sidebarId: 'npmSidebar',

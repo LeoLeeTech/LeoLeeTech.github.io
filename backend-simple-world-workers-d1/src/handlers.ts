@@ -25,13 +25,13 @@ export async function listArticles(request: Request, env: Env): Promise<Response
 	const url = new URL(request.url);
 	// URL 查询参数示例：/api/articles?tag=react&limit=20&offset=0
 	const tag = url.searchParams.get('tag') || null;
-	const authorName = url.searchParams.get('author') || null;
+	const username = url.searchParams.get('username') || null;
 	const limit = parsePositiveInteger(url.searchParams.get('limit'), 20, 100);
 	const offset = parsePositiveInteger(url.searchParams.get('offset'), 0, 10000);
-	const { rows, count } = await listArticleRows(env.DB, { tag, authorName, limit, offset });
+	const { rows, count } = await listArticleRows(env.DB, { tag, username, limit, offset });
 
 	return json({
-		articles: rows.map((row) => serializeArticle(row, false)),
+		articles: rows.map(serializeArticle),
 		articlesCount: count,
 	});
 }
@@ -48,7 +48,7 @@ export async function getArticle(env: Env, slug: string): Promise<Response> {
 }
 
 export async function createArticle(request: Request, env: Env): Promise<Response> {
-	// 前端提交格式：{ article: { username, title, description, body, tagList } }
+	// 前端提交格式：{ article: { username, title, body, tagList } }
 	const payload = await readJson<ArticlePayload>(request);
 	const input = payload?.article ?? {};
 
@@ -56,13 +56,12 @@ export async function createArticle(request: Request, env: Env): Promise<Respons
 		// requiredString 会确保字段存在且不是空字符串。
 		const username = requiredString(input.username, 'username');
 		const title = requiredString(input.title, 'title');
-		const description = requiredString(input.description, 'description');
 		const body = requiredString(input.body, 'body');
 		const slug = await uniqueSlug(env.DB, title);
 		const timestamp = new Date().toISOString();
 
 		// 先创建文章主表记录，再同步标签关系表。
-		await createArticleRow(env.DB, { slug, username, title, description, body, timestamp });
+		await createArticleRow(env.DB, { slug, username, title, body, timestamp });
 
 		const articleRow = await articleIdBySlug(env.DB, slug);
 		if (!articleRow) {
@@ -96,7 +95,6 @@ export async function updateArticle(request: Request, env: Env, slug: string): P
 		slug: nextSlug,
 		username: typeof input.username === 'string' && input.username.trim() ? input.username.trim() : existing.username,
 		title: nextTitle,
-		description: typeof input.description === 'string' && input.description.trim() ? input.description.trim() : existing.description,
 		body: typeof input.body === 'string' && input.body.trim() ? input.body.trim() : existing.body,
 		timestamp,
 	});

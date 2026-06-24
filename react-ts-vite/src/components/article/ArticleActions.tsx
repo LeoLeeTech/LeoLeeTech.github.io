@@ -16,9 +16,9 @@ export function ArticleActions({
 }: ArticleActionsProps) {
   return (
     <div className="article-meta">
-      <Avatar username={article.author.username} />
+      <Avatar username={article.username} />
       <div className="info">
-        <span className="author">{article.author.username}</span>
+        <span className="author">{article.username}</span>
         <span className="date">{formatDate(article.createdAt)}</span>
       </div>
       <button className="ghost-button" type="button" onClick={onEdit}>

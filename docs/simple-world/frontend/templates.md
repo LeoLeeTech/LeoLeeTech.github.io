@@ -70,7 +70,7 @@ sidebar_position: 1
 
 ### 首页
 
-首页包含全局文章列表、可选的标签筛选和分页。文章作者头像使用用户名第一个字大写，不需要上传图片。
+首页包含全局文章列表、可选的标签筛选和分页。文章作者头像使用用户名最后一个字，不需要上传图片。
 
 ```html
 <div class="home-page">
@@ -97,7 +97,7 @@ sidebar_position: 1
 
         <div class="article-preview">
           <div class="article-meta">
-            <span class="user-pic">J</span>
+            <span class="user-pic">李</span>
             <div class="info">
               <span class="author">小李</span>
               <span class="date">1月20日</span>
@@ -119,7 +119,7 @@ sidebar_position: 1
 
         <div class="article-preview">
           <div class="article-meta">
-            <span class="user-pic">A</span>
+            <span class="user-pic">明</span>
             <div class="info">
               <span class="author">阿明</span>
               <span class="date">1月20日</span>
@@ -193,13 +193,6 @@ sidebar_position: 1
               />
             </fieldset>
             <fieldset class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="文章简介, 用于首页列表展示"
-              />
-            </fieldset>
-            <fieldset class="form-group">
               <textarea
                 class="form-control"
                 rows="8"
@@ -236,7 +229,7 @@ sidebar_position: 1
       <h1>如何写好第一篇技术文章</h1>
 
       <div class="article-meta">
-        <span class="user-pic">J</span>
+        <span class="user-pic">李</span>
         <div class="info">
           <span class="author">小李</span>
           <span class="date">1月20日</span>
@@ -268,7 +261,7 @@ sidebar_position: 1
 
     <div class="article-actions">
       <div class="article-meta">
-        <span class="user-pic">J</span>
+        <span class="user-pic">李</span>
         <div class="info">
           <span class="author">小李</span>
           <span class="date">1月20日</span>
@@ -294,7 +287,7 @@ sidebar_position: 1
             ></textarea>
           </div>
           <div class="card-footer">
-            <span class="comment-author-img">J</span>
+            <span class="comment-author-img">客</span>
             <button class="btn btn-sm btn-primary">发表评论</button>
           </div>
         </form>
@@ -304,7 +297,7 @@ sidebar_position: 1
             <p class="card-text">这个社区的规则很简单，适合新手练习。</p>
           </div>
           <div class="card-footer">
-            <span class="comment-author-img">J</span>
+            <span class="comment-author-img">王</span>
             &nbsp;
             <span class="comment-author">小王</span>
             <span class="date-posted">12月29日</span>
