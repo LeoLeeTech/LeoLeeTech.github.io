@@ -3,4 +3,18 @@ title: 关于我
 description: 李吉磊 Leo Lee 的个人介绍
 ---
 
-这是一个保留的 about me 页面
+import { useEffect } from 'react';
+
+export function RedirectToBlogAbout() {
+    useEffect(() => {
+        window.location.replace('/blog/about');
+    }, []);
+
+    return (
+        <p>
+            即将跳转到'个人介绍'页面, 请等待 1s...
+        </p>
+    );
+}
+
+<RedirectToBlogAbout />
