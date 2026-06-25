@@ -5,7 +5,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: '李吉磊 Leo Lee',
+  title: '李吉磊',
   tagline: '分享简约实用的软件知识',
   favicon: 'img/favicon.ico',
 
@@ -78,7 +78,7 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: '李吉磊 Leo Lee',
+      title: '李吉磊',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
