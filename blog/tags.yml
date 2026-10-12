@@ -33,3 +33,15 @@ AI:
 职业规划:
   label: 职业规划
   permalink: /career-plan
+
+读书:
+  label: 读书
+  permalink: /reading
+
+理财:
+  label: 理财
+  permalink: /finance
+
+历史:
+  label: 历史
+  permalink: /history
